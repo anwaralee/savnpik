@@ -462,7 +462,7 @@ class DealsController extends AppController {
         $count = 4-$count;
         }
         $final2 = 'Deal.deal_category_id = '.$cid;
-        $rel2 = $this->Deal->find('all',array('conditions'=>array($final2),'limit'=>$count));
+        $rel2 = $this->Deal->find('all',array('conditions'=>array($final2,'Deals.id NOT IN (SELECT id FROM deals WHERE '.$final.')'),'limit'=>$count));
         array_push($rel1,$rel2);
         if(count($rel2) == $count)
         {
