@@ -1551,3 +1551,94 @@ Stack Trace:
 #11 F:\wamp\www\savnpik\lib\Cake\Routing\Dispatcher.php(160): Dispatcher->_invoke(Object(DealsController), Object(CakeRequest), Object(CakeResponse))
 #12 F:\wamp\www\savnpik\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #13 {main}
+2014-04-17 02:07:23 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'id' in where clause is ambiguous
+Request URL: /savnpik/deals/create_slug
+Stack Trace:
+#0 F:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(458): PDOStatement->execute(Array)
+#1 F:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(424): DboSource->_execute('SELECT `Deal`.`...', Array)
+#2 F:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(665): DboSource->execute('SELECT `Deal`.`...', Array, Array)
+#3 F:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(1077): DboSource->fetchAll('SELECT `Deal`.`...', false)
+#4 F:\wamp\www\savnpik\lib\Cake\Model\Model.php(2902): DboSource->read(Object(Deal), Array)
+#5 F:\wamp\www\savnpik\lib\Cake\Model\Model.php(2874): Model->_readDataSource('first', Array)
+#6 F:\wamp\www\savnpik\app\Controller\DealsController.php(368): Model->find('first', Array)
+#7 [internal function]: DealsController->create_slug()
+#8 F:\wamp\www\savnpik\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(DealsController), Array)
+#9 F:\wamp\www\savnpik\lib\Cake\Routing\Dispatcher.php(185): Controller->invokeAction(Object(CakeRequest))
+#10 F:\wamp\www\savnpik\lib\Cake\Routing\Dispatcher.php(160): Dispatcher->_invoke(Object(DealsController), Object(CakeRequest), Object(CakeResponse))
+#11 F:\wamp\www\savnpik\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-04-17 02:08:25 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'id' in where clause is ambiguous
+Request URL: /savnpik/deals/create_slug
+Stack Trace:
+#0 F:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(458): PDOStatement->execute(Array)
+#1 F:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(424): DboSource->_execute('SELECT `Deal`.`...', Array)
+#2 F:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(665): DboSource->execute('SELECT `Deal`.`...', Array, Array)
+#3 F:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(1077): DboSource->fetchAll('SELECT `Deal`.`...', false)
+#4 F:\wamp\www\savnpik\lib\Cake\Model\Model.php(2902): DboSource->read(Object(Deal), Array)
+#5 F:\wamp\www\savnpik\lib\Cake\Model\Model.php(2874): Model->_readDataSource('first', Array)
+#6 F:\wamp\www\savnpik\app\Controller\DealsController.php(368): Model->find('first', Array)
+#7 [internal function]: DealsController->create_slug()
+#8 F:\wamp\www\savnpik\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(DealsController), Array)
+#9 F:\wamp\www\savnpik\lib\Cake\Routing\Dispatcher.php(185): Controller->invokeAction(Object(CakeRequest))
+#10 F:\wamp\www\savnpik\lib\Cake\Routing\Dispatcher.php(160): Dispatcher->_invoke(Object(DealsController), Object(CakeRequest), Object(CakeResponse))
+#11 F:\wamp\www\savnpik\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-04-17 02:25:47 Error: Fatal Error (4): syntax error, unexpected '<', expecting function (T_FUNCTION) in [F:\wamp\www\savnpik\app\Controller\DealsController.php, line 348]
+2014-04-17 02:25:47 Error: [FatalErrorException] syntax error, unexpected '<', expecting function (T_FUNCTION)
+Request URL: /savnpik/admin/deals/add
+Stack Trace:
+#0 F:\wamp\www\savnpik\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'F:\wamp\www\sav...', 348)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'F:\wamp\www\sav...', 348, Array)
+#2 F:\wamp\www\savnpik\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'F:\wamp\www\sav...', 348, Array)
+#3 F:\wamp\www\savnpik\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-04-17 02:27:35 Error: Fatal Error (4): syntax error, unexpected '}' in [F:\wamp\www\savnpik\app\Controller\DealsController.php, line 429]
+2014-04-17 02:27:35 Error: [FatalErrorException] syntax error, unexpected '}'
+Request URL: /savnpik/admin/deals/add
+Stack Trace:
+#0 F:\wamp\www\savnpik\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'F:\wamp\www\sav...', 429)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'F:\wamp\www\sav...', 429, Array)
+#2 F:\wamp\www\savnpik\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'F:\wamp\www\sav...', 429, Array)
+#3 F:\wamp\www\savnpik\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-04-17 02:27:38 Error: Fatal Error (4): syntax error, unexpected '}' in [F:\wamp\www\savnpik\app\Controller\DealsController.php, line 429]
+2014-04-17 02:27:38 Error: [FatalErrorException] syntax error, unexpected '}'
+Request URL: /savnpik/admin/deals/add
+Stack Trace:
+#0 F:\wamp\www\savnpik\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'F:\wamp\www\sav...', 429)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'F:\wamp\www\sav...', 429, Array)
+#2 F:\wamp\www\savnpik\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'F:\wamp\www\sav...', 429, Array)
+#3 F:\wamp\www\savnpik\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-04-17 02:29:05 Error: Fatal Error (4): syntax error, unexpected '",i,"' (T_CONSTANT_ENCAPSED_STRING) in [F:\wamp\www\savnpik\app\View\Themed\Admin\webroot\js\tiny_mce\tiny_mce.js, line 1]
+2014-04-17 02:29:05 Error: [FatalErrorException] syntax error, unexpected '",i,"' (T_CONSTANT_ENCAPSED_STRING)
+Stack Trace:
+#0 F:\wamp\www\savnpik\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'F:\wamp\www\sav...', 1)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'F:\wamp\www\sav...', 1, Array)
+#2 F:\wamp\www\savnpik\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'F:\wamp\www\sav...', 1, Array)
+#3 F:\wamp\www\savnpik\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-04-17 02:29:49 Error: Fatal Error (1): Call to undefined function generate_slug() in [F:\wamp\www\savnpik\app\Controller\DealsController.php, line 266]
+2014-04-17 02:29:49 Error: [FatalErrorException] Call to undefined function generate_slug()
+Request URL: /savnpik/admin/deals/add
+Stack Trace:
+#0 F:\wamp\www\savnpik\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', 'F:\wamp\www\sav...', 266)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', 'F:\wamp\www\sav...', 266, Array)
+#2 F:\wamp\www\savnpik\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', 'F:\wamp\www\sav...', 266, Array)
+#3 F:\wamp\www\savnpik\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2014-04-17 02:33:51 Error: Fatal Error (4): syntax error, unexpected ';' in [F:\wamp\www\savnpik\app\Controller\DealsController.php, line 262]
+2014-04-17 02:33:51 Error: [FatalErrorException] syntax error, unexpected ';'
+Request URL: /savnpik/admin/deals/add
+Stack Trace:
+#0 F:\wamp\www\savnpik\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'F:\wamp\www\sav...', 262)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'F:\wamp\www\sav...', 262, Array)
+#2 F:\wamp\www\savnpik\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'F:\wamp\www\sav...', 262, Array)
+#3 F:\wamp\www\savnpik\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

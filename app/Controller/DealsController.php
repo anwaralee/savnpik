@@ -85,6 +85,31 @@ class DealsController extends AppController {
         $this->set('cityDeals','');
      }
     }
+    public function stores($city,$store ="") {
+        $this->Session->write('city',$city);
+        $this->loadModel('City');
+        $this->loadModel('DealCategory');
+        $this->theme = 'default';
+        $this->set('title_for_layout','Savnpik | Home');
+       
+        //$cityId = $this->Company->find('all',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$city)))));
+        if($store != "")
+        {
+            $cond = array('City.name'=>Inflector::humanize(str_replace("-"," ",$city)));
+            array_push($cond, array('Company.name'=>Inflector::humanize(str_replace("-"," ",$store))));
+        }
+     if($deals = $this->Deal->find('all', array(
+        'conditions' => $cond,
+        'order'=>array('buy_count'=>'desc','is_featured'=>'desc') 
+            ))){
+            $this->set('cityDeals',$deals);                        
+            array_push($cond,array('is_featured'=>'1'));
+                        
+        $this->set('feature',$this->Deal->find('first',array('conditions'=>$cond)));                        
+     } else {
+        $this->set('cityDeals','');
+     }
+    }
 /**
  * view method
  *
@@ -234,8 +259,13 @@ class DealsController extends AppController {
                         $this->request->data['Deal']['image'.$i] = '';
                     }
                 }
+                
                   $this->Deal->create();
               if ($this->Deal->save($this->request->data)) {
+                    $id = $this->Deal->id;
+                    $this->Deal->id = $id;
+                    
+                    $this->Deal->saveField('slug',$this->generate_slug($this->request->data['Deal']['name']));
 					$this->Session->setFlash('Deals has been saved.','alert-box',array('class'=>'alert alert-success alert-dismissable'),'save');
                    return $this->redirect(array('action' => 'index'));
 				}
@@ -345,4 +375,57 @@ class DealsController extends AppController {
 		
 	}
     }
+    function create_slug()
+    {
+     $q = $this->Deal->find('all',array('conditions'=>array('slug'=>'')));
+     foreach($q as $s)
+     {
+         $slug = $s['Deal']['name'];
+        
+         $whiteSpace = '';  //if you dnt even want to allow white-space set it to ''
+         $pattern = '/[^a-zA-Z0-9-'  . $whiteSpace . ']/u';
+         $slug = preg_replace($pattern, '_', (string) $slug);
+         for($i=0;$i<5;$i++)
+         {
+             $slug = str_replace('__','',$slug);
+             $last = substr($slug, -1);
+             if($last == '_')
+            {
+                $slug = str_replace('_',' ',$slug);
+                 $slug = trim($slug);
+                 $slug = str_replace(' ','_',$slug);
+             }
+             $check = $this->Deal->find('first',array('conditions'=>array('Deal.slug'=>$slug,'Deal.id <>'=>$s['Deal']['id'])));
+             if($check)
+             $slug = $slug.'_'.$s['Deal']['id'];                
+         }
+         $this->Deal->id = $s['Deal']['id'];
+         $this->Deal->saveField('slug',$slug);
+     }
+    die();
+ }
+
+function generate_slug($title)
+{
+  $slug = $title;
+  $whiteSpace = '';  //if you dnt even want to allow white-space set it to ''
+        $pattern = '/[^a-zA-Z0-9-'  . $whiteSpace . ']/u';
+        $slug = preg_replace($pattern, '_', (string) $slug);
+        for($i=0;$i<5;$i++)
+        {
+            $slug = str_replace('__','',$slug);
+            $last = substr($slug, -1);
+            if($last == '_')
+            {
+                $slug = str_replace('_',' ',$slug);
+                $slug = trim($slug);
+                $slug = str_replace(' ','_',$slug);
+            }
+            $check = $this->Deal->find('first',array('conditions'=>array('slug'=>$slug)));
+            if($check)
+            $slug = $slug.'_'.rand('1000,9999');                
+        }
+        return $slug;  
+}
+
 }
