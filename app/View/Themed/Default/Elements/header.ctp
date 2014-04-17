@@ -2,7 +2,7 @@
     function changecity(city)
     {
         
-        window.location = "<?php echo $this->webroot;?>/deals/city/"+city;
+        window.location = "<?php echo $this->webroot;?>deals/city/"+city;
     }
 </script>
 <header id="branding">
@@ -62,7 +62,7 @@
 
             <div id="header" class="mid-content clearfix">
                 <div id="logo">
-                <a href="<?php echo $this->webroot;?>"><?php echo $this->Html->image("logo.png");?></a>
+                <a href=""><?php echo $this->Html->image("logo.png");?></a>
                 </div>
                 
                 <div id="suscribe">
@@ -77,16 +77,16 @@
             <nav id="main-menu" class="mid-content">
             <div class="toggle-menu">Menu</div>
                 <ul>
-                    <li><?php echo $this->Html->link("All Deal",
+                    <li <?php if(!isset($this->params['pass'][1]))echo "class='active'";?> ><?php echo $this->Html->link("Deals",
                             array('controller'=>'deals','action'=>"city",$this->Session->read('city')),array('escape' => FALSE));?>
                         </li>
                 <?php
                      $category = $this->requestAction(array('controller' => 'deals', 'action' => 'all'));
-                     //var_dump($category);
+                     //echo $this->params['pass'][1];
                      foreach($category as $cat){
                     ?>
-                        <li><?php echo $this->Html->link($cat['DealCategory']['name'],
-                            array('controller'=>'deals','action'=>"city",$this->Session->read('city'),strtolower(str_replace(" ","-",$cat['DealCategory']['name']))),array('escape' => FALSE));?>
+                        <li <?php if(isset($this->params['pass'][1]) && str_replace("-" ," ",$this->params['pass'][1]) == strtolower($cat['DealCategory']['name'])){echo "class='active'";}?> ><?php echo $this->Html->link($cat['DealCategory']['name'],
+                            array('controller'=>'deals','action'=>"city",$this->Session->read('city'),strtolower(str_replace(" ","-",$cat['DealCategory']['name']))),array('escape' => FALSE));?></li>
                         
                     <?php }?>
                     <!--

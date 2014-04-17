@@ -4,32 +4,47 @@
                 <div class="footer1">
                     <div class="footer1-inner">
                     <h2>About Savnpik</h2>
-                    <p>Quam habitasse odio habitasse ultrices dis varius ultrices imperdiet aliquam aliquam etiam malesuada gravida ac ornare condimentum bibendum libero quam montes primis lobortis sem pellentesque enim ornare molestie scelerisque congue.</p>
-
-                    <p>Quam habitasse odio habitasse ultrices dis varius ultrices imperdiet aliquam aliquam etiam malesuada gravida ac ornare condimentum bibendum libero quam montes primis lobortis sem pellentesque enim ornare molestie scelerisque congue.</p>
+                    <?php 
+                        echo $this->requestAction(array('controller'=>'deals','action'=>'get_content','9'));?> 
+                    
                     </div>
                 </div>
 
                 <div class="footer2">
                     <h2>Company</h2>
                     <ul>
-                        <li><a href="">About us</a></li>
+                    <?php $company = $this->requestAction(array('controller'=>'deals','action'=>'get_page_by_category','9'));
+                            foreach($company as $c)
+                            { ?>
+                             <li><a href="<?php echo $this->webroot;?>page/<?php echo $c['Page']['slug'];?>"><?php echo $c['Page']['title'];?></a></li>   
+                    <?php
+                            }
+                    ?>
+                        
+                        <!--<li><a href="<?php echo $this->webroot;?>">About us</a></li>
                         <li><a href="">Contact us</a></li>
                         <li><a href="">Advertise with us</a></li>
                         <li><a href="">Job opportunities</a></li>
                         <li><a href="">Term and Conditions</a></li>
-                        <li><a href="">Privacy Policy</a></li>
+                        <li><a href="">Privacy Policy</a></li>-->
                     </ul>
                 </div>
 
                 <div class="footer3">
                     <h2>Help</h2>
                     <ul>
-                        <li><a href="">FAQ</a></li>
+                    <?php $help = $this->requestAction(array('controller'=>'deals','action'=>'get_page_by_category','8'));
+                            foreach($help as $c)
+                            { ?>
+                             <li><a href="<?php echo $this->webroot;?>page/<?php echo $c['Page']['slug'];?>"><?php echo $c['Page']['title'];?></a></li>   
+                    <?php
+                            }
+                    ?>
+                        <!--<li><a href="">FAQ</a></li>
                         <li><a href="">Customer Support</a></li>
                         <li><a href="">Advertise with us</a></li>
                         <li><a href="">How it works</a></li>
-                        <li><a href="">For business owners</a></li>
+                        <li><a href="">For business owners</a></li>-->
                     </ul>
                 </div>
 

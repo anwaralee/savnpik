@@ -112,7 +112,7 @@ class UsersController extends AppController {
         $this->theme = 'default';
         $this->set('title_for_layout','Login/Registration');
       if ($this->request->is('post')) {
-          $count = $this->User->find('first', array('fields' => array('MAX(User.id) as max_count')))[0]['max_count'];
+          //$count = $this->User->find('first', array('fields' => array('MAX(User.id) as max_count')))[0]['max_count'];
           $this->request->data['User']['auth_id'] = 'USER_'.($count + 1);
           $this->request->data['User']['role'] = 0;
           $this->request->data['User']['status'] = 1;
