@@ -1,11 +1,20 @@
 <div id="left-content">
               <?php if(isset($feature) && $feature['Deal']['is_featured']==1 && $feature['Deal']['image1']!="" ) {?>
                     <div id="banner">
-                        <a href="#"><?php echo $this->Html->image("/files/deals/".$feature['Deal']['image1'],
+                        <?php echo 
+                        $this->Html->image("/files/deals/".$feature['Deal']['image1'],
                                   array('fullBase' => true,
                                        'alt'=>'Logo',
                                        'height'=>358,
-                                       'width'=>717));?></a>
+                                       'width'=>717,'url'=>'/deal/'.$feature['Deal']['slug']));?>
+                                        
+                                        
+                                  
+                                        
+                                         
+                                        
+                                                                   
+                        
                     </div>
                     <div class="absolute">
                         <div class="price">AED <strong><?php echo $feature['Deal']['selling_price'];?></strong></div>
@@ -53,12 +62,13 @@
                                 //echo WWW_ROOT."files/deals/".$deal['Deal']['image'.$i];
                                 ?>
                             
-                            <a href="javascript.void(0)">
-                        <?php echo $this->Html->image("/files/deals/".$deal['Deal']['image'.$i],
+                            <?php echo 
+                        $this->Html->image("/files/deals/".$deal['Deal']['image1'],
                                   array('fullBase' => true,
                                        'alt'=>'Logo',
                                        'height'=>117,
-                                       'width'=>348));?></a>
+                                       'width'=>348,'url'=>'/deal/'.$deal['Deal']['slug']));?>
+                        
                                 
                           <?php 
                             break;
@@ -69,7 +79,7 @@
                         </div>
                         <div class="event-detail">
                             <div class="short-desc">
-                            <h2><a href=""><?php echo $deal['Deal']['name'];?></a></h2>
+                            <h2><?php echo $this->Html->link($deal['Deal']['name'],'/deal/'.$deal['Deal']['slug']);?></h2>
                          <?php echo substr($deal['Deal']['highlights'],0,150);?>
                             </div>
 
