@@ -69,6 +69,7 @@ class DealsController extends AppController {
         $cityId = $this->City->find('all',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$city)))));
      if(!empty($cityId)){
         $cond = array('Company.city_id' => $cityId[0]['City']['id']);
+        array($cond, array('Deal.expiry_date <="'.date('Y-m-d').'"'));
          if($cat != "")
         {
             $catId = $this->DealCategory->find('first',array('conditions'=>array('DealCategory.name'=>Inflector::humanize(str_replace("-"," ",$cat)))));
@@ -88,25 +89,33 @@ class DealsController extends AppController {
     public function stores($city,$store ="") {
         $this->Session->write('city',$city);
         $this->loadModel('City');
-        $this->loadModel('DealCategory');
+        $this->loadModel('Company');
         $this->theme = 'default';
         $this->set('title_for_layout','Savnpik | Home');
        
         //$cityId = $this->Company->find('all',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$city)))));
         if($store != "")
         {
-            $cond = array('City.name'=>Inflector::humanize(str_replace("-"," ",$city)));
+            $cityId = $this->City->find('first',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$city)))));
+            if(!empty($cityId)){
+            $cond = array('Company.city_id'=>$cityId['City']['id']);
+            array($cond, array('Deal.expiry_date >="'.date('Y-m-d').'"'));
+            }
             array_push($cond, array('Company.name'=>Inflector::humanize(str_replace("-"," ",$store))));
+            $this->set('company',$this->Company->find('first',array('conditions'=>array('Company.name'=>str_replace("-"," ",$store)))));
         }
      if($deals = $this->Deal->find('all', array(
         'conditions' => $cond,
         'order'=>array('buy_count'=>'desc','is_featured'=>'desc') 
-            ))){
+            )))
+        {
             $this->set('cityDeals',$deals);                        
-            array_push($cond,array('is_featured'=>'1'));
+            
                         
-        $this->set('feature',$this->Deal->find('first',array('conditions'=>$cond)));                        
-     } else {
+                                
+     } 
+     else 
+     {
         $this->set('cityDeals','');
      }
     }
