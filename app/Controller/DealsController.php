@@ -91,6 +91,7 @@ class DealsController extends AppController {
         }
         $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>'8');
         $deal = $this->paginate('Deal');
+        $this->set('count',$this->Deal->find('count',array('condition'=>$cond)));
         $this->set('cityDeals',$deal);
                                     
                                   
@@ -121,6 +122,7 @@ class DealsController extends AppController {
     if($deal = $this->paginate('Deal'))
     {
         $this->set('cityDeals',$deal);
+        $this->set('count',$this->Deal->find('count',array('condition'=>$cond)));
      } 
      else 
      {
