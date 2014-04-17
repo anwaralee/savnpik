@@ -1,52 +1,15 @@
 <div id="left-content">
-              <?php if(isset($feature) && $feature['Deal']['is_featured']==1 && $feature['Deal']['image1']!="" && !isset($banner) ) {?>
-                    <div id="banner">
-                        <?php echo 
-                        $this->Html->image("/files/deals/".$feature['Deal']['image1'],
-                                  array('fullBase' => true,
-                                       'alt'=>'Logo',
-                                       'height'=>358,
-                                       'width'=>717,'url'=>'/deal/'.$feature['Deal']['slug']));?>
-                                        
-                                        
-                                  
-                                        
-                                         
-                                        
-                                                                   
-                        
-                    </div>
-                    <div class="absolute">
-                        <div class="price">AED <strong><?php echo $feature['Deal']['selling_price'];?></strong></div>
-                        <div class="discount">
-                        <div class="left">Discount<br /><strong><?php echo $feature['Deal']['discount'];?>%</strong></div>
-                        <div class="right">You save<br />AED <strong><?php echo $feature['Deal']['marked_price']-$feature['Deal']['selling_price'];?></strong></div>
-                        <div class="clearfix"></div>
-                        </div>
-                        <div class="limit">
-                            This deal can be bought over the next:<br />
-                            
-                            <div>
-                            
-                            <?php
-                                difference_time($feature['Deal']['expiry_date']);
-                            ?>
-                                
-                            </div>
-                        </div>
-                        <div class="bought">
-                            <div class="left">Bought<br /><strong><?php if($feature['Deal']['buy_count'])echo $feature['Deal']['buy_count'];else echo 0;?></strong></div>
-                            <div class="right">Viewed<br /><span><?php if($feature['Deal']['view_count'])echo $feature['Deal']['view_count'];else echo 0;?></span></div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="buyy">
-                            <a href="#"><?php echo $this->Html->image("/img/buy.jpg",
-                                  array('fullBase' => true,
-                                       'alt'=>'Logo'
-                                       ));?></a>
-                        </div>
-                    </div>
-                    <?php } ?>
+              
+        <div class="company-header clearfix">
+            <div class="company-image"><?php echo $this->Html->image("/img/uploads/companies/".$company['Company']['logo'],
+                                                    array('fullBase' =>true,
+                                                            'alt'=>'Logo',
+                                                            'width'=>146,
+                                                            'height'=>47
+                                                            ));?></div>
+            <div class="company-detail"><h2><?php echo $company['Company']['name'];?></h2><?php echo $company['Company']['desc'];?></div>
+        </div>
+                    
     <?php if(!empty($cityDeals)) {$cnt = 0;?>
                 <div id="block-list" class="clearfix">
                     <?php foreach($cityDeals as $deal ) {
@@ -62,13 +25,12 @@
                                 //echo WWW_ROOT."files/deals/".$deal['Deal']['image'.$i];
                                 ?>
                             
-                            <?php echo 
-                        $this->Html->image("/files/deals/".$deal['Deal']['image1'],
+                            <a href="javascript.void(0)">
+                        <?php echo $this->Html->image("/files/deals/".$deal['Deal']['image'.$i],
                                   array('fullBase' => true,
                                        'alt'=>'Logo',
                                        'height'=>117,
-                                       'width'=>348,'url'=>'/deal/'.$deal['Deal']['slug']));?>
-                        
+                                       'width'=>348));?></a>
                                 
                           <?php 
                             break;
@@ -79,7 +41,7 @@
                         </div>
                         <div class="event-detail">
                             <div class="short-desc">
-                            <h2><?php echo $this->Html->link($deal['Deal']['name'],'/deal/'.$deal['Deal']['slug']);?></h2>
+                            <h2><a href=""><?php echo $deal['Deal']['name'];?></a></h2>
                          <?php echo substr($deal['Deal']['highlights'],0,150);?>
                             </div>
 

@@ -91,7 +91,7 @@
                     foreach($related as $de)
                     {
                         foreach($de as $d){
-                            
+
                         ?>
                         <div class="event-block">
                         <div class="event-image"><?php echo 
