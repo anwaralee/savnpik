@@ -94,14 +94,15 @@
                             
                         ?>
                         <div class="event-block">
-                        <div class="event-image"><a href=""><?php echo $this->Html->image("/files/deals/".$d['Deal']['image1'],
+                        <div class="event-image"><?php echo 
+                        $this->Html->image("/files/deals/".$d['Deal']['image1'],
                                   array('fullBase' => true,
                                        'alt'=>'Logo',
                                        'height'=>117,
-                                       'width'=>348));?></a></div>
+                                       'width'=>348,'url'=>'/deal/'.$d['Deal']['slug']));?></div>
                         <div class="event-detail">
                             <div class="short-desc">
-                            <h2><a href=""><?php echo $d['Deal']['name'];?></a></h2>
+                            <h2><?php echo $this->Html->link($d['Deal']['name'],'/deal/'.$d['Deal']['slug']);?></h2>
                             <p>Senectus hac nibh conubia sociosqu nostra interdum arcu sociosqu nostra interdum arcu</p> 
                             </div>
 
