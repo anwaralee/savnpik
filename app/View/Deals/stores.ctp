@@ -1,4 +1,4 @@
-<div id="left-content">
+<div id="left-content"> 
               
         <div class="company-header clearfix">
             <div class="company-image"><?php echo $this->Html->image("/img/uploads/companies/".$company['Company']['logo'],
