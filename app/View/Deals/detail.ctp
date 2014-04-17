@@ -85,12 +85,13 @@
                 <div id="block-list" class="clearfix">
                 <?php
                 $related = $this->requestAction('/deals/get_realated/'.$deal['Deal']['deal_category_id'].'/'.$deal['Deal']['name'].'/'.$deal['Deal']['id']);
-                var_dump($related);
+                //var_dump($related);
                 if($related)
                 {
                     foreach($related as $de)
                     {
                         foreach($de as $d){
+                            
                         ?>
                         <div class="event-block">
                         <div class="event-image"><a href=""><?php echo $this->Html->image("/files/deals/".$d['Deal']['image1'],
@@ -100,17 +101,17 @@
                                        'width'=>348));?></a></div>
                         <div class="event-detail">
                             <div class="short-desc">
-                            <h2><a href="">Finshing in Maldives</a></h2>
+                            <h2><a href=""><?php echo $d['Deal']['name'];?></a></h2>
                             <p>Senectus hac nibh conubia sociosqu nostra interdum arcu sociosqu nostra interdum arcu</p> 
                             </div>
 
                             <div class="event-desc clearfix">
                                 <div class="time-discount">
-                                <div class="time-remaining">5 days 46 h remaining</div> 
+                                <div class="time-remaining"><?php difference_time2($d['Deal']['expiry_date']);?></div> 
                                 <div class="save">55%</div>
                                 </div>
 
-                                <a class="bttn" href="#"><span>AED</span> 291</a>
+                                <a class="bttn" href="#"><span>AED</span> <?php echo $d['Deal']['selling_price'];?></a>
                             </div>
                         </div>
                         </div>
@@ -186,4 +187,67 @@
                                 echo "EXPIRED";
                                 
                             
-            }?>
+            }
+            function difference_time2($expiry)
+            {
+                
+                                date_default_timezone_set('Asia/Kathmandu');
+                                                                
+                                //echo $seconds_diff = $ts1 - $ts2;
+                                $datetime1 = date_create(date('Y-m-d'));
+                                $datetime2 = date_create($expiry);
+                                $interval = date_diff($datetime1, $datetime2);
+                                $days = str_replace('+','',$interval->format('%R%a'));
+                                //if((str_replace('+','',$interval->format('%R%a')))!='1' && (str_replace('+','',$interval->format('%R%a')))!='0')
+                                //echo "s";
+                                //echo " 05:05:02";
+                                $hour = date('H');
+                                $min = date('i');
+                                $sec = date('s');
+                                
+                                if($hour<24)
+                                {
+                                    $s = 60-$sec;
+                                    $m = 60-$min;
+                                    $h = 23-$hour;
+                                    
+                                    if($s==60){
+                                    $m++;
+                                    $s=0;
+                                    }
+                                    if($m==60){
+                                    $h++;
+                                    $m=0;
+                                    }
+                                    if($h==24)
+                                    {
+                                        $h=0;
+                                        $days++;
+                                    }
+                                    if($h<10)
+                                    $h1= '0'.$h;
+                                    else
+                                    $h1 = $h;
+                                    if($m<10)
+                                    $h1 = $h1.':0'.$m;
+                                    else
+                                    $h1 = $h1.':'.$m;
+                                    if($s<10)
+                                    $h1 = $h1.':0'.$s;
+                                    else
+                                    $h1 = $h1.':'.$s;
+                                    
+                                    
+                                }
+                                if($days>0){
+                                echo $days.' day';
+                                if($days>1)
+                                echo 's';
+                                echo ' '.$h.' h remaining';
+                                }
+                                else
+                                echo "EXPIRED";
+                                
+                            
+            }
+            ?>
