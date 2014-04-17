@@ -1,5 +1,5 @@
 <div id="left-content">
-              <?php if($feature['Deal']['is_featured']==1 && $feature['Deal']['image1']!="" ) {?>
+              <?php if(isset($feature) && $feature['Deal']['is_featured']==1 && $feature['Deal']['image1']!="" && !isset($banner) ) {?>
                     <div id="banner">
                         <a href="#"><?php echo $this->Html->image("/files/deals/".$feature['Deal']['image1'],
                                   array('fullBase' => true,
@@ -10,7 +10,7 @@
                     <div class="absolute">
                         <div class="price">AED <strong><?php echo $feature['Deal']['selling_price'];?></strong></div>
                         <div class="discount">
-                        <div class="left">Discount<br /><strong><?php echo $feature['Deal']['selling_price'];?>%</strong></div>
+                        <div class="left">Discount<br /><strong><?php echo $feature['Deal']['discount'];?>%</strong></div>
                         <div class="right">You save<br />AED <strong><?php echo $feature['Deal']['marked_price']-$feature['Deal']['selling_price'];?></strong></div>
                         <div class="clearfix"></div>
                         </div>

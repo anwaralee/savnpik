@@ -19,7 +19,7 @@
                      foreach($category as $cat){
                     ?>
                         <li><?php echo $this->Html->link($cat['DealCategory']['name']." <span>(".$cat['DealCategory']['deal_count'].")</span>",
-                            array('controller'=>'deals','action'=>"city",$this->Session->read('city'),strtolower(str_replace(" ","-",$cat['DealCategory']['name']))),array('escape' => FALSE));?>
+                            array('controller'=>'deals','action'=>"stores",$this->Session->read('city'),strtolower(str_replace(" ","-",$cat['DealCategory']['name']))),array('escape' => FALSE));?>
                         <!--<a href="<?php //echo Route::url('/deals/city/'.$city."/".$cat['DealCategory']['name']);?>"><?php echo $cat['DealCategory']['name']."<span>(".$cat['DealCategory']['deal_count'].")</span>";?></a></li>-->
                     <?php }?>
                     </ul>

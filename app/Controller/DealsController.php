@@ -74,7 +74,9 @@ class DealsController extends AppController {
         {
             $catId = $this->DealCategory->find('first',array('conditions'=>array('DealCategory.name'=>Inflector::humanize(str_replace("-"," ",$cat)))));
             array_push($cond,array('Deal.deal_category_id' => $catId['DealCategory']['id']));
+            $this->set('banner');
         }
+        
         $this->set('cityDeals',$this->Deal->find('all', array(
         'conditions' => $cond,
         'order'=>array('buy_count'=>'desc','is_featured'=>'desc') 
@@ -131,6 +133,12 @@ class DealsController extends AppController {
 			throw new NotFoundException(__('Invalid deal'));
 		}
 		$options = array('conditions' => array('Deal.' . $this->Deal->primaryKey => $id));
+		$this->set('deal', $this->Deal->find('first', $options));
+	}
+    
+    public function detail($slug = null) {
+		$this->theme = 'default';
+		$options = array('conditions' => array('Deal.slug' => $slug));
 		$this->set('deal', $this->Deal->find('first', $options));
 	}
 
@@ -268,7 +276,6 @@ class DealsController extends AppController {
                         $this->request->data['Deal']['image'.$i] = '';
                     }
                 }
-                
                   $this->Deal->create();
               if ($this->Deal->save($this->request->data)) {
                     $id = $this->Deal->id;
@@ -413,28 +420,72 @@ class DealsController extends AppController {
      }
     die();
  }
-
-function generate_slug($title)
-{
-  $slug = $title;
-  $whiteSpace = '';  //if you dnt even want to allow white-space set it to ''
-        $pattern = '/[^a-zA-Z0-9-'  . $whiteSpace . ']/u';
-        $slug = preg_replace($pattern, '_', (string) $slug);
-        for($i=0;$i<5;$i++)
-        {
-            $slug = str_replace('__','',$slug);
-            $last = substr($slug, -1);
-            if($last == '_')
+    function generate_slug($title)
+    {
+      $slug = $title;
+      $whiteSpace = '';  //if you dnt even want to allow white-space set it to ''
+            $pattern = '/[^a-zA-Z0-9-'  . $whiteSpace . ']/u';
+            $slug = preg_replace($pattern, '_', (string) $slug);
+            for($i=0;$i<5;$i++)
             {
-                $slug = str_replace('_',' ',$slug);
-                $slug = trim($slug);
-                $slug = str_replace(' ','_',$slug);
+                $slug = str_replace('__','',$slug);
+                $last = substr($slug, -1);
+                if($last == '_')
+                {
+                    $slug = str_replace('_',' ',$slug);
+                    $slug = trim($slug);
+                    $slug = str_replace(' ','_',$slug);
+                }
+                $check = $this->Deal->find('first',array('conditions'=>array('slug'=>$slug)));
+                if($check)
+                $slug = $slug.'_'.rand('1000,9999');                
             }
-            $check = $this->Deal->find('first',array('conditions'=>array('slug'=>$slug)));
-            if($check)
-            $slug = $slug.'_'.rand('1000,9999');                
+            return $slug;  
+    }
+    function get_realated($cid,$name='',$id)
+    {
+        $filter = array('the','The','in','In','on','On','for','For','of','Of','A','a','an','An');
+        $arr = explode(' ',$name);
+        $i=0;
+        $final = 'Deal.deal_category_id = '.$cid.' AND Deal.id <>'.$id;
+        $fin = '';
+        foreach($arr as $a)
+        {
+            $i++;
+            if(!in_array($a,$filter))
+            if($i==1)
+            $fin = $fin." AND (Deal.name like '%$a%'";
+            else
+            $fin = $fin.' OR '."Deal.name like '%$a%'";
+            
         }
-        return $slug;  
-}
-
+        if(!empty($arr))
+        $fin = $fin.')';
+        $final = $final.$fin;
+        $rel1 = $this->Deal->find('all',array('conditions'=>array($final),'limit'=>4));
+        
+        if(count($rel1)==4)
+        {
+            return $rel1;
+        }
+        else{
+        $count = count($rel1);
+        $count = 4-$count;
+        }
+        $final2 = 'Deal.deal_category_id = '.$cid;
+        $rel2 = $this->Deal->find('all',array('conditions'=>array($final2),'limit'=>$count));
+        array_push($rel1,$rel2);
+        if(count($rel2) == $count)
+        {
+            return $rel1;
+        }
+        else
+        $count = $count-count($rel2);
+        //$final2 = 'Deal.deal_category_id = '.$cid;
+        if(!empty($arr))
+        $rel3 = $this->Deal->find('all',array('conditions'=>array(str_replace(' AND ','',$fin)),'limit'=>$count));
+        array_push($rel1,$rel3);        
+        return $rel1;  
+            
+    }
 }
