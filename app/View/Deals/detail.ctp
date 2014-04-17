@@ -103,7 +103,7 @@
                         <div class="event-detail">
                             <div class="short-desc">
                             <h2><?php echo $this->Html->link($d['Deal']['name'],'/deal/'.$d['Deal']['slug']);?></h2>
-                            <p>Senectus hac nibh conubia sociosqu nostra interdum arcu sociosqu nostra interdum arcu</p> 
+                            <p><?php echo $this->Html->link($d['Deal']['description']);?></p> 
                             </div>
 
                             <div class="event-desc clearfix">

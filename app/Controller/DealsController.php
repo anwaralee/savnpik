@@ -76,17 +76,22 @@ class DealsController extends AppController {
         {
             $catId = $this->DealCategory->find('first',array('conditions'=>array('DealCategory.name'=>Inflector::humanize(str_replace("-"," ",$cat)))));
             array_push($cond,array('Deal.deal_category_id' => $catId['DealCategory']['id']));
+            $this->set('Cat',ucfirst(str_replace("-"," ",$cat)));
               
         }
         else
         {
-            array_push($cond1,array('is_featured'=>'1'));            
-            $this->set('feature',$this->Deal->find('first',array('conditions'=>$cond1)));
+            array_push($cond1,array('is_featured'=>'1')); 
+            if($feature =  $this->Deal->find('first',array('conditions'=>$cond1)))
+            {
+                $f_id = $feature['Deal']['id']; 
+                array_push($cond ,array('Deal.id <> '.$f_id));         
+                $this->set('feature',$feature);
+            }
         }
-        $this->set('cityDeals',$this->Deal->find('all', array(
-        'conditions' => $cond,
-        'order'=>array('buy_count'=>'desc','is_featured'=>'desc') 
-            )));
+        $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>'2');
+        $deal = $this->paginate('Deal');
+        $this->set('cityDeals',$deal);
                                     
                                   
      } else {
@@ -111,15 +116,11 @@ class DealsController extends AppController {
             array_push($cond, array('Company.name'=>Inflector::humanize(str_replace("-"," ",$store))));
             $this->set('company',$this->Company->find('first',array('conditions'=>array('Company.name'=>str_replace("-"," ",$store)))));
         }
-     if($deals = $this->Deal->find('all', array(
-        'conditions' => $cond,
-        'order'=>array('buy_count'=>'desc','is_featured'=>'desc') 
-            )))
-        {
-            $this->set('cityDeals',$deals);                        
-            
-                        
-                                
+     
+        $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>2);
+    if($deal = $this->paginate('Deal'))
+    {
+        $this->set('cityDeals',$deal);
      } 
      else 
      {

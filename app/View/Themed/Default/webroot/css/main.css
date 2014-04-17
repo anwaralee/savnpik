@@ -167,7 +167,7 @@ body{font-family: 'Open Sans', sans-serif; font-weight: 400; line-height: 1}
 .pagination a.prev{ background:url(../img/pagination.png) no-repeat scroll left top; height: 33px; width: 28px; float: left; text-indent: -9999px; margin: 0}
 .pagination a.next{ background:url(../img/pagination.png) no-repeat scroll right top; height: 33px; width: 28px; float: right; text-indent: -9999px; margin: 0}
 .pagination a{text-decoration: none; color: #999999; font-size: 16px; font-weight: 700; display: inline-block; line-height: 33px; margin: 0 5px}
-.pagination a:hover , .pagination a.active{ color:#00971e;}
+.pagination a:hover , .pagination a.current{ color:#00971e;}
 
 #left-content{ float: left; width: 717px;position:relative;}
 #right-content{ float: right; width: 273px;}

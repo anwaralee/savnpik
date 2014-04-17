@@ -1822,3 +1822,29 @@ Stack Trace:
 #3 E:\wamp\www\savnpik\lib\Cake\Core\App.php(902): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2014-04-17 05:38:39 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER BY `buy_count` desc, `is_featured` desc' at line 1
+Request URL: /savnpik/deals/city/abu-dhabi
+Stack Trace:
+#0 E:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(458): PDOStatement->execute(Array)
+#1 E:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(424): DboSource->_execute('SELECT `Deal`.`...', Array)
+#2 E:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(665): DboSource->execute('SELECT `Deal`.`...', Array, Array)
+#3 E:\wamp\www\savnpik\lib\Cake\Model\Datasource\DboSource.php(1077): DboSource->fetchAll('SELECT `Deal`.`...', false)
+#4 E:\wamp\www\savnpik\lib\Cake\Model\Model.php(2902): DboSource->read(Object(Deal), Array)
+#5 E:\wamp\www\savnpik\lib\Cake\Model\Model.php(2874): Model->_readDataSource('all', Array)
+#6 E:\wamp\www\savnpik\app\Controller\DealsController.php(92): Model->find('all', Array)
+#7 [internal function]: DealsController->city('abu-dhabi')
+#8 E:\wamp\www\savnpik\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(DealsController), Array)
+#9 E:\wamp\www\savnpik\lib\Cake\Routing\Dispatcher.php(185): Controller->invokeAction(Object(CakeRequest))
+#10 E:\wamp\www\savnpik\lib\Cake\Routing\Dispatcher.php(160): Dispatcher->_invoke(Object(DealsController), Object(CakeRequest), Object(CakeResponse))
+#11 E:\wamp\www\savnpik\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2014-04-17 06:15:52 Error: Fatal Error (4): syntax error, unexpected ''tag'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in [E:\wamp\www\savnpik\app\View\Deals\city.ctp, line 96]
+2014-04-17 06:15:52 Error: [FatalErrorException] syntax error, unexpected ''tag'' (T_CONSTANT_ENCAPSED_STRING), expecting ')'
+Request URL: /savnpik/deals/city/abu-dhabi
+Stack Trace:
+#0 E:\wamp\www\savnpik\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'E:\wamp\www\sav...', 96)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'E:\wamp\www\sav...', 96, Array)
+#2 E:\wamp\www\savnpik\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'E:\wamp\www\sav...', 96, Array)
+#3 E:\wamp\www\savnpik\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

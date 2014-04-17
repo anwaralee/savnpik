@@ -7,14 +7,7 @@
                                        'alt'=>'Logo',
                                        'height'=>358,
                                        'width'=>717,'url'=>'/deal/'.$feature['Deal']['slug']));?>
-                                        
-                                        
-                                  
-                                        
-                                         
-                                        
-                                                                   
-                        
+                     
                     </div>
                     <div class="absolute">
                         <div class="price">AED <strong><?php echo $feature['Deal']['selling_price'];?></strong></div>
@@ -46,7 +39,12 @@
                                        ));?></a>
                         </div>
                     </div>
-                    <?php } ?>
+                    <?php }else{ ?>
+                    <div class="cat-header clearfix">
+                    <h2><?php echo $Cat;?></h2>
+                    <a href="<?php echo $this->webroot;?>" class="back" >back to home</a>
+                    </div>
+                    <?php }?>
     <?php if(!empty($cityDeals)) {$cnt = 0;?>
                 <div id="block-list" class="clearfix">
                     <?php foreach($cityDeals as $deal ) {
@@ -57,13 +55,13 @@
                         <div class="event-image">
                         <?php for($i = 1 ;$i<=10; $i++){
                             
-                            if($deal['Deal']['image'.$i]!="" && file_exists(WWW_ROOT."/files/deals/".$deal['Deal']['image'.$i]))
+                            if($deal['Deal']['image'.$i]!="" && file_exists(WWW_ROOT."files/deals/".$deal['Deal']['image'.$i]))
                             {
                                 //echo WWW_ROOT."files/deals/".$deal['Deal']['image'.$i];
                                 ?>
                             
                             <?php echo 
-                        $this->Html->image("/files/deals/".$deal['Deal']['image1'],
+                            $this->Html->image("/files/deals/".$deal['Deal']['image'.$i],
                                   array('fullBase' => true,
                                        'alt'=>'Logo',
                                        'height'=>117,
@@ -80,13 +78,13 @@
                         <div class="event-detail">
                             <div class="short-desc">
                             <h2><?php echo $this->Html->link($deal['Deal']['name'],'/deal/'.$deal['Deal']['slug']);?></h2>
-                         <?php echo substr($deal['Deal']['highlights'],0,150);?>
+                         <?php echo substr($deal['Deal']['description'],0,150);?>
                             </div>
 
                             <div class="event-desc clearfix">
                                 <div class="time-discount">
                                 <div class="time-remaining"><?php difference_time2($deal['Deal']['expiry_date']);?></div> 
-                                <div class="save">55%</div>
+                                <div class="save"><?php echo $deal['Deal']['discount']."%";?></div>
                                 </div>
 
                                 <a class="bttn" href="#"><span>AED</span> <?php echo $deal['Deal']['marked_price'];?></a>
@@ -98,14 +96,9 @@
                     <?php  } ?>
                 </div>
                 <div class="pagination clearfix">
-                        <a href="" class="prev">Prev</a>
-                        <a href="" class="active">1</a>
-                        <a href="">2</a>
-                        <a href="">3</a>
-                        <a href="">4</a>
-                        <a href="">5</a>
-                        <a href="">...</a>
-                        <a href="" class="next">Next</a>
+                        <?php echo $this->Paginator->prev("Prev", array('class'=>'prev','tag'=>'a'));?>
+                        <?php echo str_replace(" | ","",$this->Paginator->numbers(array('tag' => 'a'))); ?>
+                        <?php echo $this->Paginator->next("Next",array('class'=>'next','tag'=>'a')); ?>
                 </div>
     <?php } else { ?>
     <h1>No Deals Found</h1>
