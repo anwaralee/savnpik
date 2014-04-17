@@ -473,7 +473,9 @@ class DealsController extends AppController {
         $count = 4-$count;
         }
         $final2 = 'Deal.deal_category_id = '.$cid;
-        $rel2 = $this->Deal->find('all',array('conditions'=>array($final2,'Deals.id NOT IN (SELECT id FROM deals WHERE '.$final.')'),'limit'=>$count));
+
+        $rel2 = $this->Deal->find('all',array('conditions'=>array($final2,'Deal.id NOT IN (SELECT id FROM deals WHERE '.$final.')'),'limit'=>$count));
+
         array_push($rel1,$rel2);
         if(count($rel2) == $count)
         {
@@ -483,7 +485,7 @@ class DealsController extends AppController {
         $count = $count-count($rel2);
         //$final2 = 'Deal.deal_category_id = '.$cid;
         if(!empty($arr))
-        $rel3 = $this->Deal->find('all',array('conditions'=>array(str_replace(' AND ','',$fin)),'limit'=>$count));
+        $rel3 = $this->Deal->find('all',array('conditions'=>array(str_replace(' AND ','',$fin),'Deal.id NOT IN (SELECT id FROM deals WHERE '.$final.')','Deal.id NOT IN (SELECT id From deals where '.$final2.' AND Deal.id NOT IN (SELECT id FROM deals WHERE '.$final.'))'),'limit'=>$count));
         array_push($rel1,$rel3);        
         return $rel1;  
             
