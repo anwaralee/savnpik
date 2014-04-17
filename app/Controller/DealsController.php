@@ -89,8 +89,9 @@ class DealsController extends AppController {
                 $this->set('feature',$feature);
             }
         }
-        $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>'2');
+        $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>'8');
         $deal = $this->paginate('Deal');
+        $this->set('count',$this->Deal->find('count',array('condition'=>$cond)));
         $this->set('cityDeals',$deal);
                                     
                                   
@@ -117,10 +118,11 @@ class DealsController extends AppController {
             $this->set('company',$this->Company->find('first',array('conditions'=>array('Company.name'=>str_replace("-"," ",$store)))));
         }
      
-        $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>2);
+        $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>8);
     if($deal = $this->paginate('Deal'))
     {
         $this->set('cityDeals',$deal);
+        $this->set('count',$this->Deal->find('count',array('condition'=>$cond)));
      } 
      else 
      {
@@ -426,6 +428,36 @@ class DealsController extends AppController {
      }
     die();
  }
+ function create_slug2()
+    {
+        $this->LoadModel('Page');
+     $q = $this->Page->find('all',array('conditions'=>array('slug'=>'')));
+     foreach($q as $s)
+     {
+         $slug = $s['Page']['title'];
+        
+         $whiteSpace = '';  //if you dnt even want to allow white-space set it to ''
+         $pattern = '/[^a-zA-Z0-9-'  . $whiteSpace . ']/u';
+         $slug = preg_replace($pattern, '_', (string) $slug);
+         for($i=0;$i<5;$i++)
+         {
+             $slug = str_replace('__','',$slug);
+             $last = substr($slug, -1);
+             if($last == '_')
+            {
+                $slug = str_replace('_',' ',$slug);
+                 $slug = trim($slug);
+                 $slug = str_replace(' ','_',$slug);
+             }
+             $check = $this->Page->find('first',array('conditions'=>array('Page.slug'=>$slug,'Page.id <>'=>$s['Page']['id'])));
+             if($check)
+             $slug = $slug.'_'.$s['Page']['id'];                
+         }
+         $this->Page->id = $s['Page']['id'];
+         $this->Page->saveField('slug',$slug);
+     }
+    die();
+ }
     function generate_slug($title)
     {
       $slug = $title;
@@ -496,4 +528,31 @@ class DealsController extends AppController {
         return $rel1;  
             
     }
+    
+    public function get_content($pid)
+        {
+            $this->loadModel('Page');
+            $p = $this->Page->findById($pid);
+            return $p['Page']['desc']; 
+            
+        }
+    public function get_page_by_category($catid)
+        {
+            
+            $this->loadModel('Page');
+            return $this->Page->find('all',array('conditions'=>array('page_category_id'=>$catid)));
+            
+        }
+        public function page_detail($slug)
+        {
+            $this->theme = 'default';
+            
+            $this->loadModel('Page');
+            
+            $content = $this->Page->findBySlug($slug);
+            $this->set('title_for_layout','Savnpik |'.$content['Page']['title']);
+            $this->set('content',$content); 
+            
+        }
+    
 }

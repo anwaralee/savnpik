@@ -59,13 +59,13 @@
                     
                     <?php  } ?>
                 </div>
-                <div class="pagination clearfix">
+                <?php if(isset($count) && $count> 8){?>
                         <div class="pagination clearfix">
                         <?php echo $this->Paginator->prev("Prev", array('class'=>'prev','tag'=>'a'));?>
                         <?php echo str_replace(" | ","",$this->Paginator->numbers(array('tag' => 'a'))); ?>
                         <?php echo $this->Paginator->next("Next",array('class'=>'next','tag'=>'a')); ?>
                 </div>
-                </div>
+                <?php }?>
     <?php } else { ?>
     <h1>No Deals Found</h1>
     <?php } ?>

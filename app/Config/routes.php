@@ -31,6 +31,7 @@
     Router::connect('/admin', array('controller' => 'users', 'action' => 'login','admin' => true));
     Router::connect('/boards', array('controller' => 'deals', 'action' => 'city','dubai'));
     Router::connect('/deal/*', array('controller' => 'deals', 'action' => 'detail'));
+    Router::connect('/page/*', array('controller' => 'deals', 'action' => 'page_detail'));
    // Router::connect('/superadmin', array('controller' => 'users', 'action' => 'login','superadmin' => true));
    // Router::connect('admins/index', array('controller' => 'users', 'action' => 'login'));
 /**

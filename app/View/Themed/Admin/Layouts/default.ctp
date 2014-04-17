@@ -21,6 +21,7 @@
     <script src="js/tablesorter/tables.js"></script-->
     
     <?php echo $this->Html->script('jquery-1.10.2',array('fullBase'=>true));?>
+    
     <?php echo $this->Html->script('bootstrap',array('fullBase'=>true));?>
     
     <?php echo $this->Html->script('morris/chart-data-morris',array('fullBase'=>true));?>
