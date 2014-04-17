@@ -88,8 +88,9 @@
                 var_dump($related);
                 if($related)
                 {
-                    foreach($related as $d)
+                    foreach($related as $de)
                     {
+                        foreach($de as $d){
                         ?>
                         <div class="event-block">
                         <div class="event-image"><a href=""><?php echo $this->Html->image("/files/deals/".$d['Deal']['image1'],
@@ -114,7 +115,7 @@
                         </div>
                         </div>
                         <?php
-                    }
+                    }}
                 }
                 ?>
                     
