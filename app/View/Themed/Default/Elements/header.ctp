@@ -66,7 +66,7 @@
 
             <div id="header" class="mid-content clearfix">
                 <div id="logo">
-                <a href=""><?php echo $this->Html->image("logo.png");?></a>
+                <a href="<?php echo $this->webroot;?>"><?php echo $this->Html->image("logo.png");?></a>
                 </div>
                 
                 <div id="suscribe">
