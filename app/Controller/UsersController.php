@@ -1,4 +1,5 @@
 <?php
+require('src/facebook.php');
 class UsersController extends AppController {
 
     //for admin theme
@@ -96,6 +97,8 @@ class UsersController extends AppController {
     } 
     
     public function login() {
+        if(!$this->request->is('post'))
+        $this->redirect('register');
 		 $this->layout = 'login';
         $this->theme = 'default';
         $this->set('title_for_layout','Login/Registration');
@@ -108,11 +111,71 @@ class UsersController extends AppController {
     }
     
     public function register(){
+        if(!$this->request->is('post'))
+        {
+          $facebook = new Facebook(array(
+          'appId' => '227979544057836',
+          'secret' => '39d4a56f81e466b946a3a28956457b28',
+          'cookie' => false
+        ));
+        $user = $facebook->getUser();
+        
+        if($user && !$this->Session->read('fbid'))
+        {
+            $this->Session->write('fbid',$user);
+            $up = $facebook->api('/me');
+            $this->Session->write('logoutUrl',$facebook->getLogoutUrl());
+            $this->Session->write('Auth.User.username',$up['name']);
+            //$this->redirect('/');
+        }
+        else
+        if($user)
+        {
+            if($this->Session->read('fbid')!=$user)
+            {
+                $this->Session->write('fbid',$user);
+            }
+            $up = $facebook->api('/me');
+            $this->Session->write('logoutUrl',$facebook->getLogoutUrl());
+            $this->Session->write('Auth.User.username',$up['name']);
+            //$this->redirect('/');
+        }
+        if(!$user)
+        {
+            $scope = array('scope' => 'email');
+            $this->set('loginUrl',$facebook->getLoginUrl($scope));
+        }
+        else
+        {
+           $this->Session->write('logoutUrl',$facebook->getLogoutUrl());
+           $up = $facebook->api('/me');
+           //var_dump($up);die();
+           $this->set('user_profile',$up);
+           $q = $this->User->find('first',array('conditions'=>array('User.fbid'=>$user)));
+           if(!$q)
+           {
+                $this->User->create();
+                $arr['email'] = $up['email'];
+                $arr['full_name'] = $up['name'];
+                $arr['address'] = $up['hometown']['name'];
+                $arr['role'] = 0;
+                $arr['fbid'] = $user;
+                $arr['status'] = 1;
+                $arr['username'] = $up['name'];
+                $this->User->save($arr);
+                $this->Session->write('Auth.User.username',$up['name']);
+                
+           }
+           $this->redirect('/');
+           
+        }
+        }
         $this->layout = 'login';
         $this->theme = 'default';
         $this->set('title_for_layout','Login/Registration');
       if ($this->request->is('post')) {
-          $count = $this->User->find('first', array('fields' => array('MAX(User.id) as max_count')))[0]['max_count'];
+          $counts = $this->User->find('first', array('fields' => array('MAX(User.id) as max_count')));
+          $count = $counts[0]['max_count'];
           $this->request->data['User']['auth_id'] = 'USER_'.($count + 1);
           $this->request->data['User']['role'] = 0;
           $this->request->data['User']['status'] = 1;
@@ -128,6 +191,13 @@ class UsersController extends AppController {
     
      public function logout() {
         return $this->redirect($this->Auth->logout());
+    }
+    
+    public function fblogout()
+    {
+        $url = $this->Session->read('logoutUrl');
+        $this->Session->destroy();
+        $this->redirect($url);
     }
     
     public function admin_logout() {

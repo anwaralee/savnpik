@@ -33,7 +33,10 @@
             <?php echo $content_for_layout; ?>
 
             <!--Right Sidebar Element -->
-            <?php echo $this->element('right-sidebar', array('cache' => false)); ?>
+            <?php
+            if($this->request->params['action']!='register') 
+            echo $this->element('right-sidebar', array('cache' => false)); 
+            ?>
 
         </div> 
         

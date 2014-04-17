@@ -29,14 +29,18 @@
                 <div class="login-register">
 					 <?php if($this->Session->read('Auth.User.username')){
                         echo 'Welcome, '.ucfirst($this->Session->read('Auth.User.username'));
-                     ?>
-                    <?php echo $this->Html->link(
+                     ?>&nbsp;|&nbsp;<?php if(!$this->Session->read('logoutUrl')){echo $this->Html->link(
                                     'Log Out',
                                         array('full_base' => true,
                                             'controller' => 'users',
                                             'action' => 'logout',
                                             )
-                                        );?>   
+                                        );}
+                                        else
+                                        {
+                                            echo $this->Html->link('Log Out','/users/fblogout');                                       
+                                        }
+                                        ?>   
                     <?php } else { ?>
                    
                     <?php echo $this->Html->link(
@@ -55,7 +59,7 @@
                                         );?>  |
                     <!-- a href=""><img src="img/lang.png"></a-->
                 <?php echo $this->Html->image("lang.png",array('fullBase' => true));?>
-                <?php } ?>    
+                <?php } ?><?php if($this->Session->read('Auth.User.username')){?>&nbsp;|&nbsp;<?php echo $this->Html->image('/img/account_and_control.png',array('url'=>'/'),array('width'=>'20px'));} ?>&nbsp;|&nbsp;<?php echo $this->Html->image('/img/carts.png',array('url'=>'/'),array('width'=>'20px'));?>  
                 </div>
             </div>
             </div>
