@@ -10,7 +10,7 @@
                     <div class="absolute">
                         <div class="price">AED <strong><?php echo $feature['Deal']['selling_price'];?></strong></div>
                         <div class="discount">
-                        <div class="left">Discount<br /><strong><?php echo $feature['Deal']['selling_price'];?>%</strong></div>
+                        <div class="left">Discount<br /><strong><?php echo $feature['Deal']['discount'];?>%</strong></div>
                         <div class="right">You save<br />AED <strong><?php echo $feature['Deal']['marked_price']-$feature['Deal']['selling_price'];?></strong></div>
                         <div class="clearfix"></div>
                         </div>
