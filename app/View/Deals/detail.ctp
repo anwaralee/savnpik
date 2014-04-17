@@ -64,7 +64,7 @@
 
                     <div class="company-location">
                         <div class="com-logo">
-                            <?php echo $this->Html->image("/files/deals/".$deal['Deal']['image1'],
+                            <?php echo $this->Html->image("/img/uploads/companies/".$deal['Company']['logo'],
                                   array('fullBase' => true,
                                        'alt'=>'Logo',
                                        'height'=>55,
@@ -94,12 +94,27 @@
 
                         ?>
                         <div class="event-block">
-                        <div class="event-image"><?php echo 
-                        $this->Html->image("/files/deals/".$d['Deal']['image1'],
+                        <div class="event-image"><?php for($i = 1 ;$i<=10; $i++){
+                            
+                            if($d['Deal']['image'.$i]!="" && file_exists(WWW_ROOT."files/deals/".$d['Deal']['image'.$i]))
+                            {
+                                //echo WWW_ROOT."files/deals/".$deal['Deal']['image'.$i];
+                                ?>
+                            
+                            <?php echo 
+                            $this->Html->image("/files/deals/".$d['Deal']['image'.$i],
                                   array('fullBase' => true,
                                        'alt'=>'Logo',
                                        'height'=>117,
-                                       'width'=>348,'url'=>'/deal/'.$d['Deal']['slug']));?></div>
+                                       'width'=>348,'url'=>'/deal/'.$d['Deal']['slug']));?>
+                        
+                                
+                          <?php 
+                            break;
+                           }
+                          
+                        
+                        }?></div>
                         <div class="event-detail">
                             <div class="short-desc">
                             <h2><?php echo $this->Html->link($d['Deal']['name'],'/deal/'.$d['Deal']['slug']);?></h2>
