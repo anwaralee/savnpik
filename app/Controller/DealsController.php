@@ -69,21 +69,26 @@ class DealsController extends AppController {
         $cityId = $this->City->find('all',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$city)))));
      if(!empty($cityId)){
         $cond = array('Company.city_id' => $cityId[0]['City']['id']);
-        array($cond, array('Deal.expiry_date <="'.date('Y-m-d').'"'));
+        $cond1 = array('Company.city_id' => $cityId[0]['City']['id']);
+        array_push($cond, array('Deal.expiry_date >="'.date('Y-m-d').'"'));
+        array_push($cond1, array('Deal.expiry_date >="'.date('Y-m-d').'"'));
          if($cat != "")
         {
             $catId = $this->DealCategory->find('first',array('conditions'=>array('DealCategory.name'=>Inflector::humanize(str_replace("-"," ",$cat)))));
             array_push($cond,array('Deal.deal_category_id' => $catId['DealCategory']['id']));
-            $this->set('banner');
+              
         }
-        
+        else
+        {
+            array_push($cond1,array('is_featured'=>'1'));            
+            $this->set('feature',$this->Deal->find('first',array('conditions'=>$cond1)));
+        }
         $this->set('cityDeals',$this->Deal->find('all', array(
         'conditions' => $cond,
         'order'=>array('buy_count'=>'desc','is_featured'=>'desc') 
             )));
                                     
-            array_push($cond,array('is_featured'=>'1'));            
-        $this->set('feature',$this->Deal->find('first',array('conditions'=>$cond)));                        
+                                  
      } else {
         $this->set('cityDeals','');
      }
@@ -101,7 +106,7 @@ class DealsController extends AppController {
             $cityId = $this->City->find('first',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$city)))));
             if(!empty($cityId)){
             $cond = array('Company.city_id'=>$cityId['City']['id']);
-            array($cond, array('Deal.expiry_date >="'.date('Y-m-d').'"'));
+            array_push($cond, array('Deal.expiry_date >="'.date('Y-m-d').'"'));
             }
             array_push($cond, array('Company.name'=>Inflector::humanize(str_replace("-"," ",$store))));
             $this->set('company',$this->Company->find('first',array('conditions'=>array('Company.name'=>str_replace("-"," ",$store)))));

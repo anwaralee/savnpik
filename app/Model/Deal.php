@@ -169,6 +169,7 @@ class Deal extends AppModel {
 			'fields' => '',
 			'order' => '',
             'counterCache' => true,
+            
 		)
 	);
 }

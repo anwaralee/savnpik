@@ -1812,3 +1812,13 @@ Stack Trace:
 #19 F:\wamp\www\savnpik\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #20 {main}
 >>>>>>> a462182720ca02fe68bf2145897f467ac74fa306
+2014-04-17 05:19:25 Error: Fatal Error (4): syntax error, unexpected ')' in [E:\wamp\www\savnpik\app\View\Deals\stores.ctp, line 9]
+2014-04-17 05:19:25 Error: [FatalErrorException] syntax error, unexpected ')'
+Request URL: /savnpik/deals/stores/abu-dhabi/max
+Stack Trace:
+#0 E:\wamp\www\savnpik\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'E:\wamp\www\sav...', 9)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'E:\wamp\www\sav...', 9, Array)
+#2 E:\wamp\www\savnpik\lib\Cake\Core\App.php(929): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'E:\wamp\www\sav...', 9, Array)
+#3 E:\wamp\www\savnpik\lib\Cake\Core\App.php(902): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

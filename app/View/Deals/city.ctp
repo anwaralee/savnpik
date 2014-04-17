@@ -1,5 +1,5 @@
 <div id="left-content">
-              <?php if(isset($feature) && $feature['Deal']['is_featured']==1 && $feature['Deal']['image1']!="" && !isset($banner) ) {?>
+              <?php if(isset($feature) && $feature['Deal']['is_featured']==1 && $feature['Deal']['image1']!="" ) {?>
                     <div id="banner">
                         <a href="#"><?php echo $this->Html->image("/files/deals/".$feature['Deal']['image1'],
                                   array('fullBase' => true,
@@ -46,7 +46,7 @@
                     <div class="event-block">
                     
                         <div class="event-image">
-                        <?php for($i = 2 ;$i<=10; $i++){
+                        <?php for($i = 1 ;$i<=10; $i++){
                             
                             if($deal['Deal']['image'.$i]!="" && file_exists(WWW_ROOT."/files/deals/".$deal['Deal']['image'.$i]))
                             {

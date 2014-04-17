@@ -18,7 +18,7 @@
                     <div class="event-block">
                     
                         <div class="event-image">
-                        <?php for($i = 2 ;$i<=10; $i++){
+                        <?php for($i = 1 ;$i<=10; $i++){
                             
                             if($deal['Deal']['image'.$i]!="" && file_exists(WWW_ROOT."/files/deals/".$deal['Deal']['image'.$i]))
                             {
