@@ -1,0 +1,12 @@
+[15-Apr-2014 16:57:29 UTC] PHP Fatal error:  Can't use method return value in write context in /home/savnpik/public_html/app/View/Themed/Default/Elements/header.ctp on line 15
+[15-Apr-2014 16:59:57 UTC] PHP Fatal error:  Can't use method return value in write context in /home/savnpik/public_html/app/View/Themed/Default/Elements/header.ctp on line 15
+[15-Apr-2014 17:00:00 UTC] PHP Fatal error:  Can't use method return value in write context in /home/savnpik/public_html/app/View/Themed/Default/Elements/header.ctp on line 15
+[15-Apr-2014 17:01:42 UTC] PHP Fatal error:  Can't use method return value in write context in /home/savnpik/public_html/app/View/Themed/Default/Elements/header.ctp on line 15
+[15-Apr-2014 17:04:01 UTC] PHP Fatal error:  Can't use method return value in write context in /home/savnpik/public_html/app/View/Themed/Default/Elements/header.ctp on line 15
+[15-Apr-2014 20:10:02 UTC] PHP Parse error:  syntax error, unexpected '",i,"' (T_CONSTANT_ENCAPSED_STRING) in /home/savnpik/public_html/app/View/Themed/Admin/webroot/js/tiny_mce/tiny_mce.js on line 1
+[16-Apr-2014 09:01:44 UTC] PHP Fatal error:  Call to a member function find() on a non-object in /home/savnpik/public_html/app/Controller/DealsController.php on line 58
+[16-Apr-2014 09:04:02 UTC] PHP Fatal error:  Class 'Route' not found in /home/savnpik/public_html/app/View/Themed/Default/Elements/right-sidebar.ctp on line 21
+[16-Apr-2014 09:04:03 UTC] PHP Fatal error:  Class 'Route' not found in /home/savnpik/public_html/app/View/Themed/Default/Elements/right-sidebar.ctp on line 21
+[16-Apr-2014 09:11:12 UTC] PHP Fatal error:  Class 'Route' not found in /home/savnpik/public_html/app/View/Themed/Default/Elements/right-sidebar.ctp on line 22
+[16-Apr-2014 09:11:13 UTC] PHP Fatal error:  Class 'Route' not found in /home/savnpik/public_html/app/View/Themed/Default/Elements/right-sidebar.ctp on line 22
+[16-Apr-2014 09:46:22 UTC] PHP Fatal error:  Call to undefined function file_exist() in /home/savnpik/public_html/app/View/Deals/city.ctp on line 20
