@@ -71,6 +71,16 @@ class Deal extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		), */
+        'description' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				'message' => 'Please fill up the description',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 		'threshold' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
@@ -81,6 +91,7 @@ class Deal extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+        
 		'marked_price' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),

@@ -24,9 +24,12 @@
 		echo $this->Form->input('name');
 		echo $this->Form->input('deal_category_id');
 		echo $this->Form->input('company_id');
+        echo $this->Form->input('description');
 		echo $this->Form->input('highlights');
+        
 		echo $this->Form->input('conditions');
 		echo $this->Form->input('threshold');
+        
 		echo $this->Form->input('marked_price',array('onchange'=>'calculatePrice()'));
 		echo $this->Form->input('discount',array('onchange'=>'calculatePrice()','label'=>'Discount %'));
 		echo $this->Form->input('selling_price',array('disabled'=>true));
