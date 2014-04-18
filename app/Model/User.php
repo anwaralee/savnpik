@@ -22,6 +22,18 @@ class User extends AppModel {
  * @var array
  */
 	public $validate = array(
+    
+        'confirm_password' => array(
+            'equaltofield' => array(
+            'rule' => array('equaltofield','password'),
+            'message' => 'Require the same value to password.',
+            //'allowEmpty' => false,
+            //'required' => false,
+            //'last' => false, // Stop validation after this rule
+            'on' => 'create', // Limit validation to 'create' or 'update' operations
+            )
+        ),
+        
 		'full_name' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
@@ -53,23 +65,9 @@ class User extends AppModel {
 			),
 		),
 		'email' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'email' => array(
-				'rule' => array('email'),
-				'message' => 'Must be an email address',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+        'rule'    => array('checkEmail'),
+        'message' => 'Not a valid email address.' 
+        ),
 		'phone' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
@@ -109,6 +107,41 @@ class User extends AppModel {
     }
     return true;
 }
+function equaltofield($check,$otherfield)
+    {
+        //get name of field
+        $fname = '';
+        foreach ($check as $key => $value){
+            $fname = $key;
+            break;
+        }
+        return $this->data[$this->name][$otherfield] === $this->data[$this->name][$fname];
+    } 
+    function checkEmail($val)
+    {
+        $value = $val['email'];
+        //var_dump($value);die();
+        if(str_replace(' ','',$value)!=$value)
+        return false;
+        if($value=='')
+        return false;
+        else
+        {
+            $arr = explode('@',$value);
+            //var_dump($arr);die();
+            if(count($arr)>1)
+            {
+                $domain = $arr[1];
+                $arr2 = explode('.',$domain);
+                if(count($arr2)>1)
+                return true;
+                else
+                return false;
+            }
+            else
+            return false;
+        }
+    }
 
     
 

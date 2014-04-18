@@ -43,8 +43,8 @@
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <?php $pluvendor=$this->Html->script('pluvendor/jquery-1.10.1.min'); ?>
-        <script>window.jQuery || document.write(<?php echo $pluvendor;?></script>
+        <!--<?php $pluvendor=$this->Html->script('pluvendor/jquery-1.10.1.min'); ?>
+        <script>window.jQuery || document.write(<?php echo $pluvendor;?></script>-->
 
         <!--script src="js/plugins.js"></script-->
         <?php echo $this->Html->script('plugins'); ?>

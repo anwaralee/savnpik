@@ -394,7 +394,7 @@ input[type="text"]:focus,input[type="password"]:focus, input[type="email"]:focus
 .absolute .buyy{padding-top:21px;}
 .left{float:left;}
 .right{float:right;}
-
+.error-message{color:#DC0A37;}
 
 
 

@@ -16,10 +16,7 @@
                     <input id="UserPassword" type="password" required="required" name="data[User][password]">
                     </div>
 
-                    <div class="form-row">
-                    <label class="checkbox"><input type="checkbox" name="check_field">I certify I am at least 18 years old and I have read & agree to 
-the <a href="">Terms & Conditions</a></label>
-                    </div>
+                    
                                 
                                
                         </fieldset>
@@ -44,18 +41,20 @@ the <a href="">Terms & Conditions</a></label>
                                 <?php echo $this->Form->input('address',array('div'=>array('class'=>'form-row'),'type'=>'text')); ?>
                                 <?php echo $this->Form->input('username',array('div'=>array('class'=>'form-row'))); ?>
                                <?php  echo $this->Form->input('password',array('div'=>array('class'=>'form-row'))); ?>
-                                <?php  echo $this->Form->input('confirm_password',array('div'=>array('class'=>'form-row'),'type'=>'password')); ?>
+                                <?php  echo $this->Form->input('confirm_password',array('div'=>array('class'=>'form-row'))); ?>
                                 
                              <br/>
                              
                     <div class="form-row">
-                        <label class="checkbox"><input type="checkbox" name="check_field">I certify I am at least 18 years old and I have read & agree to the <a href="">Privacy Policy</a> and <a href="">Terms & Conditions</a></label>
+                        <label class="checkbox"><input type="checkbox" name="check_field" class="chh" onchange="if($('.chh').is(':checked'))$('.sbmt').removeAttr('disabled');else{$('.sbmt').attr('disabled','');}"/>I certify I am at least 18 years old and I have read & agree to the <a href="">Privacy Policy</a> and <a href="">Terms & Conditions</a></label>
                     </div>
                     </fieldset>
-                        <?php echo $this->Form->submit('Register',array('class'=>'green-btn'))?>
+                        <div class="submit">
+                        <input class="green-btn sbmt" type="submit" value="Register" disabled="">
+                        </div>  
                         <?php echo $this->Form->end(); ?>
             </div>
         </div>
- 
+
  
         
