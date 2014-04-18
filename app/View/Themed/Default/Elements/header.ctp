@@ -59,7 +59,9 @@
                                         );?>  |
                     <!-- a href=""><img src="img/lang.png"></a-->
                 <?php echo $this->Html->image("lang.png",array('fullBase' => true));?>
-                <?php } ?><?php if($this->Session->read('Auth.User.username')){?>&nbsp;|&nbsp;<?php echo $this->Html->image('/img/account_and_control.png',array('url'=>'/dashboard'),array('width'=>'20px'));} ?>&nbsp;|&nbsp;<?php echo $this->Html->image('/img/carts.png',array('url'=>'/'),array('width'=>'20px'));?>  
+
+                <?php } ?><?php if($this->Session->read('Auth.User.username')){?>&nbsp;|&nbsp;<?php echo $this->Html->image('/img/account_and_control.png',array('url'=>'/'),array('width'=>'20px'));} ?>&nbsp;|&nbsp;<?php echo $this->Html->image('/img/carts.png',array('url'=>array('controller'=>'carts','action'=>'index')),array('width'=>'20px'));?>  
+
                 </div>
             </div>
             </div>

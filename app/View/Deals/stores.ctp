@@ -51,7 +51,7 @@
                                 <div class="save"><?php echo $deal['Deal']['discount']."%";?></div>
                                 </div>
 
-                                <a class="bttn" href="#"><span>AED</span> <?php echo $deal['Deal']['marked_price'];?></a>
+                                <a class="bttn" href="<?php echo $this->webroot;?>carts/addtocart/<?php echo $deal['Deal']['id']."/".$deal['Deal']['selling_price'];?>"><span>AED</span> <?php echo $deal['Deal']['selling_price'];?></a>
                             </div>
                         </div>
                     </div>
