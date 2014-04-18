@@ -18,7 +18,7 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800italic,800' rel='stylesheet' type='text/css'>
 
         <!--script src="js/vendor/modernizr-2.6.2.min.js"></script-->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <?php echo $this->Html->script('jquery-1.10.2.min.js',array('fullBase'=>true)); ?>
         <?php echo $this->Html->script('vendor/modernizr-2.6.2.min',array('fullBase'=>true)); ?>
     </head>
     <body>
@@ -29,7 +29,8 @@
         <?php echo $this->element('header', array('cache' => false)); ?>
 
         <div id="content" class="mid-content clearfix">
-            
+            <?php echo $this->Session->flash('good'); ?>
+            <?php echo $this->Session->flash('bad'); ?>
             <!-- Main Content goes here -->
             <?php echo $content_for_layout; ?>
 

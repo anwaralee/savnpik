@@ -1,4 +1,7 @@
 <div id="right-content">
+<?php
+if($this->params['controller']!='dashboard'){
+?>
                 <div id="ads">
                     <div class="ad-banner"><?php echo $this->Html->image("sharing.jpg",array('fullBase' => true));?></div>
                     <div class="ad-banner"><?php echo $this->Html->image("dubai.jpg",array('fullBase' => true));?></div>
@@ -63,4 +66,24 @@
                         <li><a href="">PEN Emirates<span>(152)</span></a></li>-->
                     </ul>
                 </div>
+                <?php 
+                }
+                else
+                {
+                    ?>
+                    <div class="sidebar-list">
+                    <h1>User Control</h1>
+                    <ul>
+                        <li><a href="#">My Deals</a></li>
+                        <li><a href="<?php $this->webroot;?>dashboard/setting">Account Settings</a></li>
+                        <li><a href="#">My Credit</a></li>
+                        <li><a href="#">Exchange/Deposit</a></li>
+                        <li><a href="#">Request Cheque</a></li>
+                        
+                        <li style="background: #41BA33;"> </li>                   
+                    </ul>
+                </div>
+                    <?php
+                }
+                ?>
             </div>

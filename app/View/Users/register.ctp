@@ -1,7 +1,6 @@
 <div id="login-account">
                 <h2>LOGIN TO YOUR ACCOUNT</h2>
-                <?php if(!isset($loginUrl)){$loginUrl='';}?>
-                <?php echo $this->Html->link('Sign in with Facebook',$loginUrl,array('class'=>'facebook-signin'))?>
+                <a href="<?php echo $this->webroot;?>users/fblogin" class="facebook-signin">Sign in with Facebook</a>
                 
                 <!--<a href="" class="twitter-signin">Sign in with Twitter</a>-->
             
@@ -29,7 +28,7 @@
 
                 <h2>REGISTER YOUR ACCOUNT</h2>
                 
-                <a href="" class="facebook-signin">Sign in with Facebook</a>
+                <a href="<?php echo $this->webroot;?>users/fblogin" class="facebook-signin">Sign in with Facebook</a>
                 <!--<a href="" class="twitter-signin">Sign in with Twitter</a>-->
                 
                 <div class="form-wrap">
