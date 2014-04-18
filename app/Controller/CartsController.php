@@ -65,7 +65,19 @@ class CartsController extends AppController {
     }
     public function payment ()
     {
-        
+        if(isset($_POST['submit']))
+        {
+            foreach($_POST['cart_id'] as $k=>$v)
+            {
+                $this->Cart->id = $v;
+                $this->Cart->saveField('qty',$_POST['qty'][$k]);
+                
+                
+            }
+        }
+         $c = $this->Cart->find('all',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id'),
+                                                                'buy_id'=>$this->Session->read('buy_id'))));
+        $this->set('carts',$c);
         
     }
      public function ipn_test()

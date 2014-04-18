@@ -70,8 +70,8 @@ class DealsController extends AppController {
      if(!empty($cityId)){
         $cond = array('Company.city_id' => $cityId[0]['City']['id']);
         $cond1 = array('Company.city_id' => $cityId[0]['City']['id']);
-        array_push($cond, array('Deal.expiry_date >="'.date('Y-m-d').'"'));
-        array_push($cond1, array('Deal.expiry_date >="'.date('Y-m-d').'"'));
+        array_push($cond, array('Deal.expiry_date >= "'.date('Y-m-d').'"'));
+        array_push($cond1, array('Deal.expiry_date >= "'.date('Y-m-d').'"'));
          if($cat != "")
         {
             $catId = $this->DealCategory->find('first',array('conditions'=>array('DealCategory.name'=>Inflector::humanize(str_replace("-"," ",$cat)))));
