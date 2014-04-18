@@ -7,10 +7,12 @@ class DashboardController extends AppController
         if(!$this->Session->read('Auth.User.username'))
         $this->redirect('/users/register');
         $this->loadModel('User');
+        $this->loadModel('Sale');
     }
-    function index()
+    public function index()
     {
-        
+        $carts = $this->Sale->find('all',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id'))) );
+        $this->set('carts',$carts);
     }
     function setting()
     {

@@ -24,7 +24,7 @@ $(function(){
 
 <div class="cat-header clearfix">
                     <h2>My Cart</h2>
-                    <a href="<?php echo $this->webroot;?>" class="back" >Continue Shopping</a>
+                    <a href="<?php echo $this->webroot;?>" class="back continue" >Continue Shopping</a>
                     </div>
 <?php if(count($carts)>0){?>
     <table class="table">
@@ -44,14 +44,14 @@ $(function(){
                     </select>
                 </td>
                 <td id="sum_<?php echo $cart['Cart']['id'];?>" class="sum"><?php echo $cart['Cart']['price']. " AED";?></td>
-                <td><?php echo $this->Html->link('Delete',array('controller'=>'carts','action'=>'delete',$cart['Cart']['id']), array(),
+                <td><?php echo $this->Html->link($this->Html->image('/img/trash.png',array('width'=>'20px')),array('controller'=>'carts','action'=>'delete',$cart['Cart']['id']), array('escape'=>FALSE),
     "Are you sure you wish to delete this deal?");?></td>
             </tr>    
             
         <?php 
         } ?>
         <tr><td colspan="3"></td><td><strong>Total</strong></td><td class="total"></td></tr>
-        <tr><td colspan="4"></td><td><a href="<?php echo $this->webroot;?>carts/payment" class="btn btn-primary">Proceed To payment</a></td></tr>
+        <tr class="last"><td colspan="4"></td><td><a href="<?php echo $this->webroot;?>carts/payment" class="continue">Proceed To payment</a></td></tr>
     </table>
     <?php }
     else

@@ -406,6 +406,17 @@ input[type="text"]:focus,input[type="password"]:focus, input[type="email"]:focus
 #goodMessage{padding:15px 10px;margin:10px 0;background:#3DB833;color:#FFF;}
 
 .table{width:100%;}
-.table th,.table td{padding:5px;border-bottom:1px solid #ccc;border-left:1px solid #CCC;text-align:center}
-.table th{background:#e5e5e5;}
+.table thead,.table tr{border-right: 1px solid #ccc;}
+.table th,.table td{padding:8px;border-bottom:1px solid #ccc;border-left:1px solid #CCC;text-align:center}
+.table th{background:#e5e5e5;border-top:1px solid #CCC;}
+.table td{font-size:14px;}
 .table a{text-decoration:none;}
+.continue{background: none repeat scroll 0 0 #DD0939;
+    border-radius: 10px;
+    color: #FFFFFF !important;
+    display: block;
+    padding: 5px;font-weight:bold;}
+.table .continue{background:#3DB833;padding:10px 5px;color:#FFF;border-radius:10px;display:block;}
+.last{border-right:none!important;}
+.last td{border-left:none;padding-top:25px;}
+.last td{border-bottom:none;}
