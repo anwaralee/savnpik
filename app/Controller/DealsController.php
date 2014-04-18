@@ -541,6 +541,7 @@ class DealsController extends AppController {
             return $p['Page']['desc']; 
             
         }
+        
     public function get_page_by_category($catid)
         {
             

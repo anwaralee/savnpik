@@ -33,7 +33,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="buyy">
-                            <a href="#"><?php echo $this->Html->image("/img/buy.jpg",
+                            <a href="<?php echo $this->webroot.'carts/addtocart/'.$feature['Deal']['id'];?>"><?php echo $this->Html->image("/img/buy.jpg",
                                   array('fullBase' => true,
                                        'alt'=>'Logo'
                                        ));?></a>
