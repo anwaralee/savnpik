@@ -23,8 +23,8 @@ $(function(){
 <div id="left-content">
 
 <div class="cat-header clearfix">
-                    <h2>My Cart</h2>
-                    <a href="<?php echo $this->webroot;?>" class="back continue" >Continue Shopping</a>
+                    <h2>My Deals</h2>
+                    
                     </div>
 <?php if(count($carts)>0){?>
     <table class="table">
@@ -46,18 +46,17 @@ $(function(){
                 <td id="sum_<?php echo $cart['Sale']['id'];?>" class="sum"><?php echo $cart['Sale']['price']. " AED";?></td>
                 <td>
                 <?php
-                $h = date('H');
-                $m=date('i');
-                $s=date('s');
-                if($h<24)
-                $st = 'On'; 
-                echo $cart['Deal']['buy_count'].'/'.$cart['Deal']['buy_count']. ' | ';if(strtotime($cart['Deal']['expiry_time'])>=strtotime(date('Y-m-d')))?></td>
+                if(!$cart['Deal']['buy_count'])
+                $cart['Deal']['buy_count']=0;
+                    
+                //if($h==) 
+                echo $cart['Deal']['buy_count'].'/'.$cart['Deal']['threshold']. ' | ';if(strtotime($cart['Deal']['expiry_date'].' 00:00:01')>=strtotime(date('Y-m-d H:i:s')))echo 'On';else echo 'Off';?></td>
             </tr>    
             
         <?php 
         } ?>
         <tr><td colspan="3"></td><td><strong>Total</strong></td><td class="total"></td></tr>
-        <tr class="last"><td colspan="4"></td><td><a href="<?php echo $this->webroot;?>carts/payment" class="continue">Proceed To payment</a></td></tr>
+        <tr class="last"><td colspan="5"></td></tr>
     </table>
     <?php }
     else
