@@ -5,7 +5,7 @@
 
                 <div class="coupon-banner clearfix">
                     <div class="buy-now">
-                        <div class="buy">Buy Now</div>
+                        <div class="buy"><a href="<?php echo $this->webroot;?>carts/addtocart/<?php echo $deal['Deal']['id']."/".$deal['Deal']['selling_price'];?>">Buy Now</a></div>
                         <div class="price"><span>AED</span><?php echo $deal['Deal']['selling_price']?></div>
                         <div class="deal-end">This deal ends in <br />
                         <span><?php difference_time($deal['Deal']['expiry_date']);?></span>
@@ -31,11 +31,21 @@
                     </div>
 
                     <div class="banner-image">
-                         <?php echo $this->Html->image("/files/deals/".$deal['Deal']['image1'],
+                    <?php for($i = 1 ;$i<=10; $i++){
+                            if($deal['Deal']['image'.$i]!="" && file_exists(WWW_ROOT."files/deals/".$deal['Deal']['image'.$i]))
+                            {
+                                //echo WWW_ROOT."files/deals/".$deal['Deal']['image'.$i];
+                                ?>
+                            
+                         <?php echo $this->Html->image("/files/deals/".$deal['Deal']['image'.$i],
                                   array('fullBase' => true,
                                        'alt'=>'Logo',
                                        'height'=>342,
                                        'width'=>552));?>
+                           <?php 
+                           break;
+                           }
+                           }?>
                     </div>
                 </div>
 
@@ -94,8 +104,8 @@
 
                         ?>
                         <div class="event-block">
-                        <div class="event-image"><?php for($i = 1 ;$i<=10; $i++){
-                            
+                        <div class="event-image">
+                        <?php for($i = 1 ;$i<=10; $i++){
                             if($d['Deal']['image'.$i]!="" && file_exists(WWW_ROOT."files/deals/".$d['Deal']['image'.$i]))
                             {
                                 //echo WWW_ROOT."files/deals/".$deal['Deal']['image'.$i];

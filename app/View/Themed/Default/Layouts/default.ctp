@@ -18,6 +18,7 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800italic,800' rel='stylesheet' type='text/css'>
 
         <!--script src="js/vendor/modernizr-2.6.2.min.js"></script-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <?php echo $this->Html->script('vendor/modernizr-2.6.2.min',array('fullBase'=>true)); ?>
     </head>
     <body>
@@ -45,7 +46,7 @@
                                                
 
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        
         
         <?php echo $this->Html->script('plugins',array('fullBase'=>true)); ?>
         <!--script src="js/main.js"></script-->
