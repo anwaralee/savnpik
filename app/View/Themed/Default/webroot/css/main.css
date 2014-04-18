@@ -404,3 +404,8 @@ input[type="text"]:focus,input[type="password"]:focus, input[type="email"]:focus
 #UserSettingForm .disabled{background:#e5e5e5;}
 #badMessage{padding:15px 10px;margin:10px 0;background:#DC0A37;color:#FFF;}
 #goodMessage{padding:15px 10px;margin:10px 0;background:#3DB833;color:#FFF;}
+
+.table{width:100%;}
+.table th,.table td{padding:5px;border-bottom:1px solid #ccc;border-left:1px solid #CCC;text-align:center}
+.table th{background:#e5e5e5;}
+.table a{text-decoration:none;}

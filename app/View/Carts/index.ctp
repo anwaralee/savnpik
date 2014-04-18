@@ -20,7 +20,7 @@ $(function(){
    })
 });
 </script>
-<div class="left-content">
+<div id="left-content">
     <table class="table">
         <thead><th>Description</th><th>Price</th><th>Amount</th><th>Sum</th><th></th></thead>
         <?php foreach($carts as $cart)
