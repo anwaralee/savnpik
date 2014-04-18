@@ -63,6 +63,29 @@ class CartsController extends AppController {
         
         
     }
+    public function payment ()
+    {
+        
+        
+    }
+     public function ipn_test()
+    {
+        $this->loadModel('Sale');
+        foreach($_POST as $k=>$p)
+        {
+        	$a .= $k."=>".$p.", ";
+        }
+        $this->Sale->id = $_POST['custom'];
+        if($_POST['payment_status']=='Completed')
+        {
+	        
+	        $this->Sale->saveField('info',$a);
+	        $this->Sale->saveField('on_date',date('Y-m-d H:i:s'));
+	        $this->Sale->saveField('stat',$_POST['payment_status']);
+    	}
+    	else
+    		$this->Sale->saveField('stat',"Payment Failed");
+      }
 
 
 }

@@ -20,9 +20,14 @@ $(function(){
    })
 });
 </script>
-<div class="left-content">
-    <table class="table">
-        <thead><th>Description</th><th>Price</th><th>Amount</th><th>Sum</th><th></th></thead>
+<div id="left-content">
+<div class="cat-header clearfix">
+                    <h2>My Cart</h2>
+                    <a href="<?php echo $this->webroot;?>" class="back" >Continue Shopping</a>
+                    </div>
+<?php if(count($carts)>0){?>
+    <table class="table" width='100%'>
+        <thead style="background-color: #e5e5e5;"><th>Description</th><th>Price</th><th>Amount</th><th>Sum</th><th></th></thead>
         <?php foreach($carts as $cart)
         {?>
             <tr>
@@ -43,6 +48,12 @@ $(function(){
             
         <?php 
         } ?>
-        <tr><td colspan="3"></td><td><strong>Total</strong></td><td class="total"></td></tr>
+        <tr style="background-color: #e5e5e5;"><td colspan="3"></td><td><strong>Total</strong></td><td class="total"></td></tr>
+        <tr><td colspan="4"></td><td><a href="<?php echo $this->webroot;?>carts/payment" class="btn btn-primary">Proceed To payment</a></td></tr>
     </table>
+    <?php }
+    else
+    {
+         echo "<h3>Cart Is Empty</h3>";
+    }?>
 </div>

@@ -137,7 +137,7 @@
                                 <div class="save">55%</div>
                                 </div>
 
-                                <a class="bttn" href="#"><span>AED</span> <?php echo $d['Deal']['selling_price'];?></a>
+                                <a class="bttn" href="<?php echo $this->webroot;?>carts/addtocart/<?php echo $deal['Deal']['id']."/".$deal['Deal']['selling_price'];?>"><span>AED</span> <?php echo $d['Deal']['selling_price'];?></a>
                             </div>
                         </div>
                         </div>
