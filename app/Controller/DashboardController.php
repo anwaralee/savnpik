@@ -69,4 +69,28 @@ class DashboardController extends AppController
         //$this->set('model',$q);
         
     }
+    
+  public function convertCurrency($amount, $from, $to){
+    $url  = "https://www.google.com/finance/converter?a=$amount&from=$from&to=$to";
+    $data = file_get_contents($url);
+    preg_match("/<span class=bld>(.*)<\/span>/",$data, $converted);
+    $converted = preg_replace("/[^0-9.]/", "", $converted[1]);
+    return round($converted, 3);
+  }
+
+  # Call function  
+  //echo convertCurrency(1, "USD", "INR");
+  
+    function deposit()
+    {
+        $this->loadModel('Payment');
+        $this->paginate = array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id')),'limit'=>'2');
+        $payment = $this->paginate('Payment');
+        $this->set('payment',$payment);
+        $this->set('count',$this->Payment->find('count',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id')))));
+        $u = $this->User->findById($this->Session->read('Auth.User.id'));
+        $this->set('credit',$u['User']['my_balance']);
+       //var_dump($payment); 
+        
+    }
 }
