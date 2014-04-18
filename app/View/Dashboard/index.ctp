@@ -61,6 +61,6 @@ $(function(){
     <?php }
     else
     {
-         echo "<h3>Cart Is Empty</h3>";
+         echo "<h3>You have no deals.</h3>";
     }?>
 </div>
