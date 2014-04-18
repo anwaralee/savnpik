@@ -46,10 +46,7 @@
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <?php $pluvendor=$this->Html->script('pluvendor/jquery-1.10.1.min'); ?>
-        <script>window.jQuery || document.write(<?php echo $pluvendor;?></script>
-
-        <!--script src="js/plugins.js"></script-->
+        
         <?php echo $this->Html->script('plugins',array('fullBase'=>true)); ?>
         <!--script src="js/main.js"></script-->
          <?php echo $this->Html->script('main',array('fullBase'=>true)); ?>
@@ -62,3 +59,4 @@
         <?php echo $this->element('sql_dump'); ?>
     </body>
 </html>
+
