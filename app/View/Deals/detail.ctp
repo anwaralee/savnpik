@@ -18,7 +18,7 @@
                         <div class="view-bought clearfix">
                             <div class="view">
                                 Viewed:<br/>
-                                <strong><?php if($deal['Deal']['buy_count'])echo $deal['Deal']['buy_count'];else echo 0;?></strong>
+                                <strong><?php if($deal['Deal']['view_count'])echo $deal['Deal']['view_count'];else echo 0;?></strong>
                             </div>
 
                             <div class="bought">
@@ -118,7 +118,7 @@
                         <div class="event-detail">
                             <div class="short-desc">
                             <h2><?php echo $this->Html->link($d['Deal']['name'],'/deal/'.$d['Deal']['slug']);?></h2>
-                            <p><?php echo $this->Html->link($d['Deal']['description']);?></p> 
+                            <p><?php echo substr($d['Deal']['description'],0,150);?></p> 
                             </div>
 
                             <div class="event-desc clearfix">

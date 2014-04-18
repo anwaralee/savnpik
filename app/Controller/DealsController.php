@@ -91,7 +91,7 @@ class DealsController extends AppController {
         }
         $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>'8');
         $deal = $this->paginate('Deal');
-        $this->set('count',$this->Deal->find('count',array('condition'=>$cond)));
+        $this->set('count',$this->Deal->find('count',array('conditions'=>$cond)));
         $this->set('cityDeals',$deal);
                                     
                                   
@@ -122,7 +122,7 @@ class DealsController extends AppController {
     if($deal = $this->paginate('Deal'))
     {
         $this->set('cityDeals',$deal);
-        $this->set('count',$this->Deal->find('count',array('condition'=>$cond)));
+        $this->set('count',$this->Deal->find('count',array('conditions'=>$cond)));
      } 
      else 
      {
@@ -147,7 +147,12 @@ class DealsController extends AppController {
     public function detail($slug = null) {
 		$this->theme = 'default';
 		$options = array('conditions' => array('Deal.slug' => $slug));
-		$this->set('deal', $this->Deal->find('first', $options));
+        $deal = $this->Deal->find('first', $options);
+        $views = $deal['Deal']['view_count'];
+        $views++;
+        $this->Deal->id = $deal['Deal']['id'];
+        $this->Deal->saveField('view_count',$views);
+		$this->set('deal', $deal);
 	}
 
 /**
