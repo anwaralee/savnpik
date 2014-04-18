@@ -109,67 +109,59 @@ class UsersController extends AppController {
             $this->Session->setFlash(__('Invalid username or password, try again'));
         }
     }
-    
-    public function register(){
-        if(!$this->request->is('post'))
-        {
-          $facebook = new Facebook(array(
-          'appId' => '227979544057836',
-          'secret' => '39d4a56f81e466b946a3a28956457b28',
+    public function fblogin()
+    {
+       $facebook = new Facebook(array(
+          'appId' => '1422309588028572',
+          'secret' => 'cad37dfe485ba3ada173ee620c61710c',
           'cookie' => false
         ));
+         
         $user = $facebook->getUser();
+        if(!$user){
+            $scope = array('scope' => 'publish_stream,email');
+        $this->redirect($facebook->getLoginUrl($scope));
         
-        if($user && !$this->Session->read('fbid'))
-        {
-            $this->Session->write('fbid',$user);
-            $up = $facebook->api('/me');
-            $this->Session->write('logoutUrl',$facebook->getLogoutUrl());
-            $this->Session->write('Auth.User.username',$up['name']);
-            //$this->redirect('/');
         }
-        else
         if($user)
         {
-            if($this->Session->read('fbid')!=$user)
-            {
-                $this->Session->write('fbid',$user);
-            }
-            $up = $facebook->api('/me');
             $this->Session->write('logoutUrl',$facebook->getLogoutUrl());
-            $this->Session->write('Auth.User.username',$up['name']);
-            //$this->redirect('/');
+            $up = $facebook->api('/me');
+            $q = $this->User->find('first',array('conditions'=>array('User.fbid'=>$user)));
+               if(!$q)
+               {
+                    $this->User->create();
+                    $arr['email'] = $up['email'];
+                    $arr['full_name'] = $up['name'];
+                    $arr['address'] = $up['hometown']['name'];
+                    $arr['role'] = 0;
+                    $arr['fbid'] = $user;
+                    $arr['status'] = 1;
+                    
+                    $q2 = $this->User->find('first',array('conditions'=>array('User.username'=>$up['name'])));
+                    if(!$q2)
+                    $arr['username'] = $up['name'];
+                    else
+                    $arr['username'] = $up['name'].'_'.rand(1000,9999);
+                    $this->User->save($arr);
+                    $this->Session->write('Auth.User.username',$up['name']);
+                    //$this->Session->write('Auth.User.username',$this->request->data['User']['username']);
+                    $this->Session->write('Auth.User.email',$up['name']);
+                    $this->Session->write('Auth.User.id',$this->User->id);
+                    
+               }
+               else{
+               $this->Session->write('Auth.User.username',$up['name']);
+                    //$this->Session->write('Auth.User.username',$this->request->data['User']['username']);
+                    $this->Session->write('Auth.User.email',$up['name']);
+                    $this->Session->write('Auth.User.id',$q['User']['id']);
+                    }
+                    $this->redirect('/');
+               
         }
-        if(!$user)
-        {
-            $scope = array('scope' => 'email');
-            $this->set('loginUrl',$facebook->getLoginUrl($scope));
-        }
-        else
-        {
-           $this->Session->write('logoutUrl',$facebook->getLogoutUrl());
-           $up = $facebook->api('/me');
-           //var_dump($up);die();
-           $this->set('user_profile',$up);
-           $q = $this->User->find('first',array('conditions'=>array('User.fbid'=>$user)));
-           if(!$q)
-           {
-                $this->User->create();
-                $arr['email'] = $up['email'];
-                $arr['full_name'] = $up['name'];
-                $arr['address'] = $up['hometown']['name'];
-                $arr['role'] = 0;
-                $arr['fbid'] = $user;
-                $arr['status'] = 1;
-                $arr['username'] = $up['name'];
-                $this->User->save($arr);
-                $this->Session->write('Auth.User.username',$up['name']);
-                
-           }
-           $this->redirect('/');
-           
-        }
-        }
+    }
+    public function register(){
+        
         $this->layout = 'login';
         $this->theme = 'default';
         $this->set('title_for_layout','Login/Registration');
@@ -183,8 +175,11 @@ class UsersController extends AppController {
           
             $this->User->create();
             if ($this->User->save($this->request->data)) {
+                $this->Session->write('Auth.User.username',$this->request->data['User']['username']);
+                $this->Session->write('Auth.User.email',$this->request->data['User']['email']);
+                $this->Session->write('Auth.User.id',$this->User->id);
                 $this->Session->setFlash('You have been registered succesfully. Please login to continue','alert-box',array('class'=>'alert alert-success alert-dismissable'),'save');
-                return $this->redirect(array('action' => 'login'));
+                return $this->redirect('/');
             }
            $this->Session->setFlash('User could not be added','alert-box',array('class'=>'alert alert-warning alert-dismissable'),'warning');
         }

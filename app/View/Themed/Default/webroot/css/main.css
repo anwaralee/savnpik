@@ -396,5 +396,11 @@ input[type="text"]:focus,input[type="password"]:focus, input[type="email"]:focus
 .right{float:right;}
 .error-message{color:#DC0A37;}
 
-
-
+#UserSettingForm legend{color:#565656!important;display:block!important;padding:0 0 15px 0!important;font-size:20px!important;font-weight:bold;}
+#UserSettingForm .input{padding:10px 0;float:left;width:50%;}
+#UserSettingForm label{display:block;padding-bottom:5px;}
+.paddingbot{padding-bottom:30px;}
+#UserSettingForm .green-btn{margin-top:15px;}
+#UserSettingForm .disabled{background:#e5e5e5;}
+#badMessage{padding:15px 10px;margin:10px 0;background:#DC0A37;color:#FFF;}
+#goodMessage{padding:15px 10px;margin:10px 0;background:#3DB833;color:#FFF;}
