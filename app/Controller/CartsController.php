@@ -80,6 +80,72 @@ class CartsController extends AppController {
         $this->set('carts',$c);
         
     }
+    public function checkout()
+    {
+        if(isset($_POST['submit']))
+        {
+            $tot = $_POST['total'];
+            //die($tot);
+            foreach($_POST['cart_id'] as $k=>$v)
+            {
+                $this->Cart->id = $v;
+                $this->Cart->saveField('qty',$_POST['qty'][$k]);
+                
+                
+            }
+            $this->loadModel("User");
+            $user = $this->User->findById($this->Session->read('Auth.User.id'));
+            //var_dump($user);die();
+            if($tot > $user['User']['my_balance'])
+            {
+                $this->Session->setFlash('InSufficent funds! Please add  more funds');
+                $this->redirect(array('controller'=>'dashboard','action'=>'deposit'));
+            }
+            else
+            {
+                $this->loadModel("Sale");
+                $this->loadModel("Deal");
+                $carts = $this->Cart->find('all',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id'),
+                   
+                                                              'buy_id'=>$this->Session->read('buy_id'))));
+                foreach($carts as $c)
+                {
+                    if($p_d = $this->Sale->find('first', array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id'),'deals_id'=>$c['Cart']['deals_id']))))
+                    {
+                       $this->Sale->id = $p_d['Sale']['id'];
+                       $o_qty = $p_d['Sale']['qty'];
+                       $n_qty = $o_qty + $c['Cart']['qty'];
+                       $this->Sale->saveField('qty',$n_qty); 
+                    }
+                    else
+                    {
+                        $sale['user_id'] = $this->Session->read('Auth.User.id');
+                        $sale['deals_id'] = $c['Cart']['deals_id'];
+                        $sale['price'] = $c['Cart']['price'];
+                        $sale['qty'] = $c['Cart']['qty'];
+                        $this->Sale->create();
+                        $this->Sale->save($sale);
+                    }
+                    
+                    $deal = $this->Deal->findById($c['Cart']['deals_id']);
+                    $this->Deal->id = $c['Cart']['deals_id'];
+                    $buy_count = $deal['Deal']['buy_count'];
+                    $buy_count = $buy_count+$c['Cart']['qty'];
+                    $this->Deal->saveField('buy_count',$buy_count);
+                    
+                    $this->User->id = $c['Cart']['user_id'];
+                    $this->User->saveField('my_balance',$user['User']['my_balance']-$tot);
+                    
+                    
+                    $this->Cart->delete($c['Cart']['id']);
+                }
+                $this->redirect(array('controller'=>'dashboard'));
+                
+            }
+            
+        }
+        
+    }
      public function ipn_test()
     {
         $this->loadModel('Sale');

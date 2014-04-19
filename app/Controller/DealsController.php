@@ -560,5 +560,40 @@ class DealsController extends AppController {
             $this->set('content',$content); 
             
         }
+           public function convertCurrency($amount, $from, $to)
+    {
+        $url  = "https://www.google.com/finance/converter?a=$amount&from=$from&to=$to";
+        $data = file_get_contents($url);
+        preg_match("/<span class=bld>(.*)<\/span>/",$data, $converted);
+        $converted = preg_replace("/[^0-9.]/", "", $converted[1]);
+        return round($converted, 3);
+  }
+    public function ipn_test()
+    {
+        $this->loadModel('User');
+        $this->loadModel('Payment');
+        foreach($_POST as $k=>$p)
+        {
+        	$a .= $k."=>".$p.", ";
+        }
+        $payment['user_id'] = $_POST['custom'];
+        $payment['on_date'] = date('Y-m-d H:i:s');
+        $payment['stat'] = $_POST['payment_status'];
+        $payment['info'] = $a;
+        $this->Payment->create();
+        $this->Payment->save($payment);
+        
+        $u = $this->User->findById($_POST['custom']);
+        $old_credit = $u['User']['my_balance'];
+        $this->User->id = $_POST['custom'];
+        if($_POST['payment_status']=='Completed')
+        {
+	        $credit = $this->convertCurrency($_POST['mc_gross'],"USD","AED");
+            $credit = $credit + $old_credit;
+	        $this->User->saveField('my_balance',$credit);
+	        
+    	}
+    	
+      }
     
 }
