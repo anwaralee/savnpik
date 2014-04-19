@@ -420,3 +420,13 @@ input[type="text"]:focus,input[type="password"]:focus, input[type="email"]:focus
 .last{border-right:none!important;}
 .last td{border-left:none;padding-top:25px;}
 .last td{border-bottom:none;}
+
+.earnmore{padding: 10px;margin:20px 0;background:#F5F5F5;border-radius:10px;border: 5px solid #e5e5e5;}
+.fourblock{padding-right:95px;text-align:center;}
+.fourblocklast{text-align:center;}
+.fourblocklast a{color:#fff;}
+.blockimage img{width:100px!important;}
+.blockbtn{margin-top: 15px;margin-bottom:10px;}
+.done{background:#F5E60D;padding:6.7px;border-radius:10px;}
+.done2{background:#DC0A37;padding:6.7px;border-radius:10px;text-align:center;}
+.bi img{width:100px;height:29px;border-radius:10px;}

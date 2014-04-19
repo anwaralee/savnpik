@@ -8,6 +8,7 @@ class DashboardController extends AppController
         $this->redirect('/users/register');
         $this->loadModel('User');
         $this->loadModel('Sale');
+        $this->loadModel('RewardFrom');
     }
     public function index()
     {
@@ -68,5 +69,79 @@ class DashboardController extends AppController
         $this->request->data = $this->User->find('first',array('conditions'=>array('User.username'=>$this->Session->read('Auth.User.username'))));
         //$this->set('model',$q);
         
+    }
+    function mycredit()
+    {
+        $q1 = $this->User->find('first',array('conditions'=>array('User.username'=>$this->Session->read('Auth.User.username'))));
+        $q =  $this->RewardFrom->find('all',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id'))));
+        //echo $this->Session->read('Auth.User.username');
+        //var_dump($q);die();
+        $this->set('credit',$q);
+        $this->set('tot',$q1['User']['my_coin']);
+    }
+    function fbshare()
+    {
+        
+        $arr['reward_date'] = date('Y-m-d');
+        $arr['remark'] = 'Facebook Share';
+        $arr['coins'] = '200';
+        $arr['user_id'] = $this->Session->read('Auth.User.id');
+        $q = $this->RewardFrom->find('first',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id'),'reward_date'=>$arr['reward_date'],'remark'=>$arr['remark'])));
+        if($q){
+        $this->Session->setFlash('You have already shared this today','default',array(),'good');
+        $this->redirect('mycredit');
+        }
+        else{
+        if(isset($_GET['update'])){
+        $q3 = $this->RewardFrom->find('first',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id'),'reward_date'=>$arr['reward_date'],'remark'=>$arr['remark'])));
+        if($q3){
+        $this->Session->setFlash('You have already shared this today','default',array(),'good');
+        $this->redirect('mycredit');
+        }    
+        $this->RewardFrom->create();
+        $this->RewardFrom->save($arr);
+        
+        $q2 = $this->User->findById($this->Session->read('Auth.User.id'));
+        $this->User->id = $this->Session->read('Auth.User.id');
+        $arrs['my_coin'] = $q2['User']['my_coin']+$arr['coins'];
+        $this->User->saveField('my_coin',$arrs['my_coin']);
+        $this->redirect('mycredit');
+        }
+        
+        if($_SERVER['SERVE_NAME']=='localhost')
+        $url = 'http://localhost/savnpik/dashboard/fbshare?update';
+        else
+        $url = 'http://savnpik.com/dashboard/fbshare?update';
+        $this->redirect('https://www.facebook.com/dialog/feed?app_id=1422309588028572&display=page&caption=SAVNPIK.COM&link=http%3A%2F%2Fsavnpik.com%2F&redirect_uri='.$url);     
+        }
+        
+    }
+    public function like()
+    {
+        $arr['reward_date'] = date('Y-m-d');
+        $arr['remark'] = 'Facebook Like';
+        $arr['coins'] = '500';
+        $arr['user_id'] = $this->Session->read('Auth.User.id');
+        $this->RewardFrom->create();
+        $this->RewardFrom->save($arr);
+        $q = $this->User->findById($this->Session->read('Auth.User.id'));
+        $this->User->id = $this->Session->read('Auth.User.id');
+        $tot = $q['User']['my_coin']-$arr['coin'];
+        $this->User->saveField('my_coin',$tot);
+        die();
+    }
+    public function unlike()
+    {
+        $arr['reward_date'] = date('Y-m-d');
+        $arr['remark'] = 'Facebook Like';
+        $arr['coins'] = '500';
+        $arr['user_id'] = $this->Session->read('Auth.User.id');
+        $q = $this->RewardFrom->find('first',array('conditions'=>$arr));
+        $this->RewardFrom->delete($q['RewardFrom']['id']);
+        $q = $this->User->findById($this->Session->read('Auth.User.id'));
+        $this->User->id = $this->Session->read('Auth.User.id');
+        $tot = $q['User']['my_coin']+$arr['coin'];
+        $this->User->saveField('my_coin',$tot);
+        die();
     }
 }

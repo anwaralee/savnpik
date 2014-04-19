@@ -137,7 +137,7 @@ class UsersController extends AppController {
                     $arr['role'] = 0;
                     $arr['fbid'] = $user;
                     $arr['status'] = 1;
-                    
+                    $arr['my_coin'] = '200';
                     $q2 = $this->User->find('first',array('conditions'=>array('User.username'=>$up['name'])));
                     if(!$q2)
                     $arr['username'] = $up['name'];
@@ -172,6 +172,7 @@ class UsersController extends AppController {
           $this->request->data['User']['auth_id'] = 'USER_'.($count + 1);
           $this->request->data['User']['role'] = 0;
           $this->request->data['User']['status'] = 1;
+          $this->request->data['User']['my_coin'] = '200';
           
             $this->User->create();
             if ($this->User->save($this->request->data)) {
