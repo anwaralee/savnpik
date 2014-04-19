@@ -3,7 +3,7 @@
 if($this->params['controller']!='dashboard'){
 ?>
                 <div id="ads">
-                    <div class="ad-banner"><?php echo $this->Html->image("sharing.jpg",array('fullBase' => true));?></div>
+                    <div class="ad-banner"><?php echo $this->Html->link($this->Html->image("sharing.jpg",array('fullBase' => true)),array('controller'=>'dashboard','action'=>'fbshare'),array('escape'=>FALSE));?></div>
                     <div class="ad-banner"><?php echo $this->Html->image("dubai.jpg",array('fullBase' => true));?></div>
                 </div>
 
