@@ -189,22 +189,22 @@
                                         $days++;
                                     }
                                     if($h<10)
-                                    $h1= '0'.$h;
+                                    $h1= '<span class="h">0'.$h.'</span>';
                                     else
-                                    $h1 = $h;
+                                    $h1 = '<span class="h">'.$h.'</span>';
                                     if($m<10)
-                                    $h1 = $h1.':0'.$m;
+                                    $h1 = $h1.':<span class="m">0'.$m.'</span>';
                                     else
-                                    $h1 = $h1.':'.$m;
+                                    $h1 = $h1.':<span class="m">'.$m.'</span>';
                                     if($s<10)
-                                    $h1 = $h1.':0'.$s;
+                                    $h1 = $h1.':<span class="s">0'.$s.'</span>';
                                     else
-                                    $h1 = $h1.':'.$s;
+                                    $h1 = $h1.':<span class="s">'.$s.'</span>';
                                     
                                     
                                 }
                                 if($days>0){
-                                echo $days.' day';
+                                echo '<span class="d">'.$days.'</span> day';
                                 if($days>1)
                                 echo 's';
                                 echo ' '.$h1;
@@ -277,3 +277,74 @@
                             
             }
             ?>
+<script>
+$(function(){
+    setInterval(function(){
+        var s= $('.s').text();
+        var m= $('.m').text();
+        var h= $('.h').text();
+        var d= $('.d').text();
+        if(s=='00')
+        {
+            var sec = '59';
+            var mi = parseInt(m);
+            if(mi==0)
+            {
+                min = '59';
+                var ho = parseInt(h);
+                if(ho==0)
+                {
+                    var hou = '23';
+                    var da = parseInt(d);
+                    if(da==0)
+                    {
+                        $('.limit div').html('EXPIRED');
+                    }
+                    else
+                    {
+                        da--;
+                        $('.d').html(da);
+                    }
+                } 
+                else
+                {
+                    ho--;
+                    if(ho<10)
+                    {
+                        var hou = '0'+ho;
+                    }
+                    else
+                    var hou = ho;
+                }
+                $('.h').html(hou);
+            }
+            else
+            {
+                mi--;
+                if(mi<10)
+                {
+                    var min = '0'+mi;
+                }
+                else
+                var min = mi;
+                
+            }
+            $('.m').html(min);
+                        
+        }
+        else
+        {
+            var se = parseInt(s);
+            se--;
+            if(se<10)
+            var sec = '0'+se;
+            else
+            var sec = se;
+            
+        }
+        //alert(sec);
+        $('.s').text(sec);
+    },1000);
+    
+});
+</script>

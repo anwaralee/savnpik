@@ -19,6 +19,7 @@
 
         <!--script src="js/vendor/modernizr-2.6.2.min.js"></script-->
         <?php echo $this->Html->script('jquery-1.10.2.min.js',array('fullBase'=>true)); ?>
+        <?php echo $this->Html->script('jquery.als-1.4.min.js',array('fullBase'=>true)); ?>
         <?php echo $this->Html->script('vendor/modernizr-2.6.2.min',array('fullBase'=>true)); ?>
     </head>
     <body>

@@ -167,7 +167,76 @@ class DashboardController extends AppController
         $this->set('count',$this->Payment->find('count',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id')))));
         $u = $this->User->findById($this->Session->read('Auth.User.id'));
         $this->set('credit',$u['User']['my_balance']);
+        $q1 = $this->User->find('first',array('conditions'=>array('User.username'=>$this->Session->read('Auth.User.username'))));
+        $this->set('tot',$q1['User']['my_coin']);
        //var_dump($payment); 
+        
+    }
+    function exchange($coin)
+    {
+        $q = $this->User->findById($this->Session->read('Auth.User.id'));
+        if($q['User']['my_coin'] >= $coin)
+        {
+            if($coin==10000)
+            {
+                $this->User->id = $this->Session->read('Auth.User.id');
+                $arr['my_coin'] = $q['User']['my_coin']-$coin;;
+                if(!$q['User']['my_balance'])
+                $q['User']['my_balance'] = 0;                
+                $arr['my_balance'] = $q['User']['my_balance'] + 5;
+                $this->User->save($arr);
+                $this->RewardFrom->create();
+                $arr2['remark'] = '10,000 coin exchange';
+                $arr2['coins'] = '-10000';
+                $arr2['reward_date'] = date('Y-m-d');
+                $arr2['user_id'] = $this->Session->read('Auth.User.id');
+                $this->RewardFrom->save($arr2);
+            }
+            else
+            if($coin == 18000)
+            {
+                $this->User->id = $this->Session->read('Auth.User.id');
+                $arr['my_coin'] = $q['User']['my_coin']-$coin;;
+                if(!$q['User']['my_balance'])
+                $q['User']['my_balance'] = 0;                
+                $arr['my_balance'] = $q['User']['my_balance'] + 10;
+                $this->User->save($arr);
+                $this->RewardFrom->create();
+                $arr2['remark'] = '18,000 coin exchange';
+                $arr2['coins'] = '-18000';
+                $arr2['reward_date'] = date('Y-m-d');
+                $arr2['user_id'] = $this->Session->read('Auth.User.id');
+                $this->RewardFrom->save($arr2);
+            }
+            else
+            if($coin == 50000)
+            {
+                $this->User->id = $this->Session->read('Auth.User.id');
+                $arr['my_coin'] = $q['User']['my_coin']-$coin;;
+                if(!$q['User']['my_balance'])
+                $q['User']['my_balance'] = 0;                
+                $arr['my_balance'] = $q['User']['my_balance'] + 35;
+                $this->User->save($arr); 
+                $this->RewardFrom->create();
+                $arr2['remark'] = '50,000 coin exchange';
+                $arr2['coins'] = '-50000';
+                $arr2['reward_date'] = date('Y-m-d');
+                $arr2['user_id'] = $this->Session->read('Auth.User.id');
+                $this->RewardFrom->save($arr2);
+            }
+            else
+            {
+                $this->Session->setFlash('Invalid Coin Number','default',array(),'bad');
+                $this->redirect('deposit');
+            }
+            $this->Session->setFlash($coin.' exchanged successfully!','default',array(),'good');
+            $this->redirect('deposit');
+        }
+        else
+        {
+            $this->Session->setFlash('Invalid Request','default',array(),'good');
+            $this->redirect('deposit');
+        }
         
     }
 

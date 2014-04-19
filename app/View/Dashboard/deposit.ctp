@@ -39,6 +39,7 @@
      ?>       
     </div>  
     <div class="earnmore">
+    <h2>Deposit</h2>
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_xclick">
 <input type="hidden" name="business" value="warriorbik123@gmail.com">
@@ -59,4 +60,60 @@
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
 </div>
+<div class="earnmore">
+<h2>Exchange (<?php echo $tot;?> <?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?>)</h2>
+        <div class="threeblock left">
+            <div class="blockimage">
+                <?php echo $this->Html->image('/img/35.png');?>
+            </div>
+            <div class="blockbtn">Exchange for <strong>50,000 </strong><?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?></div>
+            <hr />
+            <?php if((50000-$tot)>0){?><strong><?php echo (50000-$tot);echo '</strong> '.$this->Html->image('/img/Coins.png',array('width'=>'20px'));?> more to go.
+            <?php 
+            }
+            else
+            {
+                ?>
+                <a href="<?php echo $this->webroot;?>dashboard/exchange/50000"><?php echo $this->Html->image('/img/exchange.png');?></a>
+                <?php
+            }
+            ?>
+        </div>
+        <div class="threeblock left">
+            <div class="blockimage">
+                <?php echo $this->Html->image('/img/10.png');?>
+            </div>
+            <div class="blockbtn">Exchange for <strong>18,000</strong> <?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?></div>
+            <hr />
+            <?php if((18000-$tot)>0){?><strong><?php echo (18000-$tot);echo '</strong> '.$this->Html->image('/img/Coins.png',array('width'=>'20px'));?> more to go.
+            <?php 
+            }
+            else
+            {
+                ?>
+                <a href="<?php echo $this->webroot;?>dashboard/exchange/18000"><?php echo $this->Html->image('/img/exchange.png');?></a>
+                <?php
+            }
+            ?>
+        </div>
+        <div class="threeblocklast left">
+            <div class="blockimage">
+                <?php echo $this->Html->image('/img/5.png');?>
+            </div>
+            <div class="blockbtn">Exchange for <strong>10,000</strong> <?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?></div>
+            <hr />
+            <?php if((10000-$tot)>0){?><strong><?php echo (10000-$tot);echo '</strong> '.$this->Html->image('/img/Coins.png',array('width'=>'20px'));?> more to go.
+            <?php 
+            }
+            else
+            {
+                ?>
+                <a href="<?php echo $this->webroot;?>dashboard/exchange/10000"><?php echo $this->Html->image('/img/exchange.png');?></a>
+                <?php
+            }
+            ?>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
 </div>
