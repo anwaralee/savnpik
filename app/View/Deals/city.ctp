@@ -28,7 +28,12 @@
 				<span class="als-prev"><img src="img/thin_left_arrow_333.png" alt="prev" title="previous" /></span>
 				<div class="als-viewport">
 					<ul class="als-wrapper">
-                    <?php foreach($features as $feature){?>
+                    
+                    <?php
+                    $z=0; 
+                    foreach($features as $feature){
+                        $z++;
+                        ?>
 						
                     <?php if($feature['Deal']['image1']!="" ) {?>
                     <li class="als-item">
@@ -53,7 +58,7 @@
                             <div id="counter" class="timer">
                             
                             <?php
-                                //difference_time($feature['Deal']['expiry_date']);
+                                difference_time($feature['Deal']['expiry_date'],$z);
                             ?>
                                 
                             </div>
@@ -104,7 +109,7 @@
                             <div id="counter" class="timer">
                             
                             <?php
-                                difference_time($features[0]['Deal']['expiry_date']);
+                                difference_time($features[0]['Deal']['expiry_date'],1);
                             ?>
                                 
                             </div>
@@ -197,7 +202,7 @@
             </div>
             
             <?php
-            function difference_time($expiry)
+            function difference_time($expiry,$z=null)
             {
                 
                                 date_default_timezone_set('Asia/Kathmandu');
@@ -234,23 +239,23 @@
                                         $days++;
                                     }
                                     if($h<10)
-                                    $h1= '<span class="h">0'.$h.'</span>';
+                                    $h1= '<span class="h'.$z.'">0'.$h.'</span>';
                                     else
-                                    $h1 = '<span class="h">'.$h.'</span>';
+                                    $h1 = '<span class="h'.$z.'">'.$h.'</span>';
                                     if($m<10)
-                                    $h1 = $h1.':<span class="m">0'.$m.'</span>';
+                                    $h1 = $h1.':<span class="m'.$z.'">0'.$m.'</span>';
                                     else
-                                    $h1 = $h1.':<span class="m">'.$m.'</span>';
+                                    $h1 = $h1.':<span class="m'.$z.'">'.$m.'</span>';
                                     if($s<10)
-                                    $h1 = $h1.':<span class="s">0'.$s.'</span>';
+                                    $h1 = $h1.':<span class="s'.$z.'">0'.$s.'</span>';
                                     else
-                                    $h1 = $h1.':<span class="s">'.$s.'</span>';
+                                    $h1 = $h1.':<span class="s'.$z.'">'.$s.'</span>';
                                     
                                     
                                 }
 
                                 if($days>0){
-                                echo '<span class="d">'.$days.'</span> day';
+                                echo '<span class="d'.$z.'">'.$days.'</span> day';
                                 if($days>1)
                                 echo 's';
                                 echo ' '.$h1;
@@ -335,71 +340,86 @@
 <script>
 $(function(){
     setInterval(function(){
-        var s= $('.s').text();
-        var m= $('.m').text();
-        var h= $('.h').text();
-        var d= $('.d').text();
-        if(s=='00')
+        <?php
+        if(count($features)==1)
         {
-            var sec = '59';
-            var mi = parseInt(m);
-            if(mi==0)
+            $z=1;
+        }
+        else
+        if(count($features)<1)
+        {
+            $z=0;
+        }
+        for($i=1;$i<=$z;$i++){
+            
+        ?>
+        var s<?php echo $i?>= $('.s<?php echo $i?>').text();
+        var m<?php echo $i?>= $('.m<?php echo $i?>').text();
+        var h<?php echo $i?>= $('.h<?php echo $i?>').text();
+        var d<?php echo $i?>= $('.d<?php echo $i?>').text();
+        if(s<?php echo $i?>=='00')
+        {
+            var sec<?php echo $i?> = '59';
+            var mi<?php echo $i?> = parseInt(m<?php echo $i?>);
+            if(mi<?php echo $i?>==0)
             {
-                min = '59';
-                var ho = parseInt(h);
-                if(ho==0)
+                min<?php echo $i?> = '59';
+                var ho<?php echo $i?> = parseInt(h<?php echo $i?>);
+                if(ho<?php echo $i?>==0)
                 {
-                    var hou = '23';
-                    var da = parseInt(d);
-                    if(da==0)
+                    var hou<?php echo $i?> = '23';
+                    var da<?php echo $i?> = parseInt(d<?php echo $i?>);
+                    if(da<?php echo $i?>==0)
                     {
                         $('.limit div').html('EXPIRED');
                     }
                     else
                     {
                         da--;
-                        $('.d').html(da);
+                        $('.d<?php echo $i?>').html(da);
                     }
                 } 
                 else
                 {
-                    ho--;
+                    ho<?php echo $i?>--;
                     if(ho<10)
                     {
-                        var hou = '0'+ho;
+                        var hou<?php echo $i?> = '0'+ho;
                     }
                     else
-                    var hou = ho;
+                    var hou<?php echo $i?> = ho<?php echo $i?>;
                 }
-                $('.h').html(hou);
+                $('.h<?php echo $i?>').html(hou<?php echo $i?>);
             }
             else
             {
-                mi--;
-                if(mi<10)
+                mi<?php echo $i?>--;
+                if(mi<?php echo $i?><10)
                 {
-                    var min = '0'+mi;
+                    var min<?php echo $i?> = '0'+mi<?php echo $i?>;
                 }
                 else
-                var min = mi;
+                var min<?php echo $i?> = mi<?php echo $i?>;
                 
             }
-            $('.m').html(min);
+            $('.m<?php echo $i?>').html(min<?php echo $i?>);
                         
         }
         else
         {
-            var se = parseInt(s);
-            se--;
-            if(se<10)
-            var sec = '0'+se;
+            var se<?php echo $i?> = parseInt(s<?php echo $i?>);
+            se<?php echo $i?>--;
+            if(se<?php echo $i?><10)
+            var sec<?php echo $i?> = '0'+se<?php echo $i?>;
             else
-            var sec = se;
+            var sec<?php echo $i?> = se<?php echo $i?>;
             
         }
         //alert(sec);
-        $('.s').text(sec);
+        $('.s<?php echo $i?>').text(sec<?php echo $i?>);
+        <?php }?>
     },1000);
     
 });
-</script>
+</script> 
+
