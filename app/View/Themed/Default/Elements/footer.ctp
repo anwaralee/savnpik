@@ -66,7 +66,7 @@
                 
                 <div class="bottom-footer">
                     <div class="footer-logo">
-                        <a href=""><?php echo $this->Html->image("logo.png",array('fullBase' => true));?></a>
+                        <a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>"><?php echo $this->Html->image("logo.png",array('fullBase' => true));?></a>
                     </div>
 
                     <p class="copyright">COPYRIGHT © 2014 BY SAVENPIK.<br />

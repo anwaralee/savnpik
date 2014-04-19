@@ -26,7 +26,7 @@ $(function(){
 
 <div class="cat-header clearfix">
                     <h2>My Cart</h2>
-                    <a href="<?php echo $this->webroot;?>" class="back " >Continue Shopping</a>
+                    <a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>" class="back " >Continue Shopping</a>
                     </div>
 <?php if(count($carts)>0){?>
 <form action="<?php echo $this->webroot;?>carts/checkout" method="post">

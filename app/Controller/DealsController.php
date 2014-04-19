@@ -597,5 +597,32 @@ class DealsController extends AppController {
     	}
     	
       }
+      
+      public function subscribe()
+      {
+            $this->theme = 'default';
+            $this->loadModel('Subscribe');
+            if(isset($_POST['submit']))
+            {
+                $sub['email'] = $_POST['email'];
+                $sub['created_on'] = date('Y-m-d H:i:s');
+                if($this->Subscribe->findByEmail($sub['email']))
+                {
+                    $this->Session->setFlash('Email Already Subscribed.','default', array(), 'bad');
+                }
+                else
+                {
+                    $this->Subscribe->create();
+                    if($this->Subscribe->save($sub))
+                    {
+                       $this->Session->setFlash('Email Subscribed.','default', array(), 'good'); 
+                    }
+                }
+                //die('here');
+                $this->redirect(array('controller'=>'deals','action'=>'city',$this->Session->read('city')));   
+                
+                
+            }  
+      }
     
 }

@@ -28,6 +28,7 @@ window.fbAsyncInit = function() {
     </div>
     
     <div class="history">
+    <?php if(isset($credit) && count($credit)>0){?>
     <table class="table">
     
             <?php
@@ -49,6 +50,18 @@ window.fbAsyncInit = function() {
             
      </table>       
     </div> 
+    <?php
+     if(isset($count) && $count> 8){?>
+                        <div class="pagination clearfix">
+                        <?php echo $this->Paginator->prev("Prev", array('class'=>'prev','tag'=>'a'));?>
+                        <?php echo str_replace(" | ","",$this->Paginator->numbers(array('tag' => 'a'))); ?>
+                        <?php echo $this->Paginator->next("Next",array('class'=>'next','tag'=>'a')); ?>
+                </div>
+                <?php }?>
+     <?php }
+     else
+        echo "No Credit History.";
+     ?>       
     <h2>Earn More</h2> 
     <div class="earnmore">
         <div class="fourblock left">
@@ -78,7 +91,7 @@ window.fbAsyncInit = function() {
             <div class="blockimage">
                 <?php echo $this->Html->image('/img/purchase.png');?>
             </div>
-            <div class="blockbtn done2"><a href="<?php echo $this->webroot;?>">Purchase</a></div>
+            <div class="blockbtn done2"><a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>">Purchase</a></div>
             <span>Euqual to <br/>cost (AED)</span><?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?>
         </div>
         <div class="clearfix"></div>

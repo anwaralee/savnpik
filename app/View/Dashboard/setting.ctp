@@ -14,7 +14,7 @@
         
 		?>
         <div class="clearfix"></div>
-        <a href="javascript:void(0);" onclick="showfields();">Change Password</a>
+        <?php if($fb_id==""){?><a href="javascript:void(0);" onclick="showfields();">Change Password</a><?php }?>
         <div style="dsiplay:none;" class="passwords" style="display: block;padding:10px 0;"></div>
         <br/>
 	

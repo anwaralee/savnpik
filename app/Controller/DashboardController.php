@@ -12,12 +12,17 @@ class DashboardController extends AppController
     }
     public function index()
     {
-        $carts = $this->Sale->find('all',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id'))) );
+        $this->paginate =array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id')),'limit'=>8) ;
+        $carts = $this->paginate('Sale');
         $this->set('carts',$carts);
+        $this->set('count',$this->Sale->find('count',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id')))));
     }
+    
     function setting()
     {
         //var_dump($_POST);die();
+        $u = $this->User->findById($this->Session->read("Auth.User.id"));
+        $this->set('fb_id',$u['User']['fbid']);
         $passwordHasher = new SimplePasswordHasher();
         if(isset($_POST)&& $_POST)
         {
@@ -73,11 +78,14 @@ class DashboardController extends AppController
 
     function mycredit()
     {
+        
         $q1 = $this->User->find('first',array('conditions'=>array('User.username'=>$this->Session->read('Auth.User.username'))));
-        $q =  $this->RewardFrom->find('all',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id'))));
+        $this->paginate = array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id')),'limit'=>8);
+        $q =  $this->paginate('RewardFrom');
         //echo $this->Session->read('Auth.User.username');
         //var_dump($q);die();
         $this->set('credit',$q);
+        $this->set('count',$this->RewardFrom->find('count',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id')))));
         $this->set('tot',$q1['User']['my_coin']);
     }
     function fbshare()
@@ -183,7 +191,7 @@ class DashboardController extends AppController
                 $arr['my_coin'] = $q['User']['my_coin']-$coin;;
                 if(!$q['User']['my_balance'])
                 $q['User']['my_balance'] = 0;                
-                $arr['my_balance'] = $q['User']['my_balance'] + 5;
+                $arr['my_balance'] = $q['User']['my_balance'] + convertCurrency(5,'USD','AED');
                 $this->User->save($arr);
                 $this->RewardFrom->create();
                 $arr2['remark'] = '10,000 coin exchange';
@@ -199,7 +207,7 @@ class DashboardController extends AppController
                 $arr['my_coin'] = $q['User']['my_coin']-$coin;;
                 if(!$q['User']['my_balance'])
                 $q['User']['my_balance'] = 0;                
-                $arr['my_balance'] = $q['User']['my_balance'] + 10;
+                $arr['my_balance'] = $q['User']['my_balance'] + convertCurrency(10,'USD','AED');
                 $this->User->save($arr);
                 $this->RewardFrom->create();
                 $arr2['remark'] = '18,000 coin exchange';
@@ -215,7 +223,7 @@ class DashboardController extends AppController
                 $arr['my_coin'] = $q['User']['my_coin']-$coin;;
                 if(!$q['User']['my_balance'])
                 $q['User']['my_balance'] = 0;                
-                $arr['my_balance'] = $q['User']['my_balance'] + 35;
+                $arr['my_balance'] = $q['User']['my_balance'] + convertCurrency(35,'USD','AED');
                 $this->User->save($arr); 
                 $this->RewardFrom->create();
                 $arr2['remark'] = '50,000 coin exchange';

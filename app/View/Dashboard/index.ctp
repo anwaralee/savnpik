@@ -35,13 +35,7 @@ $(function(){
             <tr>
                 <td><?php echo $this->Html->link($cart['Deal']['name'], array('controller'=>'deal','action'=>$cart['Deal']['slug']),array('target' => '_blank'));?></td>
                 <td><?php echo $cart['Deal']['selling_price']." AED"; ?></td>
-                <td><select class="qty" onchange="$('#sum_<?php echo $cart['Cart']['id'];?>').text(Number(<?php echo $cart['Deal']['selling_price'];?>)*Number($(this).val())+' AED')">
-                        <?php for($i=1;$i<=30;$i++)
-                        {?>
-                            <option value="<?php echo $i;?>" <?php if($i == $cart['Sale']['qty'])echo "selected='selected'";?>><?php echo $i;?></option>    
-                        <?php
-                        }?>
-                    </select>
+                <td><?php echo $cart['Sale']['qty'];?>
                 </td>
                 <td id="sum_<?php echo $cart['Sale']['id'];?>" class="sum"><?php echo $cart['Sale']['price']. " AED";?></td>
                 <td>
@@ -58,7 +52,16 @@ $(function(){
         <tr><td colspan="3"></td><td><strong>Total</strong></td><td class="total"></td></tr>
         <tr class="last"><td colspan="5"></td></tr>
     </table>
-    <?php }
+    <?php
+     if(isset($count) && $count> 8){?>
+                        <div class="pagination clearfix">
+                        <?php echo $this->Paginator->prev("Prev", array('class'=>'prev','tag'=>'a'));?>
+                        <?php echo str_replace(" | ","",$this->Paginator->numbers(array('tag' => 'a'))); ?>
+                        <?php echo $this->Paginator->next("Next",array('class'=>'next','tag'=>'a')); ?>
+                </div>
+                <?php 
+                }
+    } 
     else
     {
          echo "<h3>You have no deals.</h3>";

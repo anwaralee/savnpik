@@ -77,12 +77,8 @@ if($this->params['controller']!='dashboard'){
                         <li><a href="<?php echo $this->webroot;?>dashboard">My Deals</a></li>
                         <li><a href="<?php echo $this->webroot;?>dashboard/setting">Account Settings</a></li>
                         <li><a href="<?php echo $this->webroot;?>dashboard/mycredit">My Credit</a></li>
-<<<<<<< HEAD
                         <li><a href="<?php echo $this->webroot;?>dashboard/deposit">Deposit/Exhange</a></li>
-=======
-                        <li><a href="<?php echo $this->webroot;?>dashboard/deposit">Deposit</a></li>
-
->>>>>>> e79c6ab361f3bcc1490a55bfc96cdd458bfcfa92
+                        
                         <!--<li><a href="#">Request Cheque</a></li>-->
                         
                         <li style="background: #41BA33;"> </li>                   

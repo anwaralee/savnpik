@@ -133,8 +133,8 @@ body{font-family: 'Open Sans', sans-serif; font-weight: 400; line-height: 1}
 #suscribe{ float: right; }
 #suscribe .sus-text{font-size: 14px; color: #dc0a37; margin:0 0 10px;}
 #suscribe form{ width: 375px; height: 36px; border:1px solid #dbdbdb; background:#f1f1f1;}
-#suscribe input[type='text']{color:#9c9c9c; height: 30px; padding:3px 8px; border:none; background: none; float: left; width: 240px; font-weight: 300}
-#suscribe input[type='text']:focus{ box-shadow: none}
+#suscribe input[type='email']{color:#9c9c9c; height: 30px; padding:3px 8px; border:none; background: none; float: left; width: 240px; font-weight: 300}
+#suscribe input[type='email']:focus{ box-shadow: none}
 #suscribe input[type='submit']{ height: 38px; background: #dc0a37; float: right; line-height: 38px; color: #FFF; border:none; font-size: 14px; font-weight: 300; padding: 0 15px; margin:-1px 0; transition:all 0.3s ease-in-out;-webkit-transition:all 0.3s ease-in-out;-moz-transition:all 0.3s ease-in-out;}
 #suscribe input[type='submit']:hover{ background: #C1072C}
 #main-menu{ background:url(../img/menu-bg.png) repeat-x; height: 42px; margin-bottom: 18px;}

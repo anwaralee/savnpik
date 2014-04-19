@@ -105,11 +105,19 @@ class CartsController extends AppController {
             {
                 $this->loadModel("Sale");
                 $this->loadModel("Deal");
+                $this->loadModel('RewardFrom');
+                $reward['user_id'] = $this->Session->read('Auth.User.id');
+                
                 $carts = $this->Cart->find('all',array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id'),
                    
                                                               'buy_id'=>$this->Session->read('buy_id'))));
                 foreach($carts as $c)
                 {
+                    $reward['remark'] = "Purchase of ".$c['Deal']['name']."x ".$c['Cart']['qty'];
+                    $reward['coins'] = $c['Cart']['price']*$c['Cart']['qty'];
+                    $reward['reward_date'] = date('Y-m-d');
+                    $this->RewardFrom->create();
+                    $this->RewardFrom->save($reward);
                     if($p_d = $this->Sale->find('first', array('conditions'=>array('user_id'=>$this->Session->read('Auth.User.id'),'deals_id'=>$c['Cart']['deals_id']))))
                     {
                        $this->Sale->id = $p_d['Sale']['id'];
@@ -135,6 +143,8 @@ class CartsController extends AppController {
                     
                     $this->User->id = $c['Cart']['user_id'];
                     $this->User->saveField('my_balance',$user['User']['my_balance']-$tot);
+                    $my_coins = $user['User']['my_coin']+$tot; 
+                    $this->User->saveField('my_coin',$my_coins);
                     
                     
                     $this->Cart->delete($c['Cart']['id']);

@@ -58,7 +58,7 @@
                                            )
                                         );?>  |
                     <!-- a href=""><img src="img/lang.png"></a-->
-                <?php echo $this->Html->image("lang.png",array('fullBase' => true));?>
+                    <?php echo $this->Html->image("lang.png",array('fullBase' => true));?>
 
                 <?php } ?><?php if($this->Session->read('Auth.User.username')){?>&nbsp;|&nbsp;<?php echo $this->Html->image('/img/account_and_control.png',array('url'=>'/dashboard'),array('width'=>'20px'));} ?>&nbsp;|&nbsp;<?php echo $this->Html->image('/img/carts.png',array('url'=>array('controller'=>'carts','action'=>'index')),array('width'=>'20px'));?>  
 
@@ -68,14 +68,14 @@
 
             <div id="header" class="mid-content clearfix">
                 <div id="logo">
-                <a href="<?php echo $this->webroot;?>"><?php echo $this->Html->image("logo.png");?></a>
+                <a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>"><?php echo $this->Html->image("logo.png");?></a>
                 </div>
                 
                 <div id="suscribe">
                     <div class="sus-text">Subscribe your email for daily deal alerts</div>
-                    <form action="">
-                        <input type="text" placeholder="Enter your email please">
-                        <input type="submit">
+                    <form action="<?php echo $this->webroot;?>/deals/subscribe" method="post">
+                        <input type="email" placeholder="Enter your email please" name="email">
+                        <input type="submit" name="submit">
                     </form>
                 </div>    
             </div>
