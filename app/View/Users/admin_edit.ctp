@@ -9,7 +9,6 @@
         <legend><?php echo __('Update User'); ?></legend>
         <?php  echo $this->Form->input('full_name'); ?> <br/>
         <?php echo $this->Form->input('username'); ?> <br/>
-       <?php  echo $this->Form->input('password'); ?> <br/>
         <?php  echo $this->Form->input('email'); ?> <br/>
         <?php echo $this->Form->input('role', array(
             'options' => array('1' => 'Admin')
