@@ -209,6 +209,10 @@
                                 echo 's';
                                 echo ' '.$h1;
                                 }
+                                elseif($days==0)
+                                {
+                                    echo $h1;
+                                }
                                 else
                                 echo "EXPIRED";
                                 
@@ -270,6 +274,10 @@
                                 if($days>1)
                                 echo 's';
                                 echo ' '.$h.' h remaining';
+                                }
+                                elseif($days==0)
+                                {
+                                    echo ' '.$h.' h remaining';
                                 }
                                 else
                                 echo "EXPIRED";

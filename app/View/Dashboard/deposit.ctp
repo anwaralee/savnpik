@@ -1,6 +1,6 @@
 <div id="left-content">
 <div class="cat-header clearfix">
-<h2>Deposit/Exchange: <?php echo $credit." AED";?></h2>
+<h2>Deposit:(My Balance: <?php echo $credit." AED";?>)</h2>
 
 </div>
 <div class="history">
