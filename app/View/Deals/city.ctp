@@ -104,7 +104,7 @@
                             <div id="counter" class="timer">
                             
                             <?php
-                                difference_time($features['Deal']['expiry_date']);
+                                difference_time($features[0]['Deal']['expiry_date']);
                             ?>
                                 
                             </div>
