@@ -31,6 +31,12 @@
 													array('action'=>'edit',$user['User']['id']),
 													array('class'=>'btn btn-info'));?> 
 					&nbsp;&nbsp;
+                    
+                    <?php echo $this->Html->link('View',
+													array('action'=>'view',$user['User']['id']),
+													array('class'=>'btn btn-info'));?>
+                                                    
+                    &nbsp;&nbsp;
 					
                     <?php echo $this->Form->postLink('Delete',
                                                     array('action'=>'delete',$user['User']['id']),

@@ -10,31 +10,39 @@ class UsersController extends AppController {
         'limit' => 1
     );
     
-    public function beforeFilter() {
+    /*public function beforeFilter() {
         parent::beforeFilter();
           $role = $this->Auth->User('role');
             if($role==1){
             $this->admin_logout();
         }
         
-    }
+    }*/
 
     public function admin_index() {
-        $this->set('title_for_layout','Administrators List');
+        $this->set('title_for_layout','User List');
        // $this->User->recursive = 0;
+        $this->paginate = array('conditions'=>array('User.role'=>'0'));
         $this->set('users', $this->paginate('User'));
     }
+    
     
     public function admin_loggedin(){
         
     }
 
     public function admin_view($id = null) {
-        $this->User->id = $id;
-        if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid user'));
-        }
-        $this->set('user', $this->User->read(null, $id));
+        $this->loadModel('RewardFrom');
+        $this->loadModel('Payment');
+        $this->loadModel('Sale');
+        $q = $this->User->findById($id);
+        $this->set('user',$q);
+        $q2 = $this->RewardFrom->find('all',array('conditions'=>array('user_id'=>$id)));
+        $this->set('reward',$q2);
+        $q3 = $this->Payment->find('all',array('conditions'=>array('user_id'=>$id)));
+        $this->set('payment',$q3);
+        $q4 = $this->Sale->find('all',array('conditions'=>array('user_id'=>$id)));
+        $this->set('sales',$q4);
     }
 
     public function admin_add() {
