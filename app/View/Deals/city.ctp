@@ -58,7 +58,9 @@
                             <div id="counter" class="timer">
                             
                             <?php
+
                                 difference_time($feature['Deal']['expiry_date'],$z);
+
                             ?>
                                 
                             </div>
