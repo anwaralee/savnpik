@@ -79,7 +79,7 @@ window.fbAsyncInit = function() {
             <div class="blockimage">
                 <?php echo $this->Html->image('/img/purchase.png');?>
             </div>
-            <div class="blockbtn done2">Purchase</div>
+            <div class="blockbtn done2"><a href="">Purchase</a></div>
             250<?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?>
         </div>
         <div class="clearfix"></div>

@@ -28,7 +28,8 @@
         <?php echo $this->element('header', array('cache' => false)); ?>
 
         <div id="content" class="mid-content clearfix">
-            
+            <?php echo $this->Session->flash('good'); ?>
+            <?php echo $this->Session->flash('bad'); ?>
             <!-- Main Content goes here -->
             <?php echo $content_for_layout; ?>
 
