@@ -109,7 +109,7 @@ class DashboardController extends AppController
         $this->redirect('mycredit');
         }
         
-        if($_SERVER['SERVE_NAME']=='localhost')
+        if($_SERVER['SERVER_NAME']=='localhost')
         $url = 'http://localhost/savnpik/dashboard/fbshare?update';
         else
         $url = 'http://savnpik.com/dashboard/fbshare?update';

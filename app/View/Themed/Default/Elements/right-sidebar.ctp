@@ -76,11 +76,10 @@ if($this->params['controller']!='dashboard'){
                     <ul>
                         <li><a href="<?php echo $this->webroot;?>dashboard">My Deals</a></li>
                         <li><a href="<?php echo $this->webroot;?>dashboard/setting">Account Settings</a></li>
-
                         <li><a href="<?php echo $this->webroot;?>dashboard/mycredit">My Credit</a></li>
                         <li><a href="<?php echo $this->webroot;?>dashboard/deposit">Deposit</a></li>
 
-                        <li><a href="#">Request Cheque</a></li>
+                        <!--<li><a href="#">Request Cheque</a></li>-->
                         
                         <li style="background: #41BA33;"> </li>                   
                     </ul>
