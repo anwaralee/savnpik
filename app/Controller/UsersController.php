@@ -193,7 +193,9 @@ class UsersController extends AppController {
     public function fblogout()
     {
         $url = $this->Session->read('logoutUrl');
-        $this->Session->destroy();
+        $this->Session->delete('Auth.User.id');
+        $this->Session->delete('Auth.User.email');
+        $this->Session->delete('Auth.User.username');
         $this->redirect($url);
     }
     

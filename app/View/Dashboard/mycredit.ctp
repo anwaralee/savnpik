@@ -13,14 +13,13 @@ window.fbAsyncInit = function() {
        url:'<?php echo $this->webroot;?>dashboard/like' 
     });
   });
-}
-window.fbAsyncInit = function() {
   FB.Event.subscribe('edge.remove', function(response) {
     $.ajax({
        url:'<?php echo $this->webroot;?>dashboard/unlike' 
     });
   });
 }
+
 </script>
 
     <div class="cat-header clearfix">
@@ -79,8 +78,8 @@ window.fbAsyncInit = function() {
             <div class="blockimage">
                 <?php echo $this->Html->image('/img/purchase.png');?>
             </div>
-            <div class="blockbtn done2"><a href="">Purchase</a></div>
-            250<?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?>
+            <div class="blockbtn done2"><a href="<?php echo $this->webroot;?>">Purchase</a></div>
+            <span>Euqual to <br/>cost (AED)</span><?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?>
         </div>
         <div class="clearfix"></div>
     </div>  
