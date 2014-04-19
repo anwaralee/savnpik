@@ -1,8 +1,39 @@
+    <?php echo $this->Html->script('jquery.als-1.4.min.js');?>
+    <?php echo $this->Html->css('als_demo.css');?>
+    
+		<script type="text/javascript">
+			$(document).ready(function() 
+			{
+				$("#lista1").als({
+					visible_items: 4,
+					scrolling_items: 1,
+					orientation: "horizontal",
+					circular: "yes",
+					autoscroll: "yes",
+					interval: 5000,
+					speed: 500,
+					easing: "linear",
+					direction: "left",
+					start_from: 0
+				});
+    });
+    </script>
 <div id="left-content">
-              <?php if(isset($feature) && $feature['Deal']['is_featured']==1 && $feature['Deal']['image1']!="" ) {?>
+    <?php if(isset($features)) {
+            //echo count($features);
+        if(count($features)>1){
+        //var_dump($features);
+        ?>
+	<div id="lista1" class="als-container">
+				<span class="als-prev"><img src="img/thin_left_arrow_333.png" alt="prev" title="previous" /></span>
+				<div class="als-viewport">
+					<ul class="als-wrapper">
+                    <?php foreach($features as $feature){?>
+						
+                    <?php if($feature['Deal']['image1']!="" ) {?>
+                    <li class="als-item">
                     <div id="banner">
-                        <?php echo 
-                        $this->Html->image("/files/deals/".$feature['Deal']['image1'],
+                        <?php echo $this->Html->image("/files/deals/".$feature['Deal']['image1'],
                                   array('fullBase' => true,
                                        'alt'=>'Logo',
                                        'height'=>358,
@@ -19,10 +50,10 @@
                         <div class="limit">
                             This deal can be bought over the next:<br />
                             
-                            <div>
+                            <div id="counter" class="timer">
                             
                             <?php
-                                difference_time($feature['Deal']['expiry_date']);
+                                //difference_time($feature['Deal']['expiry_date']);
                             ?>
                                 
                             </div>
@@ -39,13 +70,70 @@
                                        ));?></a>
                         </div>
                     </div>
-                    <?php }else{ ?>
+                    
+                    <?php }?>
+                    </li>
+                    <?php }?>
+                        
+						
+                    </ul>
+				</div>
+				<span class="als-next"><?php echo $this->Html->image('thin_right_arrow_333.pgn');?><!--<img src="<?php echo $this->webroot;?>/thin_right_arrow_333.png" alt="next" title="next" />--></span>
+			</div>
+              <?php }
+              else
+              {?>
+                <div id="banner">
+                        <?php echo $this->Html->image("/files/deals/".$features[0]['Deal']['image1'],
+                                  array('fullBase' => true,
+                                       'alt'=>'Logo',
+                                       'height'=>358,
+                                       'width'=>717,'url'=>'/deal/'.$features[0]['Deal']['slug']));?>
+                     
+                    </div>
+                    <div class="absolute">
+                        <div class="price">AED <strong><?php echo $features[0]['Deal']['selling_price'];?></strong></div>
+                        <div class="discount">
+                        <div class="left">Discount<br /><strong><?php echo $features[0]['Deal']['discount'];?>%</strong></div>
+                        <div class="right">You save<br />AED <strong><?php echo $features[0]['Deal']['marked_price']-$features[0]['Deal']['selling_price'];?></strong></div>
+                        <div class="clearfix"></div>
+                        </div>
+                        <div class="limit">
+                            This deal can be bought over the next:<br />
+                            
+                            <div id="counter" class="timer">
+                            
+                            <?php
+                                //difference_time($feature['Deal']['expiry_date']);
+                            ?>
+                                
+                            </div>
+                        </div>
+                        <div class="bought">
+                            <div class="left">Bought<br /><strong><?php if($features[0]['Deal']['buy_count'])echo $features[0]['Deal']['buy_count'];else echo 0;?></strong></div>
+                            <div class="right">Viewed<br /><span><?php if($features[0]['Deal']['view_count'])echo $features[0]['Deal']['view_count'];else echo 0;?></span></div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="buyy">
+                            <a href="<?php echo $this->webroot.'carts/addtocart/'.$features[0]['Deal']['id']."/".$features[0]['Deal']['selling_price'];?>"><?php echo $this->Html->image("/img/buy.jpg",
+                                  array('fullBase' => true,
+                                       'alt'=>'Logo'
+                                       ));?></a>
+                        </div>
+                    </div>
+              <?php }?>
+                    <?php }
+                    else
+                    { ?>
                     <div class="cat-header clearfix">
                     <h2><?php echo $Cat;?></h2>
                     <a href="<?php echo $this->webroot;?>" class="back" >back to home</a>
                     </div>
-                    <?php }?>
-    <?php if(!empty($cityDeals)) {$cnt = 0;?>
+                    <?php }
+                    //var_dump($cityDeals);
+                    ?>
+    <?php if(!empty($cityDeals) && count($cityDeals)>0) {
+        $cnt = 0;?>
                 <div id="block-list" class="clearfix">
                     <?php foreach($cityDeals as $deal ) {
                         //echo $deal['Deal']['id'];?>
@@ -102,7 +190,8 @@
                         <?php echo $this->Paginator->next("Next",array('class'=>'next','tag'=>'a')); ?>
                 </div>
                 <?php }?>
-    <?php } else { ?>
+    <?php }
+     else { ?>
     <h1>No Deals Found</h1>
     <?php } ?>
             </div>
@@ -159,14 +248,19 @@
                                     
                                     
                                 }
-                                if($days>0){
-                                echo $days.' day';
-                                if($days>1)
-                                echo 's';
-                                echo ' '.$h1;
+                                if($days>0)
+                                {
+                                    echo $days.' day';
+                                    if($days>1)
+                                        echo 's';
+                                    echo ' '.$h1;
+                                }
+                                elseif($days==0)
+                                {
+                                    echo $h1;
                                 }
                                 else
-                                echo "EXPIRED";
+                                    echo "EXPIRED";
                                 
                             
             }
@@ -222,10 +316,14 @@
                                     
                                 }
                                 if($days>0){
-                                echo $days.' day';
-                                if($days>1)
-                                echo 's';
-                                echo ' '.$h.' h remaining';
+                                    echo $days.' day';
+                                    if($days>1)
+                                        echo 's';
+                                    echo ' '.$h.' h remaining';
+                                }
+                                elseif($days==0)
+                                {
+                                    echo ' '.$h.' h remaining';
                                 }
                                 else
                                 echo "EXPIRED";

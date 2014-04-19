@@ -72,6 +72,7 @@ class DealsController extends AppController {
         $cond1 = array('Company.city_id' => $cityId[0]['City']['id']);
         array_push($cond, array('Deal.expiry_date >= "'.date('Y-m-d').'"'));
         array_push($cond1, array('Deal.expiry_date >= "'.date('Y-m-d').'"'));
+        array_push($cond1, array('Deal.image1 <> ""'));
          if($cat != "")
         {
             $catId = $this->DealCategory->find('first',array('conditions'=>array('DealCategory.name'=>Inflector::humanize(str_replace("-"," ",$cat)))));
@@ -82,11 +83,12 @@ class DealsController extends AppController {
         else
         {
             array_push($cond1,array('is_featured'=>'1')); 
-            if($feature =  $this->Deal->find('first',array('conditions'=>$cond1)))
+            if($features =  $this->Deal->find('all',array('conditions'=>$cond1)))
             {
-                $f_id = $feature['Deal']['id']; 
-                array_push($cond ,array('Deal.id <> '.$f_id));         
-                $this->set('feature',$feature);
+                   $f_id = $features[0]['Deal']['id']; 
+                    array_push($cond ,array('Deal.id <> '.$f_id));         
+                
+                $this->set('features',$features);
             }
         }
         $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>'8');
@@ -497,9 +499,9 @@ class DealsController extends AppController {
             $i++;
             if(!in_array($a,$filter))
             if($i==1)
-            $fin = $fin." AND (Deal.name like '%$a%'";
+                $fin = $fin." AND (Deal.name like '%$a%'";
             else
-            $fin = $fin.' OR '."Deal.name like '%$a%'";
+                $fin = $fin.' OR '."Deal.name like '%$a%'";
             
         }
         if(!empty($arr))

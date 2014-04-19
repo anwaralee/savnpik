@@ -67,11 +67,10 @@
                 </div>
                 <?php }?>
     <?php } else { ?>
-    <h1>No Deals Found</h1>
+    <h1>No Deals Found </h1>
     <?php } ?>
             </div>
-            
-            <?php
+          <?php  
             function difference_time($expiry)
             {
                 
@@ -128,6 +127,10 @@
                                 if($days>1)
                                 echo 's';
                                 echo ' '.$h1;
+                                }
+                                elseif($days==0)
+                                {
+                                    echo $h1;
                                 }
                                 else
                                 echo "EXPIRED";
@@ -190,6 +193,10 @@
                                 if($days>1)
                                 echo 's';
                                 echo ' '.$h.' h remaining';
+                                }
+                                elseif($days==0)
+                                {
+                                    echo ' '.$h.' h remaining';
                                 }
                                 else
                                 echo "EXPIRED";
