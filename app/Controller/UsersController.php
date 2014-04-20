@@ -152,10 +152,18 @@ class UsersController extends AppController {
                     else
                     $arr['username'] = $up['name'].'_'.rand(1000,9999);
                     $this->User->save($arr);
-                    $this->Session->write('Auth.User.username',$up['name']);
+                    $this->Session->write('Auth.User.username',$arr['username']);
                     //$this->Session->write('Auth.User.username',$this->request->data['User']['username']);
-                    $this->Session->write('Auth.User.email',$up['name']);
+                    $this->Session->write('Auth.User.email',$up['email']);
                     $this->Session->write('Auth.User.id',$this->User->id);
+                    
+                    $this->loadModel('RewardFrom');
+                    $arr2['user_id'] = $this->User->id;
+                    $arr2['coins'] = '200';
+                    $arr2['reward_date'] = date('Y-m-d');
+                    $arr2['remark'] = 'Registration';
+                    $this->RewardFrom->create();
+                    $this->RewardFrom->save($arr2); 
                     
                }
                else{
@@ -184,6 +192,16 @@ class UsersController extends AppController {
           
             $this->User->create();
             if ($this->User->save($this->request->data)) {
+                
+                $this->loadModel('RewardFrom');
+                    $arr2['user_id'] = $this->User->id;
+                    $arr2['coins'] = '200';
+                    $arr2['reward_date'] = date('Y-m-d');
+                    $arr2['remark'] = 'Registration';
+                    $this->RewardFrom->create();
+                    $this->RewardFrom->save($arr2);
+                
+                
                 $this->Session->write('Auth.User.username',$this->request->data['User']['username']);
                 $this->Session->write('Auth.User.email',$this->request->data['User']['email']);
                 $this->Session->write('Auth.User.id',$this->User->id);
@@ -226,6 +244,57 @@ class UsersController extends AppController {
 		
 		
 	}
+    public function gplus(){
+        //die('here');
+        $arr['email'] = $_POST['email'];
+        $arr['full_name'] = $_POST['name'];
+        //$arr['username'] = $_POST['name'];
+        $arr['fbid'] = 'gplus';
+        $q2 = $this->User->find('first',array('conditions'=>array('User.username'=>$_POST['name'])));
+        $q1 = $this->User->find('first',array('conditions'=>array('User.email'=>$_POST['email'],'fbid'=>$arr['fbid'])));
+                    if(!$q1)
+                    $this->User->create();                    
+                    //$arr['email'] = $arr['email'];
+                    //$arr['full_name'] = $up['name'];
+                    //$arr['address'] = $up['hometown']['name'];
+                    $arr['role'] = 0;
+                    
+                    $arr['status'] = 1;
+                    $arr['my_coin'] = '200';
+                    
+                    if(!$q2)
+                    $arr['username'] = $_POST['name'];
+                    else
+                    $arr['username'] = $_POST['name'].'_'.rand(1000,9999);
+                    if(!$q1){
+                    $this->User->save($arr);
+                    
+                    $this->loadModel('RewardFrom');
+                    $arr2['user_id'] = $this->User->id;
+                    $arr2['coins'] = '200';
+                    $arr2['reward_date'] = date('Y-m-d');
+                    $arr2['remark'] = 'Registration';
+                    $this->RewardFrom->create();
+                    $this->RewardFrom->save($arr2);
+                    
+                    }
+                    
+                    $this->Session->write('gplus','1');
+                    $this->Session->write('Auth.User.username',$arr['username']);
+                    //$this->Session->write('Auth.User.username',$this->request->data['User']['username']);
+                    $this->Session->write('Auth.User.email',$arr['email']);
+                    $this->Session->write('Auth.User.id',$this->User->id);
+                    
+                    die();
+    }
+    public function gpluslogout()
+    {
+        $city = $this->Session->read('city');
+        $this->Session->destroy();
+        $this->Session->write('city',$city);
+        die('here');      
+        
+    }
     
         
 }

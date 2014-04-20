@@ -9,7 +9,7 @@
         <title><?php echo $title_for_layout; ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <!--link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css"-->
         <?php echo $this->Html->css('normalize.min'); ?>
@@ -43,7 +43,7 @@
                                                
 
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        
         <!--<?php $pluvendor=$this->Html->script('pluvendor/jquery-1.10.1.min'); ?>
         <script>window.jQuery || document.write(<?php echo $pluvendor;?></script>-->
 
@@ -57,5 +57,12 @@
             g.src='//www.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
+        <script type="text/javascript">
+      (function() {
+       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+       po.src = 'https://apis.google.com/js/client:plusone.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     })();
+    </script>
     </body>
 </html>

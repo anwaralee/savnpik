@@ -18,8 +18,7 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800italic,800' rel='stylesheet' type='text/css'>
 
         <!--script src="js/vendor/modernizr-2.6.2.min.js"></script-->
-        <?php echo $this->Html->script('jquery-1.10.2.min.js',array('fullBase'=>true)); ?>
-        <?php echo $this->Html->script('jquery.als-1.4.min.js',array('fullBase'=>true)); ?>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <?php echo $this->Html->script('vendor/modernizr-2.6.2.min',array('fullBase'=>true)); ?>
     </head>
     <body>
@@ -49,7 +48,10 @@
 
 
         
-        
+        <!--<?php $pluvendor=$this->Html->script('pluvendor/jquery-1.10.1.min'); ?>
+        <script>window.jQuery || document.write(<?php echo $pluvendor;?></script>-->
+
+        <!--script src="js/plugins.js"></script-->
         <?php echo $this->Html->script('plugins',array('fullBase'=>true)); ?>
         <!--script src="js/main.js"></script-->
          <?php echo $this->Html->script('main',array('fullBase'=>true)); ?>
@@ -60,6 +62,12 @@
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
         <?php echo $this->element('sql_dump'); ?>
+        <script type="text/javascript">
+      (function() {
+       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+       po.src = 'https://apis.google.com/js/client:plusone.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     })();
+    </script>
     </body>
 </html>
-

@@ -72,7 +72,17 @@
                     given_name = resp.given_name; //get user email
                     family_name=resp.family_name;
                     id=resp.id;
-                    alert(family_name);
+                    $.ajax({
+                       data:'email='+email+'&name='+given_name+' '+family_name,
+                       url:'<?php echo $this->webroot?>users/gplus',
+                       type:'post',
+                       success:function(res)
+                       {
+                        
+                        window.location = '<?php echo $this->webroot?>';
+                       }
+                        
+                    });
                 });
             });
   } else {

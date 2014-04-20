@@ -60,6 +60,7 @@ class DealsController extends AppController {
     }
     
     public function city($city,$cat ="") {
+        $cond1= array();
         $this->Session->write('city',$city);
         $this->loadModel('City');
         $this->loadModel('DealCategory');
@@ -82,12 +83,13 @@ class DealsController extends AppController {
         }
         else
         {
+            die('here');
             array_push($cond1,array('is_featured'=>'1')); 
-            if($features =  $this->Deal->find('all',array('conditions'=>$cond1)))
+            if($feature =  $this->Deal->find('first',array('conditions'=>$cond1)))
             {
-                   $f_id = $features[0]['Deal']['id']; 
+                   $f_id = $feature['Deal']['id']; 
                     array_push($cond ,array('Deal.id <> '.$f_id));         
-                
+                $features[0] =$feature;
                 $this->set('features',$features);
             }
         }
