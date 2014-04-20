@@ -49,7 +49,7 @@ window.fbAsyncInit = function() {
             ?>
             
      </table>       
-    </div> 
+    
     <?php
      if(isset($count) && $count> 8){?>
                         <div class="pagination clearfix">
@@ -61,7 +61,8 @@ window.fbAsyncInit = function() {
      <?php }
      else
         echo "No Credit History.";
-     ?>       
+     ?>   
+     </div>     
     <h2>Earn More</h2> 
     <div class="earnmore">
         <div class="fourblock left">

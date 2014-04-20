@@ -29,7 +29,7 @@
                 <div class="login-register">
 					 <?php if($this->Session->read('Auth.User.username')){
                         echo 'Welcome, '.ucfirst($this->Session->read('Auth.User.username'));
-                     ?>&nbsp;|&nbsp;<?php if(!$this->Session->read('logoutUrl')){echo $this->Html->link(
+                     ?>&nbsp;|&nbsp;<?php if(!$this->Session->read('logoutUrl') && !$this->Session->read('gplus')){echo $this->Html->link(
                                     'Log Out',
                                         array('full_base' => true,
                                             'controller' => 'users',
@@ -37,9 +37,15 @@
                                             )
                                         );}
                                         else
+                                        if(!$this->Session->read('gplus'))                                        
                                         {
                                             echo $this->Html->link('Log Out','/users/fblogout');                                       
                                         }
+                                        else
+                                        {
+                                            echo $this->Html->link('Log Out','#',array('class'=>'gplus'));
+                                                                                    
+                                        }                                                                                
                                         ?>   
                     <?php } else { ?>
                    
@@ -112,3 +118,19 @@
             </nav>
 
         </header>  
+        <script>
+        $(function(){
+           $('.gplus').click(function(){
+              window.open('https://mail.google.com/mail/u/0/?logout&hl=en','_blank');
+              $.ajax({
+                url:'<?php echo $this->webroot?>users/gpluslogout'
+              });
+              setTimeout( delayit, 3000 );
+                
+           }); 
+        });
+        function delayit()
+        {
+            window.location = '<?php echo $this->webroot;?>users/register';
+        }
+        </script>

@@ -60,6 +60,7 @@ class DealsController extends AppController {
     }
     
     public function city($city,$cat ="") {
+        $cond1= array();
         $this->Session->write('city',$city);
         $this->loadModel('City');
         $this->loadModel('DealCategory');
@@ -82,14 +83,20 @@ class DealsController extends AppController {
         }
         else
         {
+            //die('here');
+            $this->set('nocat',1);
             array_push($cond1,array('is_featured'=>'1')); 
-            if($features =  $this->Deal->find('all',array('conditions'=>$cond1)))
+            if($feature =  $this->Deal->find('first',array('conditions'=>$cond1)))
             {
-                   $f_id = $features[0]['Deal']['id']; 
-                    array_push($cond ,array('Deal.id <> '.$f_id));         
                 
+                   $f_id = $feature['Deal']['id']; 
+                    array_push($cond ,array('Deal.id <> '.$f_id));         
+                $features[0] =$feature;
                 $this->set('features',$features);
             }
+            else
+            $this->set('features',array());
+
         }
         $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>'8');
         $deal = $this->paginate('Deal');
@@ -562,7 +569,8 @@ class DealsController extends AppController {
             $this->set('content',$content); 
             
         }
-           public function convertCurrency($amount, $from, $to)
+           
+    public function convertCurrency($amount, $from, $to)
     {
         $url  = "https://www.google.com/finance/converter?a=$amount&from=$from&to=$to";
         $data = file_get_contents($url);
@@ -582,6 +590,9 @@ class DealsController extends AppController {
         $payment['on_date'] = date('Y-m-d H:i:s');
         $payment['stat'] = $_POST['payment_status'];
         $payment['info'] = $a;
+        $payment['remarks'] = "Amount Added From Paypal.";
+        $credit = $this->convertCurrency($_POST['mc_gross'],"USD","AED");
+        $payment['amount'] = $credit;
         $this->Payment->create();
         $this->Payment->save($payment);
         
