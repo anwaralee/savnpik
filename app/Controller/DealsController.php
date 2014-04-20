@@ -14,7 +14,7 @@ class DealsController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session');
+	public $components = array('Paginator', 'Session','Email');
     
     public $theme = 'admin';
     
@@ -634,6 +634,37 @@ class DealsController extends AppController {
                 
                 
             }  
+      }
+      
+      public function contact()
+      {
+        if(isset($_POST['submit']))
+        {
+            $email = $_POST['email'];
+            $name = $_POST['name'];
+            $to = $email;
+            $phone = $_POST['phone'];
+            $msg = $_POST['msg'];
+            $emails = new CakeEmail();
+            $emails->to($to);
+            $emails->from(array('noreply@savnpik.com'=>'Veritas'));
+            $emails->subject("Contact From Savnpik.com");
+            $emails->emailFormat('html');
+            $msg = "Hi there,<br/>There is a contact message for you from Savnpik.com.<br/>Here is the detail of contact request.<br/><br/>";
+            $msg .= "Name: ".$name."<br/> Email: ".$email."<br/> Phone No: ".$phone."<br/> Message: ".$msg;
+            if($emails->send($msg))
+            {
+                $this->Session->setFlash("Your message has been sent successfully.",'default',array(),'good');
+            }
+            
+            
+        }
+        else
+        {
+            $this->Session->setFlash("Sorry, Your message couldnot be sent.",'default',array(),'good');
+        }
+        $this->redirect(array('controller'=>'deals','action'=>'city',$this->Session->read('city')));
+        
       }
     
 }
