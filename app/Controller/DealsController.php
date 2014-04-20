@@ -562,7 +562,8 @@ class DealsController extends AppController {
             $this->set('content',$content); 
             
         }
-           public function convertCurrency($amount, $from, $to)
+           
+    public function convertCurrency($amount, $from, $to)
     {
         $url  = "https://www.google.com/finance/converter?a=$amount&from=$from&to=$to";
         $data = file_get_contents($url);
@@ -582,6 +583,9 @@ class DealsController extends AppController {
         $payment['on_date'] = date('Y-m-d H:i:s');
         $payment['stat'] = $_POST['payment_status'];
         $payment['info'] = $a;
+        $payment['remarks'] = "Amount Added From Paypal.";
+        $credit = $this->convertCurrency($_POST['mc_gross'],"USD","AED");
+        $payment['amount'] = $credit;
         $this->Payment->create();
         $this->Payment->save($payment);
         

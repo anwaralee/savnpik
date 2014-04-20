@@ -25,7 +25,7 @@
         //var_dump($features);
         ?>
 	<div id="lista1" class="als-container">
-				<span class="als-prev"><img src="img/thin_left_arrow_333.png" alt="prev" title="previous" /></span>
+				<!--<span class="als-prev"><img src="img/thin_left_arrow_333.png" alt="prev" title="previous" /></span>-->
 				<div class="als-viewport">
 					<ul class="als-wrapper">
                     
@@ -85,7 +85,7 @@
 						
                     </ul>
 				</div>
-				<span class="als-next"><?php echo $this->Html->image('thin_right_arrow_333.pgn');?><!--<img src="<?php echo $this->webroot;?>/thin_right_arrow_333.png" alt="next" title="next" />--></span>
+				<!--<span class="als-next"><?php echo $this->Html->image('thin_right_arrow_333.pgn');?></span>-->
 			</div>
               <?php }
               else
@@ -131,9 +131,7 @@
               <?php }?>
                     <?php }
                     else
-                    if(isset($Cat))
-                    {
-                        ?>
+                    { ?>
                     <div class="cat-header clearfix">
                     <h2><?php echo $Cat;?></h2>
                     <a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>" class="back" >back to home</a>

@@ -40,7 +40,7 @@
                                 <?php echo $this->Form->input('address',array('div'=>array('class'=>'form-row'),'type'=>'text')); ?>
                                 <?php echo $this->Form->input('username',array('div'=>array('class'=>'form-row'))); ?>
                                <?php  echo $this->Form->input('password',array('div'=>array('class'=>'form-row'))); ?>
-                                <?php  echo $this->Form->input('confirm_password',array('div'=>array('class'=>'form-row'))); ?>
+                                <?php  echo $this->Form->input('confirm_password',array('div'=>array('class'=>'form-row'),'type'=>'password')); ?>
                                 
                              <br/>
                              
