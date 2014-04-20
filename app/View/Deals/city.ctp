@@ -131,7 +131,9 @@
               <?php }?>
                     <?php }
                     else
-                    { ?>
+                    if(isset($Cat))
+                    {
+                        ?>
                     <div class="cat-header clearfix">
                     <h2><?php echo $Cat;?></h2>
                     <a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>" class="back" >back to home</a>
