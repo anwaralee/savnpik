@@ -16,7 +16,11 @@
     <fieldset>
         <legend><?php echo __('Update Page'); ?></legend>
         <?php  echo $this->Form->input('title',array('label'=>'Title')); ?> <br/>
-		<?php  echo $this->Form->input('desc',array('label'=>'Description')); ?> <br/>
+		<div class="input textarea">
+        <label for="PageDesc">Page Description</label>
+        <textarea id="PageDesc" class="form-control ckeditor" rows="6" cols="30" name="data[Page][desc]"><?php echo $this->request->data['Page']['desc'];?></textarea>
+        </div>
+        <br/>
         <?php $options = array('1' => ' Enabled', '0' => 'Disabled');
 			  $attributes = array('legend' => 'Status','separator'=>'<br/>');
 			echo $this->Form->radio('status', $options, $attributes);?>

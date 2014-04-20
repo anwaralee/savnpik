@@ -15,6 +15,7 @@
         <?php echo $this->Html->css('normalize.min',array('fullBase'=>true)); ?>
         <?php echo $this->Html->css('main',array('fullBase'=>true)); ?>
         
+        
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800italic,800' rel='stylesheet' type='text/css'>
 
         <!--script src="js/vendor/modernizr-2.6.2.min.js"></script-->

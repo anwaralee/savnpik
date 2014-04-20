@@ -9,14 +9,14 @@ class PagesController extends AppController{
 	
 		public $uses = array('Page', 'PageCategory');
 		
-		public function beforeFilter() {
+		/*public function beforeFilter() {
 			parent::beforeFilter();
 			$role = $this->Auth->User('role');
             if($role!=2){
 				$this->redirect($this->Auth->logout());
 			}
         
-		}
+		}*/
 		
         public function admin_index(){
             
