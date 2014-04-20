@@ -3,7 +3,7 @@
 <h2><?php echo ucwords($content['Page']['title']);?></h2>
 <a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>" class="back" >back to home</a>
 </div>
-<div class="pages clearfix" style="margin: 10px; padding: 0px 5px;">
+<div class="pages clearfix" style="margin: 10px 0; line-height: 25px;">
 <?php echo $content['Page']['desc'];?>
 <?php if(strtolower($this->params['pass']['0'])=='contact_us'){
    echo $this->Html->css('validation.css');
