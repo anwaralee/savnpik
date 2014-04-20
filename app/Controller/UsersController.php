@@ -10,14 +10,14 @@ class UsersController extends AppController {
         'limit' => 1
     );
     
-    /*public function beforeFilter() {
+    public function beforeFilter() {
         parent::beforeFilter();
           $role = $this->Auth->User('role');
             if($role==1){
             $this->admin_logout();
         }
         
-    }*/
+    }
 
     public function admin_index() {
         $this->set('title_for_layout','User List');
@@ -156,6 +156,13 @@ class UsersController extends AppController {
                     //$this->Session->write('Auth.User.username',$this->request->data['User']['username']);
                     $this->Session->write('Auth.User.email',$up['name']);
                     $this->Session->write('Auth.User.id',$this->User->id);
+                    $arr2['coins'] = 200;
+                    $arr2['remark'] = 'Registration';
+                    $arr2['user_id'] = $this->User->id;
+                    $arr2['reward_date'] = date('Y-m-d');
+                    $this->loadModel('RewardFrom');
+                    $this->RewardFrom->create();
+                    $this->RewardFrom->save($arr2);
                     
                }
                else{
@@ -189,6 +196,13 @@ class UsersController extends AppController {
                 $this->Session->write('Auth.User.id',$this->User->id);
                 $this->Session->setFlash('You have been registered succesfully. Please login to continue','alert-box',array('class'=>'alert alert-success alert-dismissable'),'save');
                 return $this->redirect('/');
+                    $arr2['coins'] = 200;
+                    $arr2['remark'] = 'Registration';
+                    $arr2['user_id'] = $this->User->id;
+                    $arr2['reward_date'] = date('Y-m-d');
+                    $this->loadModel('RewardFrom');
+                    $this->RewardFrom->create();
+                    $this->RewardFrom->save($arr2);
             }
            $this->Session->setFlash('User could not be added','alert-box',array('class'=>'alert alert-warning alert-dismissable'),'warning');
         }
