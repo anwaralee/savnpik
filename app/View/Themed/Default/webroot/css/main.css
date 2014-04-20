@@ -141,10 +141,11 @@ body{font-family: 'Open Sans', sans-serif; font-weight: 400; line-height: 1}
 #main-menu ul{ margin: 0; padding: 0; display: table;}
 #main-menu ul li{ display:table-cell; text-align:center;font-size: 14px; color: #FFF; line-height: 42px; padding: 0 11.5px; background: url(../img/menu-border.png) no-repeat scroll right center; white-space: nowrap;}
 #main-menu ul li a:hover{color:#F0E100;}
-#main-menu ul li.active{background:#DC0A37;color:#F0E100;}
+#main-menu ul li.active{color:#F0E100;}
 #main-menu ul li.active a{color:#F0E100;}
 #main-menu ul li:last-child{ background:none;}
 #main-menu ul li a{ color: #FFF; text-decoration: none;}
+
 
 #banner{ margin-bottom: 10px;}
 .event-block{ width:349px; float: left; margin:0 18px 18px 0}
@@ -234,6 +235,10 @@ body{font-family: 'Open Sans', sans-serif; font-weight: 400; line-height: 1}
 .sidebar-list ul li span{ float: right;}
 .sidebar-list ul li:first-child{ border-top: none}
 .sidebar-list ul li:last-child{ border-bottom: none}
+.sidebar-list ul li a:hover{background:#e5e5e5;}
+.sidebar-list ul li:hover{background:#e5e5e5;}
+.sidebar-list ul li.active{background:#e5e5e5;}
+.sidebar-list ul li.active a{background:#e5e5e5;}
 
 .form-row{ margin-bottom: 10px;}
 .form-row label{ display: block;font-size: 13px; font-weight: 300; color: #474747; margin-bottom: 5px; line-height: 16px}
