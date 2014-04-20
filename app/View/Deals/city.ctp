@@ -19,9 +19,9 @@
     });
     </script>
 <div id="left-content">
-    <?php if(isset($features)) {
+    <?php if(isset($features) || isset($nocat)) {
             //echo count($features);
-        if(count($features)>1){
+        if($features && count($features)>1){
         //var_dump($features);
         ?>
 	<div id="lista1" class="als-container">
@@ -89,6 +89,7 @@
 			</div>
               <?php }
               else
+              if($features)
               {?>
                 <div id="banner">
                         <?php echo $this->Html->image("/files/deals/".$features[0]['Deal']['image1'],

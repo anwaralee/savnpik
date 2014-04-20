@@ -83,15 +83,20 @@ class DealsController extends AppController {
         }
         else
         {
-            die('here');
+            //die('here');
+            $this->set('nocat',1);
             array_push($cond1,array('is_featured'=>'1')); 
             if($feature =  $this->Deal->find('first',array('conditions'=>$cond1)))
             {
+                
                    $f_id = $feature['Deal']['id']; 
                     array_push($cond ,array('Deal.id <> '.$f_id));         
                 $features[0] =$feature;
                 $this->set('features',$features);
             }
+            else
+            $this->set('features',array());
+
         }
         $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>'8');
         $deal = $this->paginate('Deal');
