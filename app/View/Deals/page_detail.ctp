@@ -1,5 +1,9 @@
 <div id="left-content">
+<div class="cat-header clearfix">
 <h2><?php echo ucwords($content['Page']['title']);?></h2>
+<a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>" class="back" >back to home</a>
+</div>
+<div class="pages clearfix" style="margin: 10px; padding: 0px 5px;">
 <?php echo $content['Page']['desc'];?>
 <?php if(strtolower($this->params['pass']['0'])=='contact_us'){
    echo $this->Html->css('validation.css');
@@ -49,4 +53,5 @@ $(function(){
                         <div id="msg"></div>
                     </div><!-- Contact Form Ends here -->
                     <?php }?>
+    </div>
 </div>
