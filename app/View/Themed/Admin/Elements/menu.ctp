@@ -140,6 +140,30 @@
                 
               </ul>
             </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advertisements <b class="caret"></b></a>
+              <ul class="dropdown-menu"> 
+                <li><?php echo $this->Html->link(
+                                    'Add Advertisement',
+                                        array('full_base' => true,
+                                            'controller' => 'ads',
+                                            'action' => 'add',
+                                            'admin' => true
+                                        )
+                                        );?>
+                 </li>
+                 <li><?php echo $this->Html->link(
+                                    'List Advertisement',
+                                        array('full_base' => true,
+                                            'controller' => 'ads',
+                                            'action' => 'index',
+                                            'admin' => true
+                                        )
+                                        );?>
+                 </li>
+                 
+              </ul> 
+            </li>
               
             <?php } else { ?>
             

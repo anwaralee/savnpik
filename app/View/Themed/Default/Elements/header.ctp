@@ -79,7 +79,7 @@
                 
                 <div id="suscribe">
                     <div class="sus-text">Subscribe your email for daily deal alerts</div>
-                    <form action="<?php echo $this->webroot;?>/deals/subscribe" method="post">
+                    <form action="<?php echo $this->webroot;?>deals/subscribe" method="post">
                         <input type="email" placeholder="Enter your email please" name="email">
                         <input type="submit" name="submit">
                     </form>
