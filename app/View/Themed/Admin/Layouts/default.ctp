@@ -10,28 +10,34 @@
     
         <!-- JavaScript -->
     <!--script src="js/jquery-1.10.2.js"></script-->
-      
+    <?php echo $this->Html->script('jquery-1.10.2',array('fullBase'=>true));?>  
     <!--script src="js/bootstrap.js"></script-->
 
     <!-- Page Specific Plugins -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+    <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>-->
     <!--script src="js/morris/chart-data-morris.js"></script>
     <script src="js/tablesorter/jquery.tablesorter.js"></script>
     <script src="js/tablesorter/tables.js"></script-->
     
-    <?php echo $this->Html->script('jquery-1.10.2',array('fullBase'=>true));?>
+    
     
     <?php echo $this->Html->script('bootstrap',array('fullBase'=>true));?>
     
-    <?php echo $this->Html->script('morris/chart-data-morris',array('fullBase'=>true));?>
-        <?php $this->Html->script('tablesorter/jquery.tablesorter',array('fullBase'=>true));?>
-        <?php $this->Html->script('tablesorter/tables',array('fullBase'=>true));?>
+    <?php $this->Html->script('morris/chart-data-morris',array('fullBase'=>true));?>
+    <?php $this->Html->script('tablesorter/jquery.tablesorter',array('fullBase'=>true));?>
+    <?php echo $this->Html->script('jquery-ui-1.10.4.min.js');?>
+        
+    <?php $this->Html->script('tablesorter/tables',array('fullBase'=>true));
+           echo $this->Html->css('validation.css');
+           echo $this->Html->script('validationEngine.js');
+           echo $this->Html->script('validationEngine-En.js'); ?>
       
     <!-- Bootstrap core CSS -->
     <!--link href="css/bootstrap.css" rel="stylesheet"-->
    
     <?php echo $this->Html->css('bootstrap',array('fullBase'=>true)); ?>
+    <?php echo $this->Html->css('jquery.ui',array('fullBase'=>true)); ?>
  
   
     <!-- Add custom CSS here -->
