@@ -18,14 +18,17 @@ class DealsController extends AppController {
     
     public $theme = 'admin';
     
-    public function beforeFilter() {
+     public function beforeFilter() {
 			parent::beforeFilter();
 			$role = $this->Auth->User('role');
-            if($role==2){
-				$this->redirect($this->Auth->logout());
+            $this->Auth->allow('city');
+            //var_dump($role);
+            if(isset($role)&& $role!=2){
+				$this->redirect("/admin/users/login");
 			}
         
 		}
+    
    
 /**
  * index method

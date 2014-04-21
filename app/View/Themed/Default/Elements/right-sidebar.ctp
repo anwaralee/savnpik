@@ -4,7 +4,15 @@ if($this->params['controller']!='dashboard'){
 ?>
                 <div id="ads">
                     <div class="ad-banner"><?php echo $this->Html->link($this->Html->image("sharing.jpg",array('fullBase' => true)),array('controller'=>'dashboard','action'=>'fbshare'),array('escape'=>FALSE));?></div>
-                    <div class="ad-banner"><?php echo $this->Html->image("dubai.jpg",array('fullBase' => true));?></div>
+                    <div class="ad-banner">
+                        <?php if($ad = $this->requestAction(array('controller'=>'ads','action'=>'get_ad')))
+                                    echo $this->Html->image("/files/ads/".$ad['Ad']['image'],
+                                        array('fullBase' => true,
+                                        'alt'=>$ad['Ad']['alt'],
+                                       'height'=>245,
+                                       'width'=>273,'url'=>$ad['Ad']['url']));
+                                else
+                            echo $this->Html->image("dubai.jpg",array('fullBase' => true));?></div>
                 </div>
 
                 <div class="social-counts">

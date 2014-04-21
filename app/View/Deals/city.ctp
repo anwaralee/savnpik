@@ -378,16 +378,16 @@ $(function(){
                     }
                     else
                     {
-                        da--;
-                        $('.d<?php echo $i?>').html(da);
+                        da<?php echo $i?>--;
+                        $('.d<?php echo $i?>').html(da<?php echo $i?>);
                     }
                 } 
                 else
                 {
                     ho<?php echo $i?>--;
-                    if(ho<10)
+                    if(ho<?php echo $i?><10)
                     {
-                        var hou<?php echo $i?> = '0'+ho;
+                        var hou<?php echo $i?> = '0'+ho<?php echo $i?>;
                     }
                     else
                     var hou<?php echo $i?> = ho<?php echo $i?>;

@@ -26,19 +26,24 @@
 			?>
 			<tr>
 				<td><?php echo $i;?></td>
-                <td><?php echo $page['Ads']['image'];?></td>
-				<td><?php echo $page['Ads']['url'];?></td>
-                <td><?php echo $page['Ads']['alt']?></td>
-				<td><?php echo $page['Ads']['start_date'];?></td>
-                <td><?php echo $page['Ads']['end_date'];?></td>
+                <td><?php echo $this->Html->image("/files/ads/".$page['Ad']['image'],
+                                  array('fullBase' => true,
+                                       'alt'=>'Ads',
+                                       'height'=>67.3,
+                                       'width'=>64.5));?>
+                </td>
+				<td><?php echo $page['Ad']['url'];?></td>
+                <td><?php echo $page['Ad']['alt']?></td>
+				<td><?php echo $page['Ad']['start_date'];?></td>
+                <td><?php echo $page['Ad']['end_date'];?></td>
 				<td> 
                     <?php echo $this->Html->link('Edit',
-													array('action'=>'edit',$page['Ads']['id']),
+													array('action'=>'edit',$page['Ad']['id']),
 													array('class'=>'btn btn-info'));?> 
 					&nbsp;&nbsp;
 					
                     <?php echo $this->Form->postLink('Delete',
-                                                    array('action'=>'delete',$page['Ads']['id']),
+                                                    array('action'=>'delete',$page['Ad']['id']),
                                                     array('class'=>'btn btn-danger'),
                                                    'Are you sure you want to delete?' );?>
                                                 

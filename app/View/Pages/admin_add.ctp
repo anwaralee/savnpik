@@ -16,7 +16,11 @@
     <fieldset>
         <legend><?php echo __('Add Page'); ?></legend>
         <?php  echo $this->Form->input('title',array('label'=>'Page Title')); ?> <br/>
-		<?php  echo $this->Form->input('desc',array('label'=>'Page Description')); ?> <br/>
+		<div class="input textarea">
+<label for="PageDesc">Page Description</label>
+<textarea id="PageDesc" class="form-control ckeditor" rows="6" cols="30" name="data[Page][desc]"></textarea>
+</div>
+<br>
 
 		<?php  echo $this->Form->input('page_category_id'); ?>
 		

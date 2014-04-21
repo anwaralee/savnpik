@@ -24,10 +24,30 @@
 		echo $this->Form->input('name');
 		echo $this->Form->input('deal_category_id');
 		echo $this->Form->input('company_id');
-        echo $this->Form->input('description');
-		echo $this->Form->input('highlights');
+        ?>
+        <div class="input textarea required">
+<label for="DealDescription">Description</label>
+<textarea id="DealDescription" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][description]">
+
+</textarea>
+</div>
+<div class="input textarea required">
+<label for="DealHighlights">Highlights</label>
+<textarea id="DealHighlights" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][highlights]">
+
+</textarea>
+</div>
+<div class="input textarea required">
+<label for="DealConditions">Conditions</label>
+<textarea id="DealConditions" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][conditions]">
+
+</textarea>
+</div>
+
+        <?php
+		//echo $this->Form->input('highlights');
         
-		echo $this->Form->input('conditions');
+		//echo $this->Form->input('conditions');
 		echo $this->Form->input('threshold');
         
 		echo $this->Form->input('marked_price',array('onchange'=>'calculatePrice()'));
