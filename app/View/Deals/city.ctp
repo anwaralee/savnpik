@@ -18,6 +18,12 @@
 				});
     });
     </script>
+    <?php
+    if($this->Session->read('lang')=='e')
+        $l='e';
+    else
+        $l='a';
+    ?>
 <div id="left-content">
     <?php if(isset($features) || isset($nocat)) {
             //echo count($features);
@@ -46,7 +52,7 @@
                      
                     </div>
                     <div class="absolute">
-                        <div class="price">AED <strong><?php echo $feature['Deal']['selling_price'];?></strong></div>
+                        <div class="price"><?php if($this->Session->read('lang')=='e'){?>AED<?php }else echo "درهم";?> <strong><?php echo $feature['Deal']['selling_price'];?></strong></div>
                         <div class="discount">
                         <div class="left">Discount<br /><strong><?php echo $feature['Deal']['discount'];?>%</strong></div>
                         <div class="right">You save<br />AED <strong><?php echo $feature['Deal']['marked_price']-$feature['Deal']['selling_price'];?></strong></div>
@@ -71,7 +77,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="buyy">
-                            <a href="<?php echo $this->webroot.'carts/addtocart/'.$feature['Deal']['id']."/".$feature['Deal']['selling_price'];?>"><?php echo $this->Html->image("/img/buy.jpg",
+                            <a href="<?php echo $this->webroot.'deal/'.$feature['Deal']['slug'];?>"><?php echo $this->Html->image("/img/buy.jpg",
                                   array('fullBase' => true,
                                        'alt'=>'Logo'
                                        ));?></a>
@@ -100,33 +106,43 @@
                      
                     </div>
                     <div class="absolute">
-                        <div class="price">AED <strong><?php echo $features[0]['Deal']['selling_price'];?></strong></div>
+                        <div class="price"><?php if($this->Session->read('lang')=='e'){?>AED<?php }else echo "درهم";?> <strong><?php echo $features[0]['Deal']['selling_price'];?></strong></div>
                         <div class="discount">
-                        <div class="left">Discount<br /><strong><?php echo $features[0]['Deal']['discount'];?>%</strong></div>
-                        <div class="right">You save<br />AED <strong><?php echo $features[0]['Deal']['marked_price']-$features[0]['Deal']['selling_price'];?></strong></div>
+                        <div class="left"><?php if($this->Session->read('lang')=='e'){?>Discount<?php }else echo "خصم";?><br /><strong><?php echo $features[0]['Deal']['discount'];?>%</strong></div>
+                        <div class="right">
+                        <?php if($this->Session->read('lang')=='e'){?>You save<?php }else echo "يمكنك حفظ";?><br /><?php if($this->Session->read('lang')=='e'){?>AED<?php }else echo "درهم";?> <strong><?php echo $features[0]['Deal']['marked_price']-$features[0]['Deal']['selling_price'];?></strong></div>
                         <div class="clearfix"></div>
                         </div>
                         <div class="limit">
-                            This deal can be bought over the next:<br />
+                            <?php if($this->Session->read('lang')=='e'){?>This deal can be bought over the next:<?php }else echo "ويمكن شراء هذه الصفقة على مدى القادمة";?><br />
                             
                             <div id="counter" class="timer">
                             
                             <?php
-                                difference_time($features[0]['Deal']['expiry_date'],1);
+                                difference_time($features[0]['Deal']['expiry_date'],1,$this->Session->read('lang'));
                             ?>
                                 
                             </div>
                         </div>
                         <div class="bought">
-                            <div class="left">Bought<br /><strong><?php if($features[0]['Deal']['buy_count'])echo $features[0]['Deal']['buy_count'];else echo 0;?></strong></div>
-                            <div class="right">Viewed<br /><span><?php if($features[0]['Deal']['view_count'])echo $features[0]['Deal']['view_count'];else echo 0;?></span></div>
+                            <div class="left"><?php if($this->Session->read('lang')=='e'){?>Bought<?php }else echo "اشترى";?><br /><strong><?php if($features[0]['Deal']['buy_count'])echo $features[0]['Deal']['buy_count'];else echo 0;?></strong></div>
+                            <div class="right"><?php if($this->Session->read('lang')=='e'){?>Viewed<?php }else echo "شوهدت";?><br /><span><?php if($features[0]['Deal']['view_count'])echo $features[0]['Deal']['view_count'];else echo 0;?></span></div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="buyy">
-                            <a href="<?php echo $this->webroot.'carts/addtocart/'.$features[0]['Deal']['id']."/".$features[0]['Deal']['selling_price'];?>"><?php echo $this->Html->image("/img/buy.jpg",
+                            <?php if($this->Session->read('lang')=='e'){?>  
+                            <a href="<?php echo $this->webroot.'deal/'.$features[0]['Deal']['slug'];?>"><?php echo $this->Html->image("/img/buy.jpg",
                                   array('fullBase' => true,
                                        'alt'=>'Logo'
                                        ));?></a>
+                                       <?php }else{
+                                        ?>
+                                        <a href="<?php echo $this->webroot.'deal/'.$features[0]['Deal']['slug'];?>"><?php echo $this->Html->image("/img/buy1.png",
+                                  array('fullBase' => true,
+                                       'alt'=>'Logo'
+                                       ));?></a>            
+                                        <?php
+                                       }?>
                         </div>
                     </div>
               <?php }?>
@@ -173,17 +189,18 @@
                         </div>
                         <div class="event-detail">
                             <div class="short-desc">
-                            <h2><?php echo $this->Html->link($deal['Deal']['name'],'/deal/'.$deal['Deal']['slug']);?></h2>
-                         <?php echo substr($deal['Deal']['description'],0,150);?>
+                            <h2><?php if($l=='e')echo $this->Html->link($deal['Deal']['name'],'/deal/'.$deal['Deal']['slug']);
+                                        else echo $this->Html->link($deal['Deal']['name_arabic'],'/deal/'.$deal['Deal']['slug']);?></h2>
+                         <?php if($l=='e')echo substr($deal['Deal']['description'],0,150);else echo substr($deal['Deal']['description_arabic'],0,150);?>
                             </div>
 
                             <div class="event-desc clearfix">
                                 <div class="time-discount">
-                                <div class="time-remaining"><?php difference_time2($deal['Deal']['expiry_date']);?></div> 
+                                <div class="time-remaining"><?php difference_time2($deal['Deal']['expiry_date'],$this->Session->read('lang'));?></div> 
                                 <div class="save"><?php echo $deal['Deal']['discount']."%";?></div>
                                 </div>
 
-                                <a class="bttn" href="<?php echo $this->webroot;?>carts/addtocart/<?php echo $deal['Deal']['id']."/".$deal['Deal']['selling_price'];?>"><span>AED</span> <?php echo $deal['Deal']['selling_price'];?></a>
+                                <a class="bttn" href="<?php echo $this->webroot;?>deal/<?php echo $deal['Deal']['slug']?>"><span><?php if($this->Session->read('lang')=='e'){?>AED<?php }else echo "درهم";?></span> <?php echo $deal['Deal']['selling_price'];?></a>
                             </div>
                         </div>
                     </div>
@@ -200,12 +217,12 @@
                 <?php }?>
     <?php }
      else { ?>
-    <h1>No Deals Found</h1>
+    <h1><?php echo ($this->Session->read('lang')=='a')?"لم يتم العثور عروض":"No Deals Found";?></h1>
     <?php } ?>
             </div>
             
             <?php
-            function difference_time($expiry,$z=null)
+            function difference_time($expiry,$z=null,$sess)
             {
                 
                                 date_default_timezone_set('Asia/Kathmandu');
@@ -258,25 +275,35 @@
                                 }
 
                                 if($days>0){
-                                echo '<span class="d'.$z.'">'.$days.'</span> day';
-                                if($days>1)
-                                echo 's';
+                                if($sess=='e')    
+                                $ddd = '<span style="display:inline-block;"><span class="d'.$z.'">'.$days.'</span> day';
+                                else
+                                $ddd = '<span style="display:inline-block;width:70px;"><span class="d'.$z.'">'.$days.'</span> day';
+                                if($days>1){
+                                $ddd = $ddd. 's</span>';
+                                }
+                                else
+                                $ddd = $ddd. '</span>';
+                                if($sess=='a')
+                                $ddd = str_replace(array('days','day'),array('<span class="left" style="display:inline-block;">يوما&nbsp;</span>','<span class="left" style="display:inline-block;">اليوم&nbsp;</span>'),$ddd);                              
+                                
+                                echo $ddd;
                                 echo ' '.$h1;
                                 }
                                 elseif($days==0)
                                 {
-                                    echo $h1;
+                                    echo "<span style='display:inline:block;'>".$h1."</span>";
 
                                 }
                                 else
-                                    echo "EXPIRED";
+                                    echo "<span style='display:inline:block;'>EXPIRED</span>";
                                 
                             
             }
-            function difference_time2($expiry)
+            function difference_time2($expiry,$sess)
             {
                 
-                                date_default_timezone_set('Asia/Kathmandu');
+                                date_default_timezone_set('Asia/Dubai');
                                                                 
                                 //echo $seconds_diff = $ts1 - $ts2;
                                 $datetime1 = date_create(date('Y-m-d'));
@@ -324,6 +351,7 @@
                                     
                                     
                                 }
+                                if($sess=='e'){
                                 if($days>0){
                                     echo $days.' day';
                                     if($days>1)
@@ -336,6 +364,38 @@
                                 }
                                 else
                                 echo "EXPIRED";
+                                }
+                                else
+                                {
+                                    
+                                    if($days>0){
+                                    ?>
+                                    <span style="display: inline-block;">ساعة المتبقية</span>
+                                    <span style="display: inline-block;">&nbsp;<?php echo $h?>&nbsp;</span>
+                                    <?php
+                                    if($days>1)
+                                    {
+                                        ?>
+                                        <span style="display: inline-block;">أيام</span>
+                                        <?php
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                        <span style="display: inline-block;">يوم</span>
+                                        
+                                        <?php
+                                    }
+                                    echo "<span style='display:inline-block;'>&nbsp;".$days."</span>"; 
+                                    
+                                    }
+                                    elseif($days==0)
+                                    {
+                                        echo ' <span style="display: inline-block;">ساعة المتبقية</span><span style="display:inline-block">&nbsp;'.$h.'</span>';
+                                    }
+                                    else
+                                    echo "EXPIRED";
+                                }
                                 
                             
             }

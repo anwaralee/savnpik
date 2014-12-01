@@ -21,6 +21,11 @@
         <?php echo $this->Html->script('vendor/modernizr-2.6.2.min'); ?>
     </head>
     <body>
+    <script>
+    $(function(){
+       $('.message').fadeOut(7000); 
+    });
+    </script>
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->

@@ -8,7 +8,9 @@
     <fieldset>
         <legend><?php echo __('Update Company'); ?></legend>
         <?php  echo $this->Form->input('name'); ?>
+        <?php  echo $this->Form->input('name_arabic'); ?>
         <?php  echo $this->Form->input('desc'); ?>
+        <?php  echo $this->Form->input('desc_arabic'); ?>
         <?php  echo $this->Form->input('city_id',array('label'=>'City Name')); ?> <br/>
         <label>Current Logo: </label>
         <?php echo $this->Html->image("uploads/companies/".$companyById['Company']['logo'],
@@ -17,11 +19,15 @@
                                        'height'=>40,
                                        'width'=>40));?>
         <br/> <br/>
-        <?php  echo $this->Form->input('logo',array('type'=>'file','label'=>'Update Logo:')); ?>
+        <div class="input file">
+<label for="CompanyLogo">Update Logo:</label>
+<input id="CompanyLogo" class="form-control" type="file" name="data[Company][logo]">
+</div>
         <br/>
         
         <?php  echo $this->Form->input('website'); ?>
         <?php  echo $this->Form->input('address'); ?>
+        <?php  echo $this->Form->input('address_arabic'); ?>
         <?php  echo $this->Form->input('phone_number'); ?><br/>
         <?php $options = array('1' => ' Enabled', '0' => 'Disabled');
 			  $attributes = array('legend' => false,'separator'=>'<br/>');

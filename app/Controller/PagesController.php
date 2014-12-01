@@ -9,14 +9,14 @@ class PagesController extends AppController{
 	
 		public $uses = array('Page', 'PageCategory');
 		
-		/*public function beforeFilter() {
+		public function beforeFilter() {
 			parent::beforeFilter();
 			$role = $this->Auth->User('role');
             if($role!=2){
-				$this->redirect($this->Auth->logout());
+				$this->redirect("/admin/users/login");
 			}
         
-		}*/
+		}
 		
         public function admin_index(){
             
@@ -77,6 +77,33 @@ class PagesController extends AppController{
     }
 		
 		}
+        
+    function generate_slug($title)
+    {
+        
+      $slug = $title;
+      $whiteSpace = '';  //if you dnt even want to allow white-space set it to ''
+            $pattern = '/[^a-zA-Z0-9-'  . $whiteSpace . ']/u';
+            $slug = preg_replace($pattern, '_', (string) $slug);
+            for($i=0;$i<5;$i++)
+            {
+                $slug = str_replace('__','',$slug);
+                $last = substr($slug, -1);
+                if($last == '_')
+                {
+                    $slug = str_replace('_',' ',$slug);
+                    $slug = trim($slug);
+                    $slug = str_replace(' ','_',$slug);
+                }
+                $check = $this->Page->find('first',array('conditions'=>array('slug'=>$slug)));
+                if($check)
+                $slug = $slug.'_'.rand('1000,9999');                
+            }
+            return $slug;  
+    }
+    
+        
+        
 
 }
 ?>

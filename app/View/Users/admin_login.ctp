@@ -14,5 +14,5 @@
           <?php $this->Form->submit('Login',array('div'=>false,'class' => 'login-button')
                                          ); ?>
         </p>
-    <p class="forgot-password"><a href="index.html">Forgot your password?</a></p>
-    <?php echo $this->Form->end();?>
+    <p class="forgot-password"><a href="#">Forgot your password?</a></p>
+    <?php echo $this->Form->end(); ?>

@@ -619,7 +619,9 @@ class AuthComponent extends Component {
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/authentication.html#logging-users-out
  */
 	public function logout() {
-		$this->_setDefaults();
+	   
+	   
+		/*$this->_setDefaults();
 		if (empty($this->_authenticateObjects)) {
 			$this->constructAuthenticate();
 		}
@@ -630,7 +632,7 @@ class AuthComponent extends Component {
 		$this->Session->delete(self::$sessionKey);
 		$this->Session->delete('Auth.redirect');
 		$this->Session->renew();
-		return Router::normalize($this->logoutRedirect);
+		return Router::normalize($this->logoutRedirect);*/
 	}
 
 /**

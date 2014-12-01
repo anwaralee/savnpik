@@ -26,7 +26,7 @@
 			<tr>
 				<td><?php echo $i;?></td>
                 <td><?php echo $page['Page']['title'];?></td>
-				<td><?php echo $page['Page']['desc'];?></td>
+				<td><?php echo substr($page['Page']['desc'],0,200);?></td>
                 <td><?php echo ($page['Page']['status']==1) ? 'Enabled' : 'Disabled';?></td>
 				<td><?php echo $page['PageCategory']['name'];?></td>
 				<td> 

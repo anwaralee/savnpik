@@ -13,6 +13,7 @@
 		<tr>
 			<th>S.No</th>
 			<th>City Name</th>
+            <th>City Name (Ar.)</th>
             <th>City Status</th>
             <th>Actions</th>
         </tr>
@@ -24,6 +25,7 @@
 			<tr>
 				<td><?php echo $i;?></td>
                 <td><?php echo $city['City']['name'];?></td>
+                <td><?php echo $city['City']['name_arabic'];?></td>
                 <td><?php echo ($city['City']['status']==1) ? 'Enabled' : 'Disabled';?></td>
 				<td> 
                     <?php echo $this->Html->link('Edit',

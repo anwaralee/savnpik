@@ -8,11 +8,14 @@
     <fieldset>
         <legend><?php echo __('Add new Company'); ?></legend>
         <?php  echo $this->Form->input('name'); ?>
+        <?php  echo $this->Form->input('name_arabic'); ?>
         <?php  echo $this->Form->input('desc'); ?>
+        <?php  echo $this->Form->input('desc_arabic'); ?>
         <?php  echo $this->Form->input('city_id',array('label'=>'City Name')); ?>
         <?php  echo $this->Form->input('logo',array('type'=>'file')); ?>
         <?php  echo $this->Form->input('website'); ?>
         <?php  echo $this->Form->input('address'); ?>
+        <?php  echo $this->Form->input('address_arabic'); ?>
         <?php  echo $this->Form->input('phone_number'); ?><br/>
         <?php $options = array('1' => ' Enabled', '0' => 'Disabled');
 			  $attributes = array('legend' => false,'separator'=>'<br/>');

@@ -1,10 +1,15 @@
 <div id="left-content">
 <div class="cat-header clearfix">
-<h2><?php echo ucwords($content['Page']['title']);?></h2>
+<?php if($this->Session->read('lang')=='a')
+                $ar = "_arabic";
+            else
+                $ar = "";
+?>
+<h2><?php echo ucwords($content['Page']['title'.$ar]);?></h2>
 <a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>" class="back" >back to home</a>
 </div>
 <div class="pages clearfix" style="margin: 10px 0; line-height: 25px;">
-<?php echo $content['Page']['desc'];?>
+<?php echo $content['Page']['desc'.$ar];?>
 <?php if(strtolower($this->params['pass']['0'])=='contact_us'){
    echo $this->Html->css('validation.css');
    

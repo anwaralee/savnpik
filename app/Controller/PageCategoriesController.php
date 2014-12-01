@@ -1,67 +1,63 @@
 <?php
-class PagesController extends AppController{
+class PageCategoriesController extends AppController{
 	
 		public $theme = 'admin';
 	
 		public $paginate = array(
         'limit' => 1
 		);
-	
-		public $uses = array('Page', 'PageCategory');
 		
 		public function beforeFilter() {
 			parent::beforeFilter();
 			$role = $this->Auth->User('role');
             if($role!=2){
-				$this->redirect($this->Auth->logout());
+				$this->redirect("/admin/users/login");
 			}
         
 		}
 		
         public function admin_index(){
             
-           $this->set('title_for_layout','Page Items');
-           $this->set('pages', $this->paginate());
+           $this->set('title_for_layout','Categories');
+           $this->set('pageCategories', $this->paginate());
         }
         
         public function admin_add(){
-			$this->set('pageCategories',$this->PageCategory->find('list'));
-			
+				
 			if ($this->request->is('post')) {
-				$this->Page->create();
-				if ($this->Page->save($this->request->data)) {
-					$this->Session->setFlash('Page has been saved.','alert-box',array('class'=>'alert alert-success alert-dismissable'),'save');
+				$this->PageCategory->create();
+				if ($this->PageCategory->save($this->request->data)) {
+					$this->Session->setFlash('PageCategory has been saved.','alert-box',array('class'=>'alert alert-success alert-dismissable'),'save');
                    return $this->redirect(array('action' => 'index'));
 				}
-				$this->Session->setFlash(__('Unable to add Page .'));
+				$this->Session->setFlash(__('Unable to add PageCategory.'));
 			}
 		
 		}	
 		
 		public function admin_edit($id = null){
 			 if (!$id) {
-				throw new NotFoundException(__('Invalid Page'));
+				throw new NotFoundException(__('Invalid PageCategory'));
 			}
-			$Page = $this->Page->findById($id);
-			$this->set('pageCategories',$this->PageCategory->find('list'));
+			$pageCategory = $this->PageCategory->findById($id);
 			
-			 if (!$Page) {
-				throw new NotFoundException(__('Invalid Page'));
+			 if (!$pageCategory) {
+				throw new NotFoundException(__('Invalid PageCategory'));
 			}
 			
 			 if ($this->request->is(array('post', 'put'))) {
-				$this->Page->id = $id;
+				$this->PageCategory->id = $id;
 				
-				if ($this->Page->save($this->request->data)) {
-					$this->Session->setFlash('Page has been saved.','alert-box',array('class'=>'alert alert-info alert-dismissable'),'update');
+				if ($this->PageCategory->save($this->request->data)) {
+					$this->Session->setFlash('PageCategory has been saved.','alert-box',array('class'=>'alert alert-info alert-dismissable'),'update');
 					return $this->redirect(array('action' => 'index'));
 				}
 				
-				$this->Session->setFlash('Page could not be updated','alert-box',array('class'=>'alert alert-warning alert-dismissable'),'warning');
+				$this->Session->setFlash('PageCategory could not be updated','alert-box',array('class'=>'alert alert-warning alert-dismissable'),'warning');
 			}
 
 			if (!$this->request->data) {
-				$this->request->data = $Page;
+				$this->request->data = $pageCategory;
 			}
 		}
 		
@@ -70,40 +66,17 @@ class PagesController extends AppController{
 			 if ($this->request->is('get')) {
 				throw new MethodNotAllowedException();
 			 }
-			 if ($this->Page->delete($id)) {
-				 $this->Session->setFlash('Page has been deleted.','alert-box',array('class'=>'alert alert-danger alert-dismissable'),'delete');
+			 if ($this->PageCategory->delete($id)) {
+				 $this->Session->setFlash('PageCategory has been deleted.','alert-box',array('class'=>'alert alert-danger alert-dismissable'),'delete');
 			
         return $this->redirect(array('action' => 'admin_index'));
     }
 		
 		}
-        
-    function generate_slug($title)
-    {
-        
-      $slug = $title;
-      $whiteSpace = '';  //if you dnt even want to allow white-space set it to ''
-            $pattern = '/[^a-zA-Z0-9-'  . $whiteSpace . ']/u';
-            $slug = preg_replace($pattern, '_', (string) $slug);
-            for($i=0;$i<5;$i++)
-            {
-                $slug = str_replace('__','',$slug);
-                $last = substr($slug, -1);
-                if($last == '_')
-                {
-                    $slug = str_replace('_',' ',$slug);
-                    $slug = trim($slug);
-                    $slug = str_replace(' ','_',$slug);
-                }
-                $check = $this->Page->find('first',array('conditions'=>array('slug'=>$slug)));
-                if($check)
-                $slug = $slug.'_'.rand('1000,9999');                
-            }
-            return $slug;  
-    }
-    
-        
-        
+	  protected function __findAllPages($id){
+		//$pages = $this->Post->findByCategory_Id($id);
+	  	return $this->redirect(array('action' => 'admin_index'));
+	  }
 
 }
 ?>

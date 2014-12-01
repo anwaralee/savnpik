@@ -10,7 +10,7 @@
 			parent::beforeFilter();
 			$role = $this->Auth->User('role');
             if($role==1){
-				$this->redirect($this->Auth->logout());
+				$this->redirect("/admin/users/login");
 			}
         
 		}

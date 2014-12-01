@@ -1,5 +1,6 @@
 <div id="left-content">
-<div class="cat-header clearfix">
+<!--<div class="cat-header clearfix">
+
 <h2>Deposit:(My Balance: <?php echo $credit." AED";?>)</h2>
 
 </div>
@@ -59,16 +60,19 @@
 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
+</div>-->
+
+<div class="cat-header clearfix">
+<h2><?php echo ($this->Session->read('lang')=='a')?"(".$this->Html->image('/img/Coins.png',array('width'=>'20px')).$tot.")تبادل":'Exchange ('.$tot.$this->Html->image('/img/Coins.png',array('width'=>'20px')).')';?></h2>
 </div>
 <div class="earnmore">
-<h2>Exchange (<?php echo $tot;?> <?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?>)</h2>
         <div class="threeblock left">
             <div class="blockimage">
                 <?php echo $this->Html->image('/img/35.png');?>
             </div>
-            <div class="blockbtn">Exchange for <strong>50,000 </strong><?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?></div>
+            <div class="blockbtn"><?php echo ($this->Session->read('lang')=='a')?$this->Html->image('/img/Coins.png',array('width'=>'20px')).'<strong>50,000</strong> مقابل':'Exchange for <strong>50,000 </strong>'.$this->Html->image('/img/Coins.png',array('width'=>'20px'));?></div>
             <hr />
-            <?php if((50000-$tot)>0){?><strong><?php echo (50000-$tot);echo '</strong> '.$this->Html->image('/img/Coins.png',array('width'=>'20px'));?> more to go.
+            <?php if((50000-$tot)>0){?><?php echo ($this->Session->read('lang')=='a')?'.أكثر للذهاب'.$this->Html->image('/img/Coins.png',array('width'=>'20px')).' <strong>'.(50000-$tot).'</strong>':"<strong>".(50000-$tot).'</strong> '.$this->Html->image('/img/Coins.png',array('width'=>'20px'));' more to go.';?>
             <?php 
             }
             else
@@ -83,9 +87,9 @@
             <div class="blockimage">
                 <?php echo $this->Html->image('/img/10.png');?>
             </div>
-            <div class="blockbtn">Exchange for <strong>18,000</strong> <?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?></div>
+            <div class="blockbtn"><?php echo ($this->Session->read('lang')=='a')?$this->Html->image('/img/Coins.png',array('width'=>'20px')).'<strong>18,000</strong> مقابل':'Exchange for <strong>18,000 </strong>'.$this->Html->image('/img/Coins.png',array('width'=>'20px'));?></div>
             <hr />
-            <?php if((18000-$tot)>0){?><strong><?php echo (18000-$tot);echo '</strong> '.$this->Html->image('/img/Coins.png',array('width'=>'20px'));?> more to go.
+            <?php if((18000-$tot)>0){?><?php echo ($this->Session->read('lang')=='a')?'.أكثر للذهاب'.$this->Html->image('/img/Coins.png',array('width'=>'20px')).' <strong>'.(18000-$tot).'</strong>':"<strong>".(18000-$tot).'</strong> '.$this->Html->image('/img/Coins.png',array('width'=>'20px'));' more to go.';?>
             <?php 
             }
             else
@@ -100,9 +104,9 @@
             <div class="blockimage">
                 <?php echo $this->Html->image('/img/5.png');?>
             </div>
-            <div class="blockbtn">Exchange for <strong>10,000</strong> <?php echo $this->Html->image('/img/Coins.png',array('width'=>'20px'));?></div>
+            <div class="blockbtn"><?php echo ($this->Session->read('lang')=='a')?$this->Html->image('/img/Coins.png',array('width'=>'20px')).'<strong>10,000</strong> مقابل':'Exchange for <strong>10,000 </strong>'.$this->Html->image('/img/Coins.png',array('width'=>'20px'));?> </div>
             <hr />
-            <?php if((10000-$tot)>0){?><strong><?php echo (10000-$tot);echo '</strong> '.$this->Html->image('/img/Coins.png',array('width'=>'20px'));?> more to go.
+            <?php if((10000-$tot)>0){?><?php echo ($this->Session->read('lang')=='a')?'.أكثر للذهاب'.$this->Html->image('/img/Coins.png',array('width'=>'20px')).' <strong>'.(10000-$tot).'</strong>':"<strong>".(10000-$tot).'</strong> '.$this->Html->image('/img/Coins.png',array('width'=>'20px'));' more to go.';?>
             <?php 
             }
             else

@@ -20,12 +20,17 @@ class DealsController extends AppController {
     
      public function beforeFilter() {
 			parent::beforeFilter();
-			$role = $this->Auth->User('role');
+			if(!$this->Session->read('lang'))
+            $this->Session->write('lang','e');
             $this->Auth->allow('city');
-            //var_dump($role);
-            if(isset($role)&& $role!=2){
-				$this->redirect("/admin/users/login");
-			}
+            if(!$this->Session->read('lang'))
+                $this->Session->write('lang','en');
+                
+            
+            
+            //var_dump($role);die();
+            
+            //die('2');            
         
 		}
     
@@ -35,6 +40,10 @@ class DealsController extends AppController {
  *
  * @return void
  */
+ public function sharethis()
+    {
+        $this->layout ='test';
+    }   
 	public function index() 
     {
         
@@ -44,16 +53,37 @@ class DealsController extends AppController {
     
     public function all(){
         $this->loadModel('DealCategory');
-        $cat = $this->DealCategory->find('all',array('conditions'=>array('status'=>'1')));
+        $cat = $this->DealCategory->find('all',array('conditions'=>array('status'=>'1'),'order'=>'name'));
            
            return $cat;
+    }
+         
+    public function deal_count($cat_id)
+    {
+        $this->loadModel('City');
+        $city = $this->City->find('first',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$this->Session->read('city'))))));
+        return $this->Deal->find('count',array('conditions'=>array('deal_category_id'=>$cat_id,
+                                                'expiry_date>="'.date('Y-m-d').'"',
+                                                'Company.city_id' => $city['City']['id'])));
+
+        
+    }
+    public function deal_countbycompany($comp_id)
+    {
+        $this->loadModel('City');
+        $city = $this->City->find('first',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$this->Session->read('city'))))));
+        return $this->Deal->find('count',array('conditions'=>array('Deal.company_id'=>$comp_id,
+                                                'expiry_date>="'.date('Y-m-d').'"',
+                                                'Company.city_id' => $city['City']['id'])));
+
+        
     }
     public function allcompany()
     {
         $this->loadModel('Company');
         $this->loadModel('City');
         $city = $this->City->find('first',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$this->Session->read('city'))))));
-        return $this->Company->find('all',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$this->Session->read('city'))))));
+        return $this->Company->find('all',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$this->Session->read('city')))),'order'=>'Company.name'));
     }
     
     public function listcity()
@@ -89,7 +119,7 @@ class DealsController extends AppController {
             //die('here');
             $this->set('nocat',1);
             array_push($cond1,array('is_featured'=>'1')); 
-            if($feature =  $this->Deal->find('first',array('conditions'=>$cond1)))
+            if($feature =  $this->Deal->find('first',array('conditions'=>$cond1 ,'order' => array('rand()'))))
             {
                 
                    $f_id = $feature['Deal']['id']; 
@@ -116,20 +146,21 @@ class DealsController extends AppController {
         $this->loadModel('City');
         $this->loadModel('Company');
         $this->theme = 'default';
-        $this->set('title_for_layout','Savnpik | Home');
+        $this->set('title_for_layout','Savnpik | Stores');
        
         //$cityId = $this->Company->find('all',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$city)))));
         if($store != "")
         {
             $cityId = $this->City->find('first',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$city)))));
             if(!empty($cityId)){
-            $cond = array('Company.city_id'=>$cityId['City']['id']);
-            array_push($cond, array('Deal.expiry_date >="'.date('Y-m-d').'"'));
+                $cond = array('Company.city_id'=>$cityId['City']['id']);
+                array_push($cond, array('Deal.expiry_date >="'.date('Y-m-d').'"'));
             }
             array_push($cond, array('Company.name'=>Inflector::humanize(str_replace("-"," ",$store))));
-            $this->set('company',$this->Company->find('first',array('conditions'=>array('Company.name'=>str_replace("-"," ",$store)))));
+            $this->set('company',$this->Company->find('first',
+                                array('conditions'=>array('Company.name'=>str_replace("-"," ",$store)))));
         }
-     
+        //var_dump( $cond);
         $this->paginate= array('conditions'=>$cond,'order'=>array('buy_count'=>'desc','is_featured'=>'desc'),'limit'=>8);
     if($deal = $this->paginate('Deal'))
     {
@@ -241,9 +272,15 @@ class DealsController extends AppController {
  * @return void
  */
 	public function admin_index() {
+	   $role = $this->Auth->User('role');	   
+	   if(isset($role)&& ($role!=1)){
+                //die('1');
+				$this->redirect("/admin/users/login");
+			}	   
     
         $this->Deal->recursive = 0;
-		$this->set('deals', $this->Paginator->paginate());
+        $this->paginate = array('order'=>'Deal.id DESC');
+		$this->set('deals', $this->paginate('Deal'));
 	}
 
 /**
@@ -254,6 +291,11 @@ class DealsController extends AppController {
  * @return void
  */
 	public function admin_view($id = null) {
+	   $role = $this->Auth->User('role');	   
+	   if(isset($role)&& ($role!=1)){
+                //die('1');
+				$this->redirect("/admin/users/login");
+			}
 		if (!$this->Deal->exists($id)) {
 			throw new NotFoundException(__('Invalid deal'));
 		}
@@ -267,6 +309,11 @@ class DealsController extends AppController {
  * @return void
  */
 	public function admin_add() {
+	   $role = $this->Auth->User('role');	   
+	   if(isset($role)&& ($role!=1)){
+                //die('1');
+				$this->redirect("/admin/users/login");
+			}
 			if ($this->request->is('post')) {
                 for($i=1;$i<=10;$i++) {
                         
@@ -307,6 +354,7 @@ class DealsController extends AppController {
                     $this->Deal->id = $id;
                     
                     $this->Deal->saveField('slug',$this->generate_slug($this->request->data['Deal']['name']));
+                    $e = $this->sendEmails($id);
 					$this->Session->setFlash('Deals has been saved.','alert-box',array('class'=>'alert alert-success alert-dismissable'),'save');
                    return $this->redirect(array('action' => 'index'));
 				}
@@ -329,6 +377,11 @@ class DealsController extends AppController {
  * @return void
  */
 	public function admin_edit($id = null) {
+	   $role = $this->Auth->User('role');	   
+	   if(isset($role)&& ($role!=1)){
+                //die('1');
+				$this->redirect("/admin/users/login");
+			}
 		if (!$this->Deal->exists($id)) {
 			throw new NotFoundException(__('Invalid deal'));
 		}
@@ -394,6 +447,11 @@ class DealsController extends AppController {
  * @return void
  */
 	public function admin_delete($id = null) {
+	   $role = $this->Auth->User('role');	   
+	   if(isset($role)&& ($role!=1)){
+                //die('1');
+				$this->redirect("/admin/users/login");
+			}
 	
         $deal = $this->Deal->findById($id);
    
@@ -497,60 +555,46 @@ class DealsController extends AppController {
             }
             return $slug;  
     }
-    function get_realated($cid,$name='',$id)
+    function get_realated($cid,$id)
     {
-        $filter = array('the','The','in','In','on','On','for','For','of','Of','A','a','an','An');
-        $arr = explode(' ',$name);
-        $i=0;
-        $final = 'Deal.deal_category_id = '.$cid.' AND Deal.id <>'.$id;
-        $fin = '';
-        foreach($arr as $a)
+        $this->loadModel('City');
+        $c = $this->City->find('first',array('conditions'=>array('City.name'=>Inflector::humanize(str_replace("-"," ",$this->Session->read('city'))))));
+        $this->loadModel('Company');
+        $co = $this->Company->find('all',array('conditions'=>array('city_id'=>$c['City']['id'])));
+        $str = "(0";
+        if($co)
         {
-            $i++;
-            if(!in_array($a,$filter))
-            if($i==1)
-                $fin = $fin." AND (Deal.name like '%$a%'";
-            else
-                $fin = $fin.' OR '."Deal.name like '%$a%'";
+            
+            foreach($co as $cc)
+            {
+                $str = $str.','.$cc['Company']['id'];
+            }
             
         }
-        if(!empty($arr))
-        $fin = $fin.')';
-        $final = $final.$fin;
+        $str = $str.")";
+        $final = 'Deal.deal_category_id = '.$cid.' AND Deal.id <>'.$id.' AND company_id IN '.$str;
         $rel1 = $this->Deal->find('all',array('conditions'=>array($final),'limit'=>4));
         
-        if(count($rel1)==4)
-        {
-            return $rel1;
-        }
-        else{
-        $count = count($rel1);
-        $count = 4-$count;
-        }
-        $final2 = 'Deal.deal_category_id = '.$cid;
-
-        $rel2 = $this->Deal->find('all',array('conditions'=>array($final2,'Deal.id NOT IN (SELECT id FROM deals WHERE '.$final.')'),'limit'=>$count));
-
-        array_push($rel1,$rel2);
-        if(count($rel2) == $count)
-        {
-            return $rel1;
-        }
-        else
-        $count = $count-count($rel2);
-        //$final2 = 'Deal.deal_category_id = '.$cid;
-        if(!empty($arr))
-        $rel3 = $this->Deal->find('all',array('conditions'=>array(str_replace(' AND ','',$fin),'Deal.id NOT IN (SELECT id FROM deals WHERE '.$final.')','Deal.id NOT IN (SELECT id From deals where '.$final2.' AND Deal.id NOT IN (SELECT id FROM deals WHERE '.$final.'))'),'limit'=>$count));
-        array_push($rel1,$rel3);        
         return $rel1;  
             
+    }
+    function get_inflector($str)
+    {
+        $this->loadModel('DealCategory');
+        $q = $this->DealCategory->findById($str);
+        $str = Inflector::humanize(str_replace(" ","-",$q['DealCategory']['name']));
+        return strtolower($str);
     }
     
     public function get_content($pid)
         {
+            if($this->Session->read('lang')=='a')
+                $ar = "_arabic";
+            else
+                $ar = "";
             $this->loadModel('Page');
             $p = $this->Page->findById($pid);
-            return $p['Page']['desc']; 
+            return $p['Page']['desc'.$ar]; 
             
         }
         
@@ -563,12 +607,16 @@ class DealsController extends AppController {
         }
         public function page_detail($slug)
         {
+            if($this->Session->read('lang')=='a')
+                $ar = "_arabic";
+            else
+                $ar = "";
             $this->theme = 'default';
             
             $this->loadModel('Page');
             
             $content = $this->Page->findBySlug($slug);
-            $this->set('title_for_layout','Savnpik |'.$content['Page']['title']);
+            $this->set('title_for_layout','Savnpik |'.$content['Page']['title'.$ar]);
             $this->set('content',$content); 
             
         }
@@ -618,25 +666,26 @@ class DealsController extends AppController {
             $this->loadModel('Subscribe');
             if(isset($_POST['submit']))
             {
-                $sub['email'] = $_POST['email'];
+                $sub['email'] = $_POST['email']; 
                 $sub['created_on'] = date('Y-m-d H:i:s');
                 if($this->Subscribe->findByEmail($sub['email']))
                 {
-                    $this->Session->setFlash('Email Already Subscribed.','default', array(), 'bad');
+                    echo "a";die();
                 }
                 else
                 {
                     $this->Subscribe->create();
                     if($this->Subscribe->save($sub))
                     {
-                       $this->Session->setFlash('Email Subscribed.','default', array(), 'good'); 
+                       echo "b";die();
                     }
                 }
-                //die('here');
+                die('here');
                 $this->redirect(array('controller'=>'deals','action'=>'city',$this->Session->read('city')));   
                 
                 
-            }  
+            } 
+            die(); 
       }
       
       public function contact()
@@ -650,7 +699,7 @@ class DealsController extends AppController {
             $msg = $_POST['msg'];
             $emails = new CakeEmail();
             $emails->to($to);
-            $emails->from(array('noreply@savnpik.com'=>'Veritas'));
+            $emails->from(array('noreply@savnpik.com'=>'Savnpik'));
             $emails->subject("Contact From Savnpik.com");
             $emails->emailFormat('html');
             $msg = "Hi there,<br/>There is a contact message for you from Savnpik.com.<br/>Here is the detail of contact request.<br/><br/>";
@@ -669,5 +718,356 @@ class DealsController extends AppController {
         $this->redirect(array('controller'=>'deals','action'=>'city',$this->Session->read('city')));
         
       }
+       public function checkexp()
+        {
+            //mail('justdoit2045@gmail.com','test','test');die();
+            $qu = $this->Deal->find('all',array('conditions'=>array('Deal.expiry_date <'=>date('Y-m-d'))));
+            if($qu)
+            foreach($qu as $q)
+            {
+                //var_dump($q);
+                //echo 
+                if($q['Deal']['threshold']>$q['Deal']['buy_count'])
+                {
+                    $id = $q['Deal']['id'];
+                    $this->loadModel('Sale');
+                    $q2 = $this->Sale->find('all',array('conditions'=>array('Sale.price <>'=>'0','Sale.deals_id'=>$id,'Sale.refund'=>0)));
+                    foreach($q2 as $q1)
+                    {
+                        $amt = $q1['Sale']['price']*$q1['Sale']['qty'];
+                        $to = $q1['User']['email'];
+                        $detail = 'Refund for:<br/><br/>
+                        <table style="width:500px;">
+                        <tr><td style="border-top:1px solid: #e5e5e5;border-left:1px solid: #e5e5e5;"><strong>Deal</strong></td><td style="border-top:1px solid: #e5e5e5;border-left:1px solid: #e5e5e5;"><strong>Price</strong></td><td style="border-top:1px solid: #e5e5e5;border-left:1px solid: #e5e5e5;border-right:1px solid #e5e5e5;"><strong>Quantity</strong></td></tr>
+                        <tr><td style="border-top:1px solid: #e5e5e5;border-bottom:1px solid #e5e5e5;border-left:1px solid: #e5e5e5;">'.$q1['Deal']['name'].'</td><td style="border-top:1px solid: #e5e5e5;border-bottom:1px solid #e5e5e5;border-left:1px solid: #e5e5e5;">AED '.$q1['Sale']['price'].'</td><td style="border-top:1px solid: #e5e5e5;border-bottom:1px solid #e5e5e5;border-left:1px solid: #e5e5e5;border-right:1px solid #e5e5e5;">'.$q1['Sale']['qty'].'</td></tr>
+                        </table><br/><br/><strong>Total: </strong>AED '.$amt;
+                        if($q1['User']['email']){
+                        $emails = new CakeEmail();
+                        $emails->to($to);
+                        $emails->from(array('noreply@savnpik.com'=>'Savnpik'));
+                        $emails->subject("Refund Made");
+                        $emails->emailFormat('html');
+                        $msg = "Hi there,<br/><br/>Threshold of one of the deal you purchased was not met. We are refunding the amount you paid for the deal.<br/>Here is the detail of the refund.<br/><br/>";
+                        $msg .= $detail."<br/><br/>Regards,<br/>Savnpik.com";
+                        if($emails->send($msg))
+                        {
+                            $this->loadModel('Payment');
+                            $this->Payment->create();
+                            $arr['user_id'] = $q1['User']['id'];
+                            $arr['stat'] = 'Completed';
+                            $arr['amount'] = $amt;
+                            $arr['info'] = '';
+                            $arr['on_date'] = date('Y-m-d H:i:s');
+                            $arr['remarks'] = 'Amount refunded for deal "'.$q1['Deal']['name'].'" (Quantity: '.$q1['Sale']['qty'].')';
+                            $this->Payment->save($arr);
+                            
+                            $this->loadModel('User');
+                            $this->User->id = $q1['User']['id'];
+                            if(!$q1['User']['my_balance'])
+                            $q1['User']['my_balance'] = 0;
+                            $amt = $amt + $q1['User']['my_balance'];
+                            $this->User->saveField('my_balance',$amt);
+                            
+                            $this->Sale->id = $q1['Sale']['id'];
+                            $this->Sale->saveField('refund',1);
+                            
+                        }
+                        }
+                                               
+    
+                    }
+                }
+            }
+            die();
+        }
+        function recommend($slug)
+        {
+            $em = $_POST['email'];
+            
+            $arr = explode(',',$em);
+            if(count($arr)>0)
+            {
+                
+                foreach($arr as $a)
+                {
+                    if(filter_var($a, FILTER_VALIDATE_EMAIL)){
+                    $email[] = trim($a);                    
+                    }
+                }
+                //var_dump($email);die();
+                $emails = new CakeEmail();
+                        $emails->to($email);
+                        $emails->from(array('noreply@savnpik.com'=>'Savnpik'));
+                        $emails->subject("Savnpic.com - Page recommended");
+                        $emails->emailFormat('html');
+                        $msg = "Hi there,<br/><br/>One of your friend suggested you to view the deal offered by Savnpik.com<br/>
+                        Click on the link below to view the deal:<br/>
+                        <a href='http://www.savnpik.com/deal/".$slug."'>http://www.savnpik.com/deal/".$slug."</a>                        
+                        <br/><br/>";
+                        $msg .= $detail."<br/><br/>Regards,<br/>Savnpik.com";
+                        $emails->send($msg);
+            }
+            die();
+            
+        }
+    public function ipn_test2()
+    {
+        
+        $this->loadModel('Payment');
+        $this->loadModel('Sale');
+        $this->loadModel('RewardFrom');
+        $this->loadModel('Cart');
+        $this->loadModel('User');
+        
+        foreach($_POST as $k=>$p)
+        {
+        	$a .= $k."=>".$p.", ";
+        }
+        $cus = explode("-",$_POST['custom']);
+        $userid = $cus[0];
+        $sessid = $cus[1];
+        
+        
+        $this->Payment->create();
+        $arr['info']= $a;
+        $arr['user_id'] = $userid;
+        $arr['on_date'] = date('Y-m-d H:i:s');
+        $arr['remarks'] = "Paid via Paypal";
+        $arr['amount'] = $this->convertCurrency($_POST['mc_gross'],"USD","AED");
+        $arr['stat'] = $_POST['payment_status'];
+        $this->Payment->save($arr); 
+        //mail('warriorbik@gmail.com',"testing",$a);
+        //$this->->id = $_POST['custom'];
+        if($_POST['payment_status']=='Completed')
+        {
+            $reward['user_id'] = $userid;
+	        $carts = $this->Cart->find('all',array('conditions'=>array('user_id'=>$userid,
+                                                                'buy_id'=>$sessid)));
+            $user = $this->User->findById($userid);
+                foreach($carts as $c)
+                {
+                    $reward['remark'] = "Purchase of ".$c['Deal']['name']." x ".$c['Cart']['qty'];
+                    $price = $c['Cart']['price'];
+                    $reward['coins'] = $price * $c['Cart']['qty'];
+                    $tot = $reward['coins'];
+                    $reward['reward_date'] = date('Y-m-d');
+                    $this->RewardFrom->create();
+                    $this->RewardFrom->save($reward);
+                    if($p_d = $this->Sale->find('first', array('conditions'=>array('user_id'=>$userid,'deals_id'=>$c['Cart']['deals_id']))))
+                    {
+                       $this->Sale->id = $p_d['Sale']['id'];
+                       $o_qty = $p_d['Sale']['qty'];
+                       $n_qty = $o_qty + $c['Cart']['qty'];
+                       $this->Sale->saveField('qty',$n_qty); 
+                    }
+                    else
+                    {
+                        $sale['user_id'] = $userid;
+                        $sale['deals_id'] = $c['Cart']['deals_id'];
+                        $sale['price'] = $c['Cart']['price'];
+                        $sale['qty'] = $c['Cart']['qty'];
+                        $this->Sale->create();
+                        $this->Sale->save($sale);
+                    }
+                    
+                    $deal = $this->Deal->findById($c['Cart']['deals_id']);
+                    $this->Deal->id = $c['Cart']['deals_id'];
+                    $buy_count = $deal['Deal']['buy_count'];
+                    $buy_count = $buy_count+$c['Cart']['qty'];
+                    $this->Deal->saveField('buy_count',$buy_count);
+                    
+                    $this->User->id = $c['Cart']['user_id'];
+                    //$this->User->saveField('my_balance',$user['User']['my_balance']-$tot);
+                    $my_coins = $user['User']['my_coin']+$tot; 
+                    $this->User->saveField('my_coin',$my_coins);
+                    
+                    
+                    $this->Cart->delete($c['Cart']['id']);
+                }
+	        /*$this->Sale->saveField('info',$a);
+	        $this->Sale->saveField('on_date',date('Y-m-d H:i:s'));
+	        $this->Sale->saveField('stat',$_POST['payment_status']);*/
+    	}
+    	else
+    		$this->Sale->saveField('stat',"Payment Failed");
+      }
+      
+      
+      function createSess()
+      {
+        if($this->Session->read('lang'))
+        {
+            $lang = $this->Session->read('lang');
+            if($lang=='e')
+            $this->Session->write('lang','a');
+            else
+            $this->Session->write('lang','e');
+        }
+        else
+        $this->Session->write('lang','e'); 
+        die();
+      }
+      
+      function admin_contacts()
+      { 
+        $this->loadModel("Cash");
+        $role = $this->Auth->User('role');
+       	   
+	   if(isset($role)&& ($role!=1)){
+                //die('1');
+				$this->redirect("/admin/users/login");
+			}	   
+    
+        $this->Cash->recursive = 0;
+        $this->paginate = array('order'=>'Cash.id DESC');
+		$this->set('contacts', $this->paginate('Cash'));
+        
+       
+        
+      }
+       public function approved_cash($cid)
+    {
+        
+        $role = $this->Auth->User('role');
+       	   
+	   if(isset($role)&& ($role!=1)){
+                //die('1');
+				$this->redirect("/admin/users/login");
+			}
+        $this->loadModel('Payment');
+        $this->loadModel('Sale');
+        $this->loadModel('RewardFrom');
+        $this->loadModel('Cart');
+        $this->loadModel('User');
+        $this->loadModel("Cash");
+        
+        $ca = $this->Cash->findById($cid);
+        
+        $this->Payment->create();
+        $arr['user_id'] = $ca['Cash']['user_id'];
+        $arr['on_date'] = date('Y-m-d H:i:s');
+        $arr['remarks'] = "Paid via Cash in hand";
+        $arr['amount'] = $ca['Cash']['total'];
+        $arr['stat'] = "Completed";
+        $this->Payment->save($arr); 
+        //mail('warriorbik@gmail.com',"testing",$a);
+        //$this->->id = $_POST['custom'];
+            $reward['user_id'] = $ca['Cash']['user_id'];
+	        $carts = $this->Cart->find('all',array('conditions'=>array('user_id'=>$ca['Cash']['user_id'],
+                                                                'buy_id'=>$ca['Cash']['buy_id'])));
+            $user = $this->User->findById($ca['Cash']['user_id']);
+                foreach($carts as $c)
+                {
+                    
+                    $reward['remark'] = "Purchase of ".$c['Deal']['name']." x ".$c['Cart']['qty'];
+                    $price = $c['Cart']['price'];
+                    $reward['coins'] = $price * $c['Cart']['qty'];
+                    $tot = $reward['coins'];
+                    $reward['reward_date'] = date('Y-m-d');
+                    $this->RewardFrom->create();
+                    $this->RewardFrom->save($reward);
+                    if($p_d = $this->Sale->find('first', array('conditions'=>array('user_id'=>$ca['Cash']['user_id'],'deals_id'=>$c['Cart']['deals_id']))))
+                    {
+                       $this->Sale->id = $p_d['Sale']['id'];
+                       $o_qty = $p_d['Sale']['qty'];
+                       $n_qty = $o_qty + $c['Cart']['qty'];
+                       $this->Sale->saveField('qty',$n_qty); 
+                    }
+                    else
+                    {
+                        $sale['user_id'] = $ca['Cash']['user_id'];
+                        $sale['deals_id'] = $c['Cart']['deals_id'];
+                        $sale['price'] = $c['Cart']['price'];
+                        $sale['qty'] = $c['Cart']['qty'];
+                        $this->Sale->create();
+                        $this->Sale->save($sale);
+                    }
+                    
+                    $deal = $this->Deal->findById($c['Cart']['deals_id']);
+                    $this->Deal->id = $c['Cart']['deals_id'];
+                    $buy_count = $deal['Deal']['buy_count'];
+                    $buy_count = $buy_count+$c['Cart']['qty'];
+                    $this->Deal->saveField('buy_count',$buy_count);
+                    
+                    $this->User->id = $c['Cart']['user_id'];
+                    //$this->User->saveField('my_balance',$user['User']['my_balance']-$tot);
+                    $my_coins = $user['User']['my_coin']+$tot; 
+                    $this->User->saveField('my_coin',$my_coins);
+                    
+                    
+                    $this->Cart->delete($c['Cart']['id']);
+                }
+            $this->Cash->id =$cid;
+            $this->Cash->saveField('stat','1');
+            $this->Session->delete('buy_id');
+            $this->redirect('/admin/deals/contacts');
+	        /*$this->Sale->saveField('info',$a);
+	        $this->Sale->saveField('on_date',date('Y-m-d H:i:s'));
+	        $this->Sale->saveField('stat',$_POST['payment_status']);*/
+    	
+      }
+      function sendEmails($id)
+      {
+        $this->loadModel('Subscribe');  
+        $deal = $this->Deal->findById($id);
+        $img = '';
+        for($i=1;$i<=10;$i++)
+        {
+            if($deal['Deal']['image'.$i]!=''){
+            $img = $deal['Deal']['image'.$i];
+            $img = "<img src='http://savnpik.com/files/deals/".$img."' width='552' height='342' />";
+            }
+        }
+        
+        $q = $this->Subscribe->find('all');
+        if($q){
+        foreach($q as $s){
+                        
+                        $email = $s['Subscribe']['email'];
+                        if(str_replace('@','',$email)!=$email && str_replace('.','',$email)!=$email){
+                        $emails = new CakeEmail();
+                        $emails->to($email);
+                        $emails->from(array('noreply@savnpik.com'=>'Savnpik'));
+                        $emails->subject("Savnpik.com - New deal uploaded");
+                        $emails->emailFormat('html');
+                        
+                        $msg = "Hi there,<br/><br/>A new deal has been uploaded in Savnpik.com<br/>Click <a href='http://savnpik.com/deals/cityredirect/".$deal['Deal']['slug']."'>here</a> to view the deal in your browswer.<br/><br/>
+                        <h1 style='font-size:20px;'>".$deal['Deal']['name']."</h1>".$img."
+                        <table style='width:70%;'>
+                            <tr><td style='padding:5px;border-top:1px solid #f5f5f5;border-left:1px solid #f5f5f5;'><strong>Marked Price</strong></td><td style='padding:5px;border-top:1px solid #f5f5f5;border-left:1px solid #f5f5f5;'><strong>Expires on</strong></td><td style='padding:5px;border-top:1px solid #f5f5f5;border-left:1px solid #f5f5f5;'><strong>Discount(%)</strong></td><td style='padding:5px;border-top:1px solid #f5f5f5;border-left:1px solid #f5f5f5;border-right:1px solid #f5f5f5;'><strong>Selling Price</strong></td></tr>
+                            <tr><td style='padding:5px;border-top:1px solid #f5f5f5;border-left:1px solid #f5f5f5;border-bottom:1px solid #f5f5f5;'>AED ".$deal['Deal']['marked_price']."</td><td style='padding:5px;border-top:1px solid #f5f5f5;border-left:1px solid #f5f5f5;border-bottom:1px solid #f5f5f5;'>".$deal['Deal']['expiry_date']."</td><td style='padding:5px;border-top:1px solid #f5f5f5;border-left:1px solid #f5f5f5;border-bottom:1px solid #f5f5f5;'>".$deal['Deal']['discount']."%</td><td style='padding:5px;border-top:1px solid #f5f5f5;border-left:1px solid #f5f5f5;border-bottom:1px solid #f5f5f5;border-right:1px solid #f5f5f5;'>AED ".$deal['Deal']['selling_price']."</td></tr>
+                        </table>
+                        <br/>
+                        <br/>
+                        <strong>Highlights:</strong><br/>".$deal['Deal']['highlights']."<br/><br/>
+                        <strong>Conditions:</strong><br/>".$deal['Deal']['conditions']."<br/><br/>
+                        <strong>Company:</strong><br/><br/><strong>".$deal['Company']['name']."</strong><br/>
+                        
+                        <img src='http://savnpik.com/img/uploads/companies/".$deal['Company']['logo']."' width='120' /><br/><br/>
+                        Regards,<br/>Savnpik.com
+                        
+                        
+                        
+                        ";
+                        
+                        $emails->send($msg);
+                        }
+            
+        }
+        }
+        return true;            
+      }
+      function cityredirect($slug)
+      {
+        $this->loadModel('City');
+        $q = $this->Deal->find('first',array('conditions'=>array('slug'=>$slug)));
+        $city = $q['Company']['city_id'];
+        $c = $this->City->findById($city);
+        $ci = trim($c['City']['name']);
+        //$ci = strtolower($ci);
+        $this->Session->write('city',$ci);
+        $this->redirect('/deal/'.$slug);
+        
+      }            
     
 }

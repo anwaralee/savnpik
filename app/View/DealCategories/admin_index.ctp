@@ -13,7 +13,6 @@
 		<tr>
 			<th>S.No</th>
 			<th>Deal Category Name</th>
-            <th>Deal Category Description</th>
             <th>Deal Category Status</th>
             <th>Actions</th>
         </tr>
@@ -25,7 +24,7 @@
 			<tr>
 				<td><?php echo $i;?></td>
                 <td><?php echo $dealCat['DealCategory']['name'];?></td>
-                <td><?php echo $dealCat['DealCategory']['desc'];?></td>
+                
                 <td><?php echo ($dealCat['DealCategory']['status']==1) ? 'Enabled' : 'Disabled';?></td>
 				<td> 
                     <?php echo $this->Html->link('Edit',

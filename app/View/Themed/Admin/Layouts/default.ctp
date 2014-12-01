@@ -63,6 +63,8 @@
           
         <div class="row">
           <div class="col-lg-12">
+          <?php echo $this->Session->flash('good'); ?>
+            <?php echo $this->Session->flash('bad'); ?>
             <h1><?php echo $title_for_layout; ?></h1>
             <!--ol class="breadcrumb">
               <li class="active"><i class="fa fa-dashboard"></i><?php echo $title_for_layout; ?></li>
@@ -79,4 +81,4 @@
         
   </body>
 </html>
-<?php echo $this->element('sql_dump'); ?>
+<?php //echo $this->element('sql_dump'); ?>

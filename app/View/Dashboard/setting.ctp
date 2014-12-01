@@ -4,23 +4,25 @@
                                 'class' => 'form-control',
                                 ),'type'=>'file')); ?>
 	<fieldset>
-		<legend><?php echo __('Account Setting'); ?></legend>
+    <div class="cat-header clearfix">
+		<h2><?php echo ($this->Session->read('lang')=='a')?'إعدادات الحساب':'Account Settings';?></h2>
+    </div>
 	<?php
-		echo $this->Form->input('full_name');
-		echo $this->Form->input('username',array('disabled'=>'disabled','class'=>'disabled'));
-		echo $this->Form->input('email');
-        echo $this->Form->input('phone');
-		echo $this->Form->input('address');
+		echo $this->Form->input('full_name',array('label'=>($this->Session->read('lang')=='e')?"Full Name":"الاسم الكامل"));
+		echo $this->Form->input('username',array('disabled'=>'disabled','class'=>'disabled','label'=>($this->Session->read('lang')=='e')?"User Name":"اسم المستخدم"));
+		echo $this->Form->input('email', array('label'=>($this->Session->read('lang')=='e')?"Email":"البريد الالكتروني"));
+        echo $this->Form->input('phone',array('label'=>($this->Session->read('lang')=='e')?"Phone":"هاتف"));
+		echo $this->Form->input('address',array('label'=>($this->Session->read('lang')=='e')?"Address":"عنوان"));
         
 		?>
         <div class="clearfix"></div>
-        <?php if($fb_id==""){?><a href="javascript:void(0);" onclick="showfields();">Change Password</a><?php }?>
+        <?php if($fb_id==""){?><a href="javascript:void(0);" onclick="showfields();"><?php echo ($this->Session->read('lang')=='e')?'Change Password':'تغيير كلمة المرور';?></a><?php }?>
         <div style="dsiplay:none;" class="passwords" style="display: block;padding:10px 0;"></div>
         <br/>
 	
 	</fieldset>
 
-   <?php echo $this->Form->submit('Update',array('class'=>'green-btn','onclick'=>'return checkPass()'));?>
+   <?php echo $this->Form->submit(($this->Session->read('lang')=='e')?'Update':'التحديث',array('class'=>'green-btn','onclick'=>'return checkPass()'));?>
 <?php echo $this->Form->end(); ?>
 </div>
 <script>

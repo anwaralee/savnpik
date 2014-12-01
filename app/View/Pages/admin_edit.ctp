@@ -16,9 +16,15 @@
     <fieldset>
         <legend><?php echo __('Update Page'); ?></legend>
         <?php  echo $this->Form->input('title',array('label'=>'Title')); ?> <br/>
+        <?php  echo $this->Form->input('title_arabic',array('label'=>'Title Arabic')); ?> <br/>
 		<div class="input textarea">
         <label for="PageDesc">Page Description</label>
         <textarea id="PageDesc" class="form-control ckeditor" rows="6" cols="30" name="data[Page][desc]"><?php echo $this->request->data['Page']['desc'];?></textarea>
+        </div>
+        <br/>
+        <div class="input textarea">
+        <label for="PageDescArabic">Page Description Arabic</label>
+        <textarea id="PageDescArabic" class="form-control ckeditor" rows="6" cols="30" name="data[Page][desc_arabic]"><?php echo $this->request->data['Page']['desc_arabic'];?></textarea>
         </div>
         <br/>
         <?php $options = array('1' => ' Enabled', '0' => 'Disabled');

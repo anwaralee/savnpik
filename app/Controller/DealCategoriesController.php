@@ -10,7 +10,7 @@
 			parent::beforeFilter();
 			$role = $this->Auth->User('role');
             if($role==2||$role==0){
-				$this->redirect($this->Auth->logout());
+				$this->redirect("/admin/users/login");
 			}
         
 		}
@@ -68,9 +68,11 @@
 			 if ($this->DealCategory->delete($id)) {
 				 $this->Session->setFlash('Deal Category has been deleted.','alert-box',array('class'=>'alert alert-danger alert-dismissable'),'delete');
 			
-        return $this->redirect(array('action' => 'admin_index'));
-    }
+                return $this->redirect(array('action' => 'admin_index'));
+            }
 		
 		}
+        
+       
     }
 ?>

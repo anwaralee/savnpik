@@ -24,9 +24,14 @@
 			<th><?php echo $this->Paginator->sort('status'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
-	<?php foreach ($deals as $deal): ?>
+	<?php
+    $s = 0; 
+    foreach ($deals as $deal):
+    
+    ?>
+    
 	<tr>
-		<td>1&nbsp;</td>
+		<td><?php $s++;  echo $s;?>&nbsp;</td>
 		<td><?php echo h($deal['Deal']['name']); ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($deal['DealCategory']['name'], array('controller' => 'deal_categories', 'action' => 'view', $deal['DealCategory']['id'])); ?>

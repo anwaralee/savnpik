@@ -8,6 +8,7 @@
     <fieldset>
         <legend><?php echo __('Update City'); ?></legend>
         <?php  echo $this->Form->input('name'); ?> <br/>
+        <?php  echo $this->Form->input('name_arabic'); ?> <br/>
         <?php $options = array('1' => ' Enabled', '0' => 'Disabled');
 			  $attributes = array('legend' => false,'separator'=>'<br/>');
 			echo $this->Form->radio('status', $options, $attributes);?>

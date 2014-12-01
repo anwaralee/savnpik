@@ -22,6 +22,7 @@
 		<legend><?php echo __('Add a new Deal'); ?></legend>
 	<?php
 		echo $this->Form->input('name');
+        echo $this->Form->input('name_arabic');
 		echo $this->Form->input('deal_category_id');
 		echo $this->Form->input('company_id');
         ?>
@@ -32,14 +33,35 @@
 </textarea>
 </div>
 <div class="input textarea required">
+<label for="DealDescriptionArabic">Description Arabic</label>
+<textarea id="DealDescriptionArabic" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][description_arabic]">
+
+</textarea>
+</div>
+<div class="input textarea required">
 <label for="DealHighlights">Highlights</label>
 <textarea id="DealHighlights" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][highlights]">
 
 </textarea>
 </div>
+
+<div class="input textarea required">
+<label for="DealHighlightsArabic">Highlights Arabic</label>
+<textarea id="DealHighlightsArabic" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][highlights_arabic]">
+
+</textarea>
+</div>
+
 <div class="input textarea required">
 <label for="DealConditions">Conditions</label>
 <textarea id="DealConditions" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][conditions]">
+
+</textarea>
+</div>
+
+<div class="input textarea required">
+<label for="DealConditionsArabic">Conditions Arabic</label>
+<textarea id="DealConditionsArabic" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][conditions_arabic]">
 
 </textarea>
 </div>

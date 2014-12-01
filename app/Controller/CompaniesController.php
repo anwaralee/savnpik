@@ -10,8 +10,10 @@
 		public function beforeFilter() {
 			parent::beforeFilter();
 			$role = $this->Auth->User('role');
+            //die($role);
             if($role==2||$role==0){
-				$this->redirect($this->Auth->logout());
+                
+				$this->redirect("/admin/users/login");
 			}
         
 		}
@@ -19,7 +21,8 @@
         public function admin_index(){
             
            $this->set('title_for_layout','View Companies / Providers');
-           $this->set('companies', $this->paginate());
+           $this->paginate = array('order'=>'Company.id DESC');
+           $this->set('companies', $this->paginate('Company'));
         }
         
         public function admin_add(){

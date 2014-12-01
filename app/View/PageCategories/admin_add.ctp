@@ -17,7 +17,9 @@
     <fieldset>
         <legend><?php echo __('Add Category'); ?></legend>
         <?php  echo $this->Form->input('name',array('label'=>'Category Name')); ?> <br/>
+        <?php  echo $this->Form->input('name_arabic',array('label'=>'Category Name Arabic')); ?> <br/>
 		<?php  echo $this->Form->input('desc',array('label'=>'Category Description')); ?> <br/>
+        <?php  echo $this->Form->input('desc_arabic',array('label'=>'Category Description Arabic')); ?> <br/>
         <?php $options = array('1' => ' Enabled', '0' => 'Disabled');
 			  $attributes = array('legend' => 'Category Status','separator'=>'<br/>');
 			echo $this->Form->radio('status', $options, $attributes);?>

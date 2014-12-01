@@ -13,21 +13,25 @@ class AdsController extends AppController{
 		
 	   	public function beforeFilter() {
 			parent::beforeFilter();
-			$role = $this->Auth->User('role');
-            if($role!=2 && isset($role)){
-				$this->redirect("/admin/users/login");
-			}
+			
         
 		}
         
          public function admin_index(){
-            
+            $role = $this->Auth->User('role');
+            if(isset($role) && ($role!=2)){
+				$this->redirect("/admin/users/login");
+			}
            $this->set('title_for_layout','Adverstisement');
            $this->set('ads', $this->paginate());
         }
         
         public function admin_add()
         {
+            $role = $this->Auth->User('role');
+            if(isset($role) && ($role!=2)){
+				$this->redirect("/admin/users/login");
+			}
             if($this->request->is('post'))
             {
                 //var_dump($_FILES);die();
@@ -69,6 +73,10 @@ class AdsController extends AppController{
         }
         public function admin_edit($id)
         {
+            $role = $this->Auth->User('role');
+            if(isset($role) && ($role!=2)){
+				$this->redirect("/admin/users/login");
+			}
             $ad = $this->Ad->findById($id);
             $this->set('ad', $ad);
             if($this->request->is(array('post', 'put'))) {
@@ -111,6 +119,10 @@ class AdsController extends AppController{
             
         }
     	public function admin_delete($id){
+    	   $role = $this->Auth->User('role');
+    	 if(isset($role) && ($role!=2)){
+				$this->redirect("/admin/users/login");
+			}  
     	   $ad = $this->Ad->findById($id);
 		 if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();

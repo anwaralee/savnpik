@@ -1,3 +1,10 @@
+<?php
+if($this->Session->read('lang')=='a')
+                $ar = "_arabic";
+            else
+                $ar = "";
+?>
+
 <div id="left-content"> 
               
         <div class="company-header clearfix">
@@ -7,7 +14,7 @@
                                                             'width'=>146,
                                                             'height'=>47
                                                             ));?></div>
-            <div class="company-detail"><h2><?php echo $company['Company']['name'];?></h2><?php echo $company['Company']['desc'];?></div>
+            <div class="company-detail"><h2><?php echo $company['Company']['name'.$ar];?></h2><?php echo $company['Company']['desc'.$ar];?></div>
         </div>
                     
     <?php if(!empty($cityDeals)) {$cnt = 0;?>
@@ -41,8 +48,8 @@
                         </div>
                         <div class="event-detail">
                             <div class="short-desc">
-                            <h2><a href=""><?php echo $deal['Deal']['name'];?></a></h2>
-                         <?php echo substr($deal['Deal']['description'],0,150);?>
+                            <h2><?php echo $this->Html->link($deal['Deal']['name'.$ar],'/deal/'.$deal['Deal']['slug']);?></a></h2>
+                         <?php echo substr($deal['Deal']['description'.$ar],0,150);?>
                             </div>
 
                             <div class="event-desc clearfix">
@@ -51,7 +58,7 @@
                                 <div class="save"><?php echo $deal['Deal']['discount']."%";?></div>
                                 </div>
 
-                                <a class="bttn" href="<?php echo $this->webroot;?>carts/addtocart/<?php echo $deal['Deal']['id']."/".$deal['Deal']['selling_price'];?>"><span>AED</span> <?php echo $deal['Deal']['selling_price'];?></a>
+                                <a class="bttn" href="<?php echo $this->webroot;?>deal/<?php echo $deal['Deal']['slug'];?>"><span>AED</span> <?php echo $deal['Deal']['selling_price'];?></a>
                             </div>
                         </div>
                     </div>
@@ -67,7 +74,7 @@
                 </div>
                 <?php }?>
     <?php } else { ?>
-    <h1>No Deals Found </h1>
+    <h1><?php echo ($this->Session->read('lang')=='a')?"لم يتم العثور عروض":"No Deals Found";?> </h1>
     <?php } ?>
             </div>
           <?php  

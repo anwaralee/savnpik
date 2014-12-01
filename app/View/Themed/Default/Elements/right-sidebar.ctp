@@ -3,61 +3,92 @@
 if($this->params['controller']!='dashboard'){
 ?>
                 <div id="ads">
-                    <div class="ad-banner"><?php echo $this->Html->link($this->Html->image("sharing.jpg",array('fullBase' => true)),array('controller'=>'dashboard','action'=>'fbshare'),array('escape'=>FALSE));?></div>
+                <a href="javascript:void(0);" style="display: block;text-decoration:none;text-align: center;" class="sharing">
+                    <div class="ad-banner" style="width: 100%;background:#DD0A37;"><div style="padding: 8px;">
+                        <h1 style="color: #FFF;margin:0 0 5px 0;font-size: 26px;"><?php if($this->Session->read('lang')=='e'){?>SHARING IS CARING<?php }else{?>تقاسم يرعى<?php }?></h1>
+                        <span style="color: #FFF;"><?php if($this->Session->read('lang')=='a'){?>مشاركة SAVNPIK وكسب النقاط<?php }else{?>SHARE SAVNPIK AND EARN POINT<?php }?></span>
+                        <div style="text-align: center;padding: 10px 0;font-weight:bold;color:#333;font-size: 20px;"><?php if($this->Session->read('lang')=='a'){?>انقر هنا لكسب نقطة<?php }else{?>click here to earn point<?php }?></div>
+                        </div></div>
+                        </a>
+                   <!-- <div class="ad-banner" style="width: 100%;background:#DD0A37;"><?php echo $this->Html->link($this->Html->image("sharing.jpg",array('fullBase' => true)),'#',array('escape'=>FALSE,'class'=>'sharing'));?></div>-->
                     <div class="ad-banner">
                         <?php if($ad = $this->requestAction(array('controller'=>'ads','action'=>'get_ad')))
-                                    echo $this->Html->image("/files/ads/".$ad['Ad']['image'],
+                                    {?>
+                                    <a href="<?php echo $ad['Ad']['url'];?>" target="_blank"><?php echo $this->Html->image("/files/ads/".$ad['Ad']['image'],
                                         array('fullBase' => true,
                                         'alt'=>$ad['Ad']['alt'],
                                        'height'=>245,
-                                       'width'=>273,'url'=>$ad['Ad']['url']));
+                                       
+                                       'width'=>273,));?>
+                                       </a>
+                                       <?php
+                                       }
                                 else
-                            echo $this->Html->image("dubai.jpg",array('fullBase' => true));?></div>
+                            echo "<a href='#' targt='_blank' >".$this->Html->image("dubai.jpg",array('fullBase' => true))."</a>";?></div>
                 </div>
 
                 <div class="social-counts">
-                    <a href="" title="Facebook" class="facebook-count"><span>142K</span></a>
-                    <a href="" title="Twitter" class="twitter-count"><span>253K</span></a>
-                    <a href="" title="Google Plus" class="gplus-count"><span>253K</span></a>
+                <a class="facebook-count" title="Facebook" href="">
+                <span><?php
+                $fb = 'https://developers.facebook.com'; 
+                $fbcount = simplexml_load_file('https://api.facebook.com/method/fql.query?query=select%20%20like_count%20from%20link_stat%20where%20url=%22'.$fb.'%22');
+                //print_r($fbcount); 
+                echo cust_number($fbcount->link_stat->like_count);                   
+                ?></span>
+                </a>
+                <a class="twitter-count" title="Twitter" href="">
+                <?php
+                $twit = 'http://urls.api.twitter.com/1/urls/count.json?url='.urlencode('https://dev.twitter.com/?');
+                $twitter = json_decode(file_get_contents($twit));
+                
+                ?>
+                <span><?php echo cust_number($twitter->count);?></span>
+                </a>
+                <a class="gplus-count" title="Google Plus" href="">
+                <span>
+                <?php
+                echo cust_number(get_plusones('https://developers.google.com/'));
+                ?>
+                </span>
+                </a>
+                
+
                 </div>
 
                 <div class="sidebar-list">
-                    <h1>COUPONS BY CATEGORY</h1>
+                    <h1><?php echo ($this->Session->read('lang')=='a')?'كوبونات حسب الفئة':'COUPONS BY CATEGORY';?></h1>
                     <ul>
                     <?php
                      $category = $this->requestAction(array('controller' => 'deals', 'action' => 'all'));
                      //var_dump($category);
                      foreach($category as $cat){
+                        if($this->Session->read('lang')=='e')
+                        $categ = $cat['DealCategory']['name'];
+                        else
+                        $categ = $cat['DealCategory']['name_arabic'];
                     ?>
-                        <li <?php if(isset($this->params['pass'][1]) && str_replace("-" ," ",$this->params['pass'][1]) == strtolower($cat['DealCategory']['name'])){echo "class='active'";}?>><?php echo $this->Html->link($cat['DealCategory']['name']." <span>(".$cat['DealCategory']['deal_count'].")</span>",
+                        <li <?php if(isset($this->params['pass'][1]) && str_replace("-" ," ",$this->params['pass'][1]) == strtolower($cat['DealCategory']['name'])){echo "class='active'";}?>><?php echo $this->Html->link($categ." 
+                                        <span>(".$this->requestAction(array('controller'=>'deals','action'=>'deal_count',$cat['DealCategory']['id'])).")</span>",
                             array('controller'=>'deals','action'=>"city",$this->Session->read('city'),strtolower(str_replace(" ","-",$cat['DealCategory']['name']))),array('escape' => FALSE));?></li>
                         <!--<a href="<?php //echo Route::url('/deals/city/'.$city."/".$cat['DealCategory']['name']);?>"><?php echo $cat['DealCategory']['name']."<span>(".$cat['DealCategory']['deal_count'].")</span>";?></a></li>-->
                     <?php }?>
                     </ul>
-                    <!--<ul>
-                        <li><a href="">Food & Drink<span>(54)</span></a></li>       
-                        <li><a href="">Events<span>(14)</span></a></li>       
-                        <li><a href="">Beauty<span>(140)</span></a></li>       
-                        <li><a href="">Fitness<span>(24)</span></a></li>       
-                        <li><a href="">Electronics<span>(14)</span></a></li>       
-                        <li><a href="">Furniture<span>(45)</span></a></li>       
-                        <li><a href="">Fashion<span>(77)</span></a></li>       
-                        <li><a href="">Shopping<span>(27)</span></a></li>       
-                        <li><a href="">Home & Garden<span>(104)</span></a></li>     
-                        <li><a href="">Autos<span>(141)</span></a></li>
-                        <li><a href="">Travel<span>(74)</span></a></li>
-                    </ul>-->
                 </div>
 
                 <div class="sidebar-list">
-                    <h1>COUPONS BY STORES</h1>
+                    <h1><?php echo ($this->Session->read('lang')=='a')?'كوبونات من قبل مخازن':'COUPONS BY STORES';?></h1>
                     <ul>
                     <?php
                      $stores = $this->requestAction(array('controller' => 'deals', 'action' => 'allcompany'));
                      //var_dump($stores);
                      foreach($stores as $store){
+                        if($this->Session->read('lang')=='e')
+                        $comp = $store['Company']['name'];
+                        else
+                        $comp = $store['Company']['name_arabic'];
                     ?>
-                        <li <?php if(isset($this->params['pass'][1]) && str_replace("-" ," ",$this->params['pass'][1]) == strtolower($store['Company']['name'])){echo "class='active'";}?>><?php echo $this->Html->link($store['Company']['name']." <span>(".$store['Company']['deal_count'].")</span>",
+                        <li <?php if(isset($this->params['pass'][1]) && str_replace("-" ," ",$this->params['pass'][1]) == strtolower($store['Company']['name'])){echo "class='active'";}?>><?php echo $this->Html->link($comp.
+                                                                " <span>(".$this->requestAction(array('controller'=>'deals','action'=>'deal_countbycompany',$store['Company']['id'])).")</span>",
                             array('controller'=>'deals','action'=>"stores",$this->Session->read('city'),strtolower(str_replace(" ","-",$store['Company']['name']))),array('escape' => FALSE));?>
                         <!--<a href="<?php //echo Route::url('/deals/city/'.$city."/".$cat['DealCategory']['name']);?>"><?php echo $store['Company']['name']."<span>(".$cat['DealCategory']['deal_count'].")</span>";?></a></li>-->
                     <?php }?>
@@ -80,14 +111,13 @@ if($this->params['controller']!='dashboard'){
                 {
                     ?>
                     <div class="sidebar-list">
-                    <h1>User Control</h1>
+                    <h1><?php echo ($this->Session->read('lang')=='a')?'تحكم المستخدم':'User Control';?></h1>
                     <ul>
-                        <li><a href="<?php echo $this->webroot;?>dashboard">My Deals</a></li>
-                        <li><a href="<?php echo $this->webroot;?>dashboard/setting">Account Settings</a></li>
-                        <li><a href="<?php echo $this->webroot;?>dashboard/mycredit">My Credit</a></li>
-                        <li><a href="<?php echo $this->webroot;?>dashboard/deposit">Deposit/Exhange</a></li>
-                        
-                        <!--<li><a href="#">Request Cheque</a></li>-->
+                        <li><a href="<?php echo $this->webroot;?>dashboard"><?php echo ($this->Session->read('lang')=='a')?'بلدي عروض':'My Deals';?></a></li>
+                        <li><a href="<?php echo $this->webroot;?>dashboard/setting"><?php echo ($this->Session->read('lang')=='a')?'إعدادات الحساب':'Account Settings';?></a></li>
+                        <li><a href="<?php echo $this->webroot;?>dashboard/mycredit"><?php echo ($this->Session->read('lang')=='a')?'بلدي الائتمان':'My Credit';?></a></li>
+                        <li><a href="<?php echo $this->webroot;?>dashboard/deposit"><?php echo ($this->Session->read('lang')=='a')?'صرف عملة':'Exhange';?></a></li>
+                        <li><a href="<?php echo $this->webroot;?>dashboard/request"><?php echo ($this->Session->read('lang')=='a')?'طلب شيك':'Request Cheque';?></a></li>
                         
                         <li style="background: #41BA33;"> </li>                   
                     </ul>
@@ -96,3 +126,40 @@ if($this->params['controller']!='dashboard'){
                 }
                 ?>
             </div>
+            <?php
+            function get_plusones($url)  {
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, "https://clients6.google.com/rpc");
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, '[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"'.rawurldecode($url).'","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]');
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+            $curl_results = curl_exec ($curl);
+            curl_close ($curl);
+            $json = json_decode($curl_results, true);
+            return isset($json[0]['result']['metadata']['globalCounts']['count'])?intval( $json[0]['result']['metadata']['globalCounts']['count'] ):0;
+            }
+            function cust_number($number)
+            {
+                if($number>=1000 && $number < 1000000)
+                return number_format(($number/1000),1)."K";
+                else
+                return number_format(($number/1000000),1)."M";
+            }
+            ?>
+            <script>
+                $(function(){
+                   $('.sharing').live('click',function(){
+                    //alert('test');
+         $('.dialog-modal').load('<?php echo $this->webroot?>deals/sharethis');
+               $('.dialog-modal').dialog({
+                    
+                    width: 285,
+                    title:'Sharing is caring',
+                    
+               });
+               }); 
+                });
+            </script>
+            
