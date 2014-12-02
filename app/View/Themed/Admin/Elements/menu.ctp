@@ -42,6 +42,7 @@
             <li><a href="bootstrap-grid.html"><i class="fa fa-wrench"></i> Bootstrap Grid</a></li>
             <li><a href="blank-page.html"><i class="fa fa-file"></i> Blank Page</a></li-->
             <?php if($superadmin) { ?>
+            asdasd
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users <b class="caret"></b></a>
               <ul class="dropdown-menu">
