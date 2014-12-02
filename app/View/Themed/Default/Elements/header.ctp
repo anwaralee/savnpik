@@ -95,6 +95,15 @@ font-family:cocon;
                 </div>
                 <?php $logout = ($this->Session->read('lang')=='a')?'تسجيل الخروج':'Log Out'; ?>
                 <div class="login-register">
+                
+                <div class="change-city" style="margin-right: 25px;">
+                    
+                    <select onchange="changelang(this.value)">
+                        <option value="e" <?php if($this->Session->read('lang')=='e'){?>selected="selected"<?php }?>>English</option>
+                        <option value="a" <?php if($this->Session->read('lang')=='a'){?>selected="selected"<?php }?>>العربية</option>
+                        <option value="g" <?php if($this->Session->read('lang')=='g'){?>selected="selected"<?php }?>>Deutsch</option>
+                    </select>
+                </div>
 					 <?php if($this->Session->read('Auth.User.username') && $this->Session->read('Auth.User.role')=='0'){
                         echo ($this->Session->read('lang')=='a')?"ترحيب":'Welcome'; echo " , ".ucfirst($this->Session->read('Auth.User.username'));
                      ?>&nbsp;|&nbsp;<?php if(!$this->Session->read('logoutUrl') && !$this->Session->read('gplus')){echo $this->Html->link(
@@ -139,11 +148,12 @@ font-family:cocon;
 <?php */?>
                     
                 <?php } ?>
-                &nbsp;|&nbsp;
-                <?php if($this->Session->read('lang')=='e')echo $this->Html->link($this->Html->image("lang.png",array('fullBase' => true)), "javascript:void(0)",array('escape'=>FALSE,'class'=>'trans',"id"=>"ar",'style'=>''));
+                
+                <?php /*if($this->Session->read('lang')=='e')echo $this->Html->link($this->Html->image("lang.png",array('fullBase' => true)), "javascript:void(0)",array('escape'=>FALSE,'class'=>'trans',"id"=>"ar",'style'=>''));
                     else
-                    echo $this->Html->link($this->Html->image("eng.jpg",array('fullBase' => true)), "javascript:void(0)",array('escape'=>FALSE,'class'=>'trans',"id"=>"ar",'style'=>''));
+                    echo $this->Html->link($this->Html->image("eng.jpg",array('fullBase' => true)), "javascript:void(0)",array('escape'=>FALSE,'class'=>'trans',"id"=>"ar",'style'=>''));*/
                     ?>
+                    
                 <?php if($this->Session->read('Auth.User.username')&& $this->Session->read('Auth.User.role')=='0'){?>&nbsp;|&nbsp;<?php echo $this->Html->image('/img/account_and_control.png',array('url'=>'/dashboard'),array('width'=>'20px'));} ?>&nbsp;|&nbsp;<?php echo $this->Html->image('/img/carts.png',array('url'=>array('controller'=>'carts','action'=>'index')),array('width'=>'20px'));?>  
 
                 </div>
@@ -197,15 +207,16 @@ font-family:cocon;
 
         </header>  
         <script>
-        $(function(){
-            $('#ar').click(function(){
+        function changelang(l){
                $.ajax({
-                url:'<?php echo $this->webroot?>deals/createSess',
+                url:'<?php echo $this->webroot?>deals/createSess/'+l,
                 success:function(){
                     window.location = '';
                 }
                }); 
-            });
+            }
+        $(function(){
+            
            $('.gplus').click(function(){
               window.open('https://mail.google.com/mail/u/0/?logout&hl=en','_blank');
               $.ajax({

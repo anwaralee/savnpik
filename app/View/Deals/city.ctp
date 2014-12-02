@@ -21,8 +21,10 @@
     <?php
     if($this->Session->read('lang')=='e')
         $l='e';
-    else
+    elseif($this->Session->read('lang')=='a')
         $l='a';
+    else
+    $l='g';    
     ?>
 <div id="left-content">
     <?php if(isset($features) || isset($nocat)) {
@@ -108,7 +110,7 @@
                     <div class="absolute">
                         <div class="price"><?php if($this->Session->read('lang')=='e'){?>AED<?php }else echo "درهم";?> <strong><?php echo $features[0]['Deal']['selling_price'];?></strong></div>
                         <div class="discount">
-                        <div class="left"><?php if($this->Session->read('lang')=='e'){?>Discount<?php }else echo "خصم";?><br /><strong><?php echo $features[0]['Deal']['discount'];?>%</strong></div>
+                        <div class="left"><?php if($this->Session->read('lang')=='e'){?>Discount<?php }else if($this->Session->read('lang')=='a')echo "خصم";else echo 'Rabatt';?><br /><strong><?php echo $features[0]['Deal']['discount'];?>%</strong></div>
                         <div class="right">
                         <?php if($this->Session->read('lang')=='e'){?>You save<?php }else echo "يمكنك حفظ";?><br /><?php if($this->Session->read('lang')=='e'){?>AED<?php }else echo "درهم";?> <strong><?php echo $features[0]['Deal']['marked_price']-$features[0]['Deal']['selling_price'];?></strong></div>
                         <div class="clearfix"></div>

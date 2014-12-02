@@ -194,6 +194,7 @@ class DealsController extends AppController {
         $views = $deal['Deal']['view_count'];
         $views++;
         $this->Deal->id = $deal['Deal']['id'];
+        if($deal)
         $this->Deal->saveField('view_count',$views);
 		$this->set('deal', $deal);
 	}
@@ -894,18 +895,10 @@ class DealsController extends AppController {
       }
       
       
-      function createSess()
+      function createSess($l)
       {
-        if($this->Session->read('lang'))
-        {
-            $lang = $this->Session->read('lang');
-            if($lang=='e')
-            $this->Session->write('lang','a');
-            else
-            $this->Session->write('lang','e');
-        }
-        else
-        $this->Session->write('lang','e'); 
+        
+        $this->Session->write('lang',$l); 
         die();
       }
       
