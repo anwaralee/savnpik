@@ -11,11 +11,13 @@
                 </div>
 
                 <div class="footer2">
-                    <h2><?php if($this->Session->read('lang')=='a'){?>شركة<?php }else{?>Company<?php }?></h2>
+                    <h2><?php if($this->Session->read('lang')=='a'){?>شركة<?php }elseif($this->Session->read('lang')=='e'){?>Company<?php }else{?>Företag<?php }?></h2>
                     <ul>
                     <?php
                             if($this->Session->read('lang')=='a')
                                 $ar = "_arabic";
+                            if($this->Session->read('lang')=='g')
+                                $ar = "_german";                                
                             else
                                 $ar = "";
                              $company = $this->requestAction(array('controller'=>'deals','action'=>'get_page_by_category','9'));
@@ -37,7 +39,7 @@
                 </div>
 
                 <div class="footer3">
-                    <h2><?php if($this->Session->read('lang')=='a'){?>مساعدة<?php }else{?>Help<?php }?></h2>
+                    <h2><?php if($this->Session->read('lang')=='a'){?>مساعدة<?php }elseif($this->Session->read('lang')=='e'){?>Help<?php }else{?>Hjälp<?php }?></h2>
                     <ul>
                     <?php $help = $this->requestAction(array('controller'=>'deals','action'=>'get_page_by_category','8'));
                             foreach($help as $c)
@@ -55,12 +57,12 @@
                 </div>
 
                 <div class="footer4">
-                    <h2><?php if($this->Session->read('lang')=='a'){?>نحن نقبل<?php }else{?>We accept<?php }?></h2>
+                    <h2><?php if($this->Session->read('lang')=='a'){?>نحن نقبل<?php }elseif($this->Session->read('lang')=='e'){?>We accept<?php }else{?>vi accepterar<?php }?></h2>
                     <?php echo $this->Html->image("cards.png",array('fullBase' => true));?>
                     
 
                     <div class="socials">
-                    <h2><?php if($this->Session->read('lang')=='a'){?>نحن الاجتماعية<?php }else{?>We are social<?php }?></h2>
+                    <h2><?php if($this->Session->read('lang')=='a'){?>نحن الاجتماعية<?php }elseif($this->Session->read('lang')=='e'){?>We are social<?php }else{?>Vi är sociala<?php }?></h2>
                     
                     <a href="https://developers.facebook.com/" class="facebook">Facebook</a>
                     <a href="https://dev.twitter.com/‎" class="twitter">Twitter</a>
@@ -70,7 +72,7 @@
                 </div>
 
                 
-                <div class="bottom-footer">
+                <div class="bottom-footer" style="direction: ltr;">
                     <div class="footer-logo">
                         <a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>"><?php echo $this->Html->image("logo.png",array('fullBase' => true));?></a>
                     </div>

@@ -280,7 +280,7 @@
                                 if($sess=='e')    
                                 $ddd = '<span style="display:inline-block;"><span class="d'.$z.'">'.$days.'</span> day';
                                 else
-                                $ddd = '<span style="display:inline-block;width:70px;"><span class="d'.$z.'">'.$days.'</span> day';
+                                $ddd = '<span style="display:inline-block;width:78px;"><span class="d'.$z.'">'.$days.'</span> day';
                                 if($days>1){
                                 $ddd = $ddd. 's</span>';
                                 }

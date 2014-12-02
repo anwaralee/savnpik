@@ -599,7 +599,7 @@ class DealsController extends AppController {
                 $ar = "";
             $this->loadModel('Page');
             $p = $this->Page->findById($pid);
-            return $p['Page']['desc'.$ar]; 
+            return substr($p['Page']['desc'.$ar],0,550).'...'; 
             
         }
         
