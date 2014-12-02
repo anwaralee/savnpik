@@ -593,6 +593,9 @@ class DealsController extends AppController {
             if($this->Session->read('lang')=='a')
                 $ar = "_arabic";
             else
+             if($this->Session->read('lang')=='g')
+                $ar = "_german";    
+            else
                 $ar = "";
             $this->loadModel('Page');
             $p = $this->Page->findById($pid);

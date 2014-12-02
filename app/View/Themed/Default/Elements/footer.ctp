@@ -3,7 +3,7 @@
             <div class="top-footer clearfix">
                 <div class="footer1">
                     <div class="footer1-inner">
-                    <h2><?php if($this->Session->read('lang')=='a'){?> Savnpik حول<?php }else{?>About Savnpik<?php }?></h2>
+                    <h2><?php if($this->Session->read('lang')=='a'){?> Savnpik حول<?php }elseif($this->Session->read('lang')=='a'){?>About Savnpik<?php }else{?>Om Savnpik<?php }?></h2>
                     <?php 
                         echo $this->requestAction(array('controller'=>'deals','action'=>'get_content','9'));?> 
                     

@@ -5,7 +5,7 @@ if($this->params['controller']!='dashboard'){
                 <div id="ads">
                 <a href="javascript:void(0);" style="display: block;text-decoration:none;text-align: center;" class="sharing">
                     <div class="ad-banner" style="width: 100%;background:#DD0A37;"><div style="padding: 8px;">
-                        <h1 style="color: #FFF;margin:0 0 5px 0;font-size: 26px;"><?php if($this->Session->read('lang')=='e'){?>SHARING IS CARING<?php }else{?>تقاسم يرعى<?php }?></h1>
+                        <h1 style="color: #FFF;margin:0 0 5px 0;<?php if($this->Session->read('lang')=='g'){?>font-size: 21px;<?php }else{?>font-size: 26px;<?php }?>"><?php if($this->Session->read('lang')=='e'){?>SHARING IS CARING<?php }elseif($this->Session->read('lang')=='a'){?>تقاسم يرعى<?php }else{?>Delning är omtänksam<?php }?></h1>
                         <span style="color: #FFF;"><?php if($this->Session->read('lang')=='a'){?>مشاركة SAVNPIK وكسب النقاط<?php }else{?>SHARE SAVNPIK AND EARN POINT<?php }?></span>
                         <div style="text-align: center;padding: 10px 0;font-weight:bold;color:#333;font-size: 20px;"><?php if($this->Session->read('lang')=='a'){?>انقر هنا لكسب نقطة<?php }else{?>click here to earn point<?php }?></div>
                         </div></div>
@@ -24,7 +24,11 @@ if($this->params['controller']!='dashboard'){
                                        <?php
                                        }
                                 else
-                            echo "<a href='#' targt='_blank' >".$this->Html->image("dubai.jpg",array('fullBase' => true))."</a>";?></div>
+                                if($this->Session->read('lang')!='g')
+                            echo "<a href='#' targt='_blank' >".$this->Html->image("dubai.jpg",array('fullBase' => true))."</a>";
+                            else
+                            echo "<a href='#' targt='_blank' >".$this->Html->image("dubai_german.jpg",array('fullBase' => true))."</a>";
+                            ?></div>
                 </div>
 
                 <div class="social-counts">
@@ -56,7 +60,7 @@ if($this->params['controller']!='dashboard'){
                 </div>
 
                 <div class="sidebar-list">
-                    <h1><?php echo ($this->Session->read('lang')=='a')?'كوبونات حسب الفئة':'COUPONS BY CATEGORY';?></h1>
+                    <h1 style="font-size: 19px;"><?php echo ($this->Session->read('lang')=='a')?'كوبونات حسب الفئة':($this->Session->read('lang')=='e')?'COUPONS BY CATEGORY':'KUPONGER PER KATEGORI';?></h1>
                     <ul>
                     <?php
                      $category = $this->requestAction(array('controller' => 'deals', 'action' => 'all'));
@@ -65,7 +69,10 @@ if($this->params['controller']!='dashboard'){
                         if($this->Session->read('lang')=='e')
                         $categ = $cat['DealCategory']['name'];
                         else
+                        if($this->Session->read('lang')=='a')
                         $categ = $cat['DealCategory']['name_arabic'];
+                        else
+                        $categ = $cat['DealCategory']['name_german'];
                     ?>
                         <li <?php if(isset($this->params['pass'][1]) && str_replace("-" ," ",$this->params['pass'][1]) == strtolower($cat['DealCategory']['name'])){echo "class='active'";}?>><?php echo $this->Html->link($categ." 
                                         <span>(".$this->requestAction(array('controller'=>'deals','action'=>'deal_count',$cat['DealCategory']['id'])).")</span>",
@@ -85,7 +92,10 @@ if($this->params['controller']!='dashboard'){
                         if($this->Session->read('lang')=='e')
                         $comp = $store['Company']['name'];
                         else
+                        if($this->Session->read('lang')=='a')
                         $comp = $store['Company']['name_arabic'];
+                        else
+                        $comp = $store['Company']['name_german'];
                     ?>
                         <li <?php if(isset($this->params['pass'][1]) && str_replace("-" ," ",$this->params['pass'][1]) == strtolower($store['Company']['name'])){echo "class='active'";}?>><?php echo $this->Html->link($comp.
                                                                 " <span>(".$this->requestAction(array('controller'=>'deals','action'=>'deal_countbycompany',$store['Company']['id'])).")</span>",

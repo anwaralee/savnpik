@@ -20,6 +20,7 @@ font-family:cocon;
 #login-account .logins{width:310px!important;}
 #create-account .logins{width:340px!important;}
 #login-account h2, #login-account .logins,#create-account h2, #create-account .logins,#login-account form,#create-account form{padding-right: 10px;}
+.customStyleSelectBox{direction:ltr!important;}
     </style>
     <?php
 }
@@ -82,7 +83,7 @@ font-family:cocon;
             <div id="top-head">
             <div class="mid-content clearfix">
                 <div class="change-city">
-                    <?php echo ($this->Session->read('lang')=='a')?"تغيير المدينة":'Change City';?>&nbsp;:
+                    <?php if($this->Session->read('lang')=='a')echo "تغيير المدينة";elseif($this->Session->read('lang')=='e')echo 'Change City';else echo 'Ändra stad';?>&nbsp;:
                     <select onchange="changecity(this.value)">
                     <?php $cities = $this->requestAction(array('controller'=>'deals','action'=>'listcity'));
                         foreach($cities as $city)
@@ -93,19 +94,19 @@ font-family:cocon;
                     ?>
                     </select>
                 </div>
-                <?php $logout = ($this->Session->read('lang')=='a')?'تسجيل الخروج':'Log Out'; ?>
+                <?php if($this->Session->read('lang')=='a')$logout='تسجيل الخروج';elseif($this->Session->read('lang')=='e')$logout = 'Log Out';else{$logout='Logga ut';} ?>
                 <div class="login-register">
                 
                 <div class="change-city" style="margin-right: 25px;">
                     
-                    <select onchange="changelang(this.value)">
-                        <option value="e" <?php if($this->Session->read('lang')=='e'){?>selected="selected"<?php }?>>English</option>
-                        <option value="a" <?php if($this->Session->read('lang')=='a'){?>selected="selected"<?php }?>>العربية</option>
-                        <option value="g" <?php if($this->Session->read('lang')=='g'){?>selected="selected"<?php }?>>Deutsch</option>
+                    <select onchange="changelang(this.value)" style="direction:ltr!important">
+                        <option style="direction:ltr!important" value="e" <?php if($this->Session->read('lang')=='e'){?>selected="selected"<?php }?>>English</option>
+                        <option style="direction:ltr!important" value="a" <?php if($this->Session->read('lang')=='a'){?>selected="selected"<?php }?>>العربية</option>
+                        <option style="direction:ltr!important" value="g" <?php if($this->Session->read('lang')=='g'){?>selected="selected"<?php }?>>Svenska</option>
                     </select>
                 </div>
 					 <?php if($this->Session->read('Auth.User.username') && $this->Session->read('Auth.User.role')=='0'){
-                        echo ($this->Session->read('lang')=='a')?"ترحيب":'Welcome'; echo " , ".ucfirst($this->Session->read('Auth.User.username'));
+                        if($this->Session->read('lang')=='a')echo "ترحيب";elseif($this->Session->read('lang')=='e')echo 'Welcome';else echo 'Välkommen'; echo " , ".ucfirst($this->Session->read('Auth.User.username'));
                      ?>&nbsp;|&nbsp;<?php if(!$this->Session->read('logoutUrl') && !$this->Session->read('gplus')){echo $this->Html->link(
                                     $logout,
                                         array('full_base' => true,
@@ -127,14 +128,14 @@ font-family:cocon;
                     <?php } else { ?>
                    
                     <?php echo $this->Html->link(
-                                    ($this->Session->read('lang')=='a')?'دخول':'Login',
+                                    ($this->Session->read('lang')=='a')?'دخول':($this->Session->read('lang')=='g')?'inloggning':'Login',
                                         array('full_base' => true,
                                             'controller' => 'users',
                                             'action' => 'login'
                                            )
                                         );?> | 
                    <?php echo $this->Html->link(
-                                    ($this->Session->read('lang')=='a')?'تسجيل':'Register',
+                                    ($this->Session->read('lang')=='a')?'تسجيل':($this->Session->read('lang')=='g')?'Registrera':'Register',
                                         array('full_base' => true,
                                             'controller' => 'users',
                                             'action' => 'register'
@@ -166,10 +167,10 @@ font-family:cocon;
                 </div>
                 
                 <div id="suscribe">
-                    <div class="sus-text"><?php if($this->Session->read('lang')=='e'){?>Subscribe your email for daily deal alerts<?php }else {?>الاشتراك بريدك الإلكتروني للتنبيهات صفقة يوميا<?php }?></div>
+                    <div class="sus-text"><?php if($this->Session->read('lang')=='e'){?>Subscribe your email for daily deal alerts<?php }else if($this->Session->read('lang')=='a'){?>الاشتراك بريدك الإلكتروني للتنبيهات صفقة يوميا<?php }else{?>Prenumerera din e-post för daglig deal varningar<?php }?></div>
                     <div class="form">
-                        <input type="email" placeholder="<?php if($this->Session->read('lang')=='e'){?>Enter your email please<?php }else{?>ادخل عنوان البريد الإلكتروني الذي<?php }?>" name="email" class="subem">
-                        <input type="button" class="submitsub" value="<?php if($this->Session->read('lang')=='a'){?>اشترك الآن<?php }else{?>Subscribe Now<?php }?>">
+                        <input type="email" placeholder="<?php if($this->Session->read('lang')=='e'){?>Enter your email please<?php }elseif($this->Session->read('lang')=='a'){?>ادخل عنوان البريد الإلكتروني الذي<?php }else{?>Ange din e-postadress<?php }?>" name="email" class="subem">
+                        <input type="button" class="submitsub" value="<?php if($this->Session->read('lang')=='a'){?>اشترك الآن<?php }elseif($this->Session->read('lang')=='e'){?>Subscribe Now<?php }else{?>Prenumerera nu<?php }?>">
                     </div>
                     <div class="messages"></div>
                 </div>    
@@ -182,8 +183,10 @@ font-family:cocon;
                     <?php
                     if($this->Session->read('lang')=='e') 
                     echo $this->Html->link("Deals",array('controller'=>'deals','action'=>"city",$this->Session->read('city')),array('escape' => FALSE));
+                    elseif($this->Session->read('lang')=='a')
+                    echo $this->Html->link("عروض",array('controller'=>'deals','action'=>"city",$this->Session->read('city')),array('escape' => FALSE));
                     else
-                    echo $this->Html->link("عروض",array('controller'=>'deals','action'=>"city",$this->Session->read('city')),array('escape' => FALSE));?>
+                    echo $this->Html->link("erbjudandena",array('controller'=>'deals','action'=>"city",$this->Session->read('city')),array('escape' => FALSE));?>
                         </li>
                 <?php
                      $category = $this->requestAction(array('controller' => 'deals', 'action' => 'all'));
@@ -193,10 +196,19 @@ font-family:cocon;
                         if(in_array($cat['DealCategory']['name'],$array)){
                     ?>
                         <li <?php
+                        if($this->Session->read('lang')=='g')
+                        {
+                            ?>
+                            style="font-size: 13px;"
+                            <?php 
+                        }
                         if($this->Session->read('lang')=='e')
                         $cat_name = $cat['DealCategory']['name'];
                         else
+                        if($this->Session->read('lang')=='a')
                          $cat_name = $cat['DealCategory']['name_arabic'];
+                         else
+                         $cat_name = $cat['DealCategory']['name_german'];
                         if(isset($this->params['pass'][1]) && str_replace("-" ," ",$this->params['pass'][1]) == strtolower($cat['DealCategory']['name'])){echo "class='active'";}?> ><?php echo $this->Html->link($cat_name,
                             array('controller'=>'deals','action'=>"city",$this->Session->read('city'),strtolower(str_replace(" ","-",$cat['DealCategory']['name']))),array('escape' => FALSE));?></li>
                         
