@@ -268,7 +268,7 @@ body{font-family: 'Open Sans', sans-serif; font-weight: 400; line-height: 1}
 
 #suscribe .form{ width: 100%; height: 36px; border:1px solid #dbdbdb; background:#f1f1f1;}
 
-#suscribe input[type='email']{color:#9c9c9c; height: 30px; padding:3px 8px; border:none; background: none; float: left; width: 60%; font-weight: 300}
+#suscribe input[type='email']{color:#9c9c9c; height: 30px; padding:3px 7px; border:none; background: none; float: left; width: 60%; font-weight: 300}
 
 #suscribe input[type='email']:focus{ box-shadow: none}
 
