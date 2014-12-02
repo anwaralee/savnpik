@@ -9,6 +9,7 @@
         <legend><?php echo __('Add Deal Category'); ?></legend>
         <?php  echo $this->Form->input('name'); ?>
         <?php  echo $this->Form->input('name_arabic'); ?>
+        <?php  echo $this->Form->input('name_german'); ?><br/>
         <?php  //echo $this->Form->input('desc'); ?>
         <?php $options = array('1' => ' Enabled', '0' => 'Disabled');
 			  $attributes = array('legend' => false,'separator'=>'<br/>');

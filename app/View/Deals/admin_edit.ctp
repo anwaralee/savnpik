@@ -22,6 +22,7 @@
 	<?php
 		echo $this->Form->input('name');
         echo $this->Form->input('name_arabic');
+        echo $this->Form->input('name_german');
 		echo $this->Form->input('deal_category_id');
 		echo $this->Form->input('company_id');
         ?>
@@ -40,6 +41,13 @@
 </div>
 
 <div class="input textarea required">
+<label for="DealDescriptionGerman">Description German</label>
+<textarea id="DealDescriptionGerman" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][description_german]">
+<?php echo $this->request->data['Deal']['description_german'];?>
+</textarea>
+</div>
+
+<div class="input textarea required">
 <label for="DealHighlights">Highlights</label>
 <textarea id="DealHighlights" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][highlights]">
 <?php echo $this->request->data['Deal']['highlights'];?>
@@ -54,6 +62,13 @@
 </div>
 
 <div class="input textarea required">
+<label for="DealHighlightsGerman">Highlights German</label>
+<textarea id="DealHighlightsGerman" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][highlights_german]">
+<?php echo $this->request->data['Deal']['highlights_german'];?>
+</textarea>
+</div>
+
+<div class="input textarea required">
 <label for="DealConditions">Conditions</label>
 <textarea id="DealConditions" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][conditions]">
 <?php echo $this->request->data['Deal']['conditions'];?>
@@ -64,6 +79,13 @@
 <label for="DealConditions">Conditions Arabic</label>
 <textarea id="DealConditionsArabic" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][conditions_arabic]">
 <?php echo $this->request->data['Deal']['conditions_arabic'];?>
+</textarea>
+</div>
+
+<div class="input textarea required">
+<label for="DealConditionsGerman">Conditions German</label>
+<textarea id="DealConditionsGerman" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][conditions_german]">
+<?php echo $this->request->data['Deal']['conditions_german'];?>
 </textarea>
 </div>
 <?php

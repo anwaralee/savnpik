@@ -387,6 +387,7 @@ class DealsController extends AppController {
 		}
         $deal = $this->Deal->findById($id);
 		if ($this->request->is(array('post', 'put'))) {
+		  //var_dump($this->request->data);die();
             $this->Deal->id = $id;
             for($i=1;$i<=10;$i++){
 				if(empty($this->request->data['Deal']['image'.$i]['name'])){
