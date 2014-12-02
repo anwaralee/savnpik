@@ -9,7 +9,7 @@
         <legend><?php echo __('Add City'); ?></legend>
         <?php  echo $this->Form->input('name'); ?> <br/>
         <?php  echo $this->Form->input('name_arabic'); ?> <br/>
-        <?php  echo $this->Form->input('name_german'); ?> <br/>
+        <?php  echo $this->Form->input('name_german',array('label' => 'Name Swedish')); ?> <br/>
         <?php $options = array('1' => ' Enabled', '0' => 'Disabled');
 			  $attributes = array('legend' => false,'separator'=>'<br/>');
 			echo $this->Form->radio('status', $options, $attributes);?>

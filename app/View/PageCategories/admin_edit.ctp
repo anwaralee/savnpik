@@ -17,8 +17,10 @@
         <legend><?php echo __('Update Category'); ?></legend>
         <?php  echo $this->Form->input('name'); ?> <br/>
         <?php  echo $this->Form->input('name_arabic'); ?> <br/>
+        <?php  echo $this->Form->input('name_german',array('label'=>'Name Swedish')); ?> <br/>
 		<?php  echo $this->Form->input('desc'); ?> <br/>
         <?php  echo $this->Form->input('desc_arabic'); ?> <br/>
+        <?php  echo $this->Form->input('desc_german',array('label'=>'Desc Swedish')); ?> <br/>
         <?php $options = array('1' => ' Enabled', '0' => 'Disabled');
 			  $attributes = array('legend' => false,'separator'=>'<br/>');
 			echo $this->Form->radio('status', $options, $attributes);?>
