@@ -121,13 +121,13 @@ if($this->params['controller']!='dashboard'){
                 {
                     ?>
                     <div class="sidebar-list">
-                    <h1><?php echo ($this->Session->read('lang')=='a')?'تحكم المستخدم':'User Control';?></h1>
+                    <h1><?php echo ($this->Session->read('lang')=='a')?'تحكم المستخدم':(($this->Session->read('lang')=='g')?'Användarkontroll':'User Control');?></h1>
                     <ul>
-                        <li><a href="<?php echo $this->webroot;?>dashboard"><?php echo ($this->Session->read('lang')=='a')?'بلدي عروض':'My Deals';?></a></li>
-                        <li><a href="<?php echo $this->webroot;?>dashboard/setting"><?php echo ($this->Session->read('lang')=='a')?'إعدادات الحساب':'Account Settings';?></a></li>
-                        <li><a href="<?php echo $this->webroot;?>dashboard/mycredit"><?php echo ($this->Session->read('lang')=='a')?'بلدي الائتمان':'My Credit';?></a></li>
-                        <li><a href="<?php echo $this->webroot;?>dashboard/deposit"><?php echo ($this->Session->read('lang')=='a')?'صرف عملة':'Exhange';?></a></li>
-                        <li><a href="<?php echo $this->webroot;?>dashboard/request"><?php echo ($this->Session->read('lang')=='a')?'طلب شيك':'Request Cheque';?></a></li>
+                        <li><a href="<?php echo $this->webroot;?>dashboard"><?php echo ($this->Session->read('lang')=='a')?'بلدي عروض':(($this->Session->read('lang')=='g')?'Mina erbjudanden':'My Deals');?></a></li>
+                        <li><a href="<?php echo $this->webroot;?>dashboard/setting"><?php echo ($this->Session->read('lang')=='a')?'إعدادات الحساب':(($this->Session->read('lang')=='g')?'Kontoinställningar':'Account Settings');?></a></li>
+                        <li><a href="<?php echo $this->webroot;?>dashboard/mycredit"><?php echo ($this->Session->read('lang')=='a')?'بلدي الائتمان':(($this->Session->read('lang')=='g')?'min kredit':'My Credit');?></a></li>
+                        <li><a href="<?php echo $this->webroot;?>dashboard/deposit"><?php echo ($this->Session->read('lang')=='a')?'صرف عملة':(($this->Session->read('lang')=='g')?'Börs':'Exhange');?></a></li>
+                        <!--<li><a href="<?php echo $this->webroot;?>dashboard/request"><?php echo ($this->Session->read('lang')=='a')?'طلب شيك':(($this->Session->read('lang')=='g')?'Begär Check':'Request Cheque');?></a></li>-->
                         
                         <li style="background: #41BA33;"> </li>                   
                     </ul>

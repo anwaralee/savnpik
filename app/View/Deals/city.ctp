@@ -24,7 +24,7 @@
     elseif($this->Session->read('lang')=='a')
         $l='a';
     else
-    $l='g';    
+        $l='g';    
     ?>
 <div id="left-content">
     <?php if(isset($features) || isset($nocat)) {
@@ -54,14 +54,14 @@
                      
                     </div>
                     <div class="absolute">
-                        <div class="price"><?php if($this->Session->read('lang')=='e'){?>AED<?php }else echo "درهم";?> <strong><?php echo $feature['Deal']['selling_price'];?></strong></div>
+                        <div class="price"><?php if($this->Session->read('lang')=='e'|| $l =='g'){?>AED<?php }else echo "درهم";?> <strong><?php echo $feature['Deal']['selling_price'];?></strong></div>
                         <div class="discount">
-                        <div class="left">Discount<br /><strong><?php echo $feature['Deal']['discount'];?>%</strong></div>
-                        <div class="right">You save<br />AED <strong><?php echo $feature['Deal']['marked_price']-$feature['Deal']['selling_price'];?></strong></div>
+                        <div class="left"><?php if($this->Session->read('lang')=='e'){?>Discount<?php }elseif($this->Session->read('lang')=='g'){echo "rabatt";}else echo "خصم";?><br /><strong><?php echo $feature['Deal']['discount'];?>%</strong></div>
+                        <div class="right"><?php if($this->Session->read('lang')=='e'){?>You save<?php }elseif($this->Session->read('lang')=='g'){echo "du sparar";}else echo "يمكنك حفظ";?><br /><?php if($this->Session->read('lang')=='e'){?>AED<?php }elseif($this->Session->read('lang')=='g'){echo "AED";}else echo "&nbsp;درهم&nbsp;";?> <strong><?php echo $feature['Deal']['marked_price']-$feature['Deal']['selling_price'];?></strong></div>
                         <div class="clearfix"></div>
                         </div>
                         <div class="limit">
-                            This deal can be bought over the next:<br />
+                            <?php if($l=='e')echo "This deal can be bought over the next";elseif($l=='a')echo 'ويمكن شراء هذه الصفقة على مدى المقبل';else echo "Affären kan köpas över nästa";?>:<br />
                             
                             <div id="counter" class="timer">
                             
@@ -74,8 +74,8 @@
                             </div>
                         </div>
                         <div class="bought">
-                            <div class="left">Bought<br /><strong><?php if($feature['Deal']['buy_count'])echo $feature['Deal']['buy_count'];else echo 0;?></strong></div>
-                            <div class="right">Viewed<br /><span><?php if($feature['Deal']['view_count'])echo $feature['Deal']['view_count'];else echo 0;?></span></div>
+                            <div class="left"><?php if($this->Session->read('lang')=='e'){?>Bought:<?php }elseif($this->Session->read('lang')=='g'){echo "köpt";}else echo ":اشترى";?><br /><strong><?php if($feature['Deal']['buy_count'])echo $feature['Deal']['buy_count'];else echo 0;?></strong></div>
+                            <div class="right"><?php if($this->Session->read('lang')=='e'){?>Viewed:<?php }elseif($this->Session->read('lang')=='g'){echo "Visad";}else echo ":شوهدت";?><br /><span><?php if($feature['Deal']['view_count'])echo $feature['Deal']['view_count'];else echo 0;?></span></div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="buyy">
@@ -108,15 +108,15 @@
                      
                     </div>
                     <div class="absolute">
-                        <div class="price"><?php if($this->Session->read('lang')=='e'){?>AED<?php }else echo "درهم";?> <strong><?php echo $features[0]['Deal']['selling_price'];?></strong></div>
+                        <div class="price"><?php if($this->Session->read('lang')=='e'|| $l=='g'){?>AED<?php }else echo "درهم";?> <strong><?php echo $features[0]['Deal']['selling_price'];?></strong></div>
                         <div class="discount">
                         <div class="left"><?php if($this->Session->read('lang')=='e'){?>Discount<?php }else if($this->Session->read('lang')=='a')echo "خصم";else echo 'Rabatt';?><br /><strong><?php echo $features[0]['Deal']['discount'];?>%</strong></div>
                         <div class="right">
-                        <?php if($this->Session->read('lang')=='e'){?>You save<?php }else echo "يمكنك حفظ";?><br /><?php if($this->Session->read('lang')=='e'){?>AED<?php }else echo "درهم";?> <strong><?php echo $features[0]['Deal']['marked_price']-$features[0]['Deal']['selling_price'];?></strong></div>
+                        <?php if($this->Session->read('lang')=='e'){?>You save<?php }elseif($l=='g')echo "du sparar";else echo "يمكنك حفظ";?><br /><?php if($this->Session->read('lang')=='e'|| $l=='g'){?>AED<?php }else echo "درهم";?> <strong><?php echo $features[0]['Deal']['marked_price']-$features[0]['Deal']['selling_price'];?></strong></div>
                         <div class="clearfix"></div>
                         </div>
                         <div class="limit">
-                            <?php if($this->Session->read('lang')=='e'){?>This deal can be bought over the next:<?php }else echo "ويمكن شراء هذه الصفقة على مدى القادمة";?><br />
+                            <?php if($l=='e')echo "This deal can be bought over the next";elseif($l=='a')echo 'ويمكن شراء هذه الصفقة على مدى المقبل';else echo "Affären kan köpas över nästa";?>:<br />
                             
                             <div id="counter" class="timer">
                             
@@ -127,8 +127,8 @@
                             </div>
                         </div>
                         <div class="bought">
-                            <div class="left"><?php if($this->Session->read('lang')=='e'){?>Bought<?php }else echo "اشترى";?><br /><strong><?php if($features[0]['Deal']['buy_count'])echo $features[0]['Deal']['buy_count'];else echo 0;?></strong></div>
-                            <div class="right"><?php if($this->Session->read('lang')=='e'){?>Viewed<?php }else echo "شوهدت";?><br /><span><?php if($features[0]['Deal']['view_count'])echo $features[0]['Deal']['view_count'];else echo 0;?></span></div>
+                           <div class="left"><?php if($this->Session->read('lang')=='e'){?>Bought:<?php }elseif($this->Session->read('lang')=='g'){echo "köpt";}else echo ":اشترى";?><br /><strong><?php if($feature['Deal']['buy_count'])echo $feature['Deal']['buy_count'];else echo 0;?></strong></div>
+                            <div class="right"><?php if($this->Session->read('lang')=='e'){?>Viewed:<?php }elseif($this->Session->read('lang')=='g'){echo "Visad";}else echo ":شوهدت";?><br /><span><?php if($feature['Deal']['view_count'])echo $feature['Deal']['view_count'];else echo 0;?></span></div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="buyy">
@@ -153,7 +153,7 @@
                     { ?>
                     <div class="cat-header clearfix">
                     <h2><?php echo $Cat;?></h2>
-                    <a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>" class="back" >back to home</a>
+                    <a href="<?php echo $this->webroot;?>deals/city/<?php echo $this->Session->read('city');?>" class="back" ><?php if($this->Session->read('lang')=='e')echo "back to home";elseif($this->Session->read('lang')=='g')echo "tillbaka till hemmet";else{echo "العودة إلى المنزل";}?></a>
                     </div>
                     <?php }
                     //var_dump($cityDeals);
@@ -192,8 +192,9 @@
                         <div class="event-detail">
                             <div class="short-desc">
                             <h2><?php if($l=='e')echo $this->Html->link($deal['Deal']['name'],'/deal/'.$deal['Deal']['slug']);
+                                        elseif($l=='g')echo $this->Html->link($deal['Deal']['name_german'],'/deal/'.$deal['Deal']['slug']);
                                         else echo $this->Html->link($deal['Deal']['name_arabic'],'/deal/'.$deal['Deal']['slug']);?></h2>
-                         <?php if($l=='e')echo substr($deal['Deal']['description'],0,150);else echo substr($deal['Deal']['description_arabic'],0,150);?>
+                         <?php if($l=='e')echo substr($deal['Deal']['description'],0,150);elseif($l=='g')echo substr($deal['Deal']['description_german'],0,150);else echo substr($deal['Deal']['description_arabic'],0,150);?>
                             </div>
 
                             <div class="event-desc clearfix">
@@ -202,7 +203,7 @@
                                 <div class="save"><?php echo $deal['Deal']['discount']."%";?></div>
                                 </div>
 
-                                <a class="bttn" href="<?php echo $this->webroot;?>deal/<?php echo $deal['Deal']['slug']?>"><span><?php if($this->Session->read('lang')=='e'){?>AED<?php }else echo "درهم";?></span> <?php echo $deal['Deal']['selling_price'];?></a>
+                                <a class="bttn" href="<?php echo $this->webroot;?>deal/<?php echo $deal['Deal']['slug']?>"><span><?php if($this->Session->read('lang')=='e'|| $l == 'g'){?>AED<?php }else echo "درهم";?></span> <?php echo $deal['Deal']['selling_price'];?></a>
                             </div>
                         </div>
                     </div>
@@ -219,7 +220,7 @@
                 <?php }?>
     <?php }
      else { ?>
-    <h1><?php echo ($this->Session->read('lang')=='a')?"لم يتم العثور عروض":"No Deals Found";?></h1>
+    <h1><?php echo ($this->Session->read('lang')=='a')?"لم يتم العثور عروض":(($l=='g')?"Inga erbjudandena Funnet":"No Deals Found");?></h1>
     <?php } ?>
             </div>
             
@@ -278,16 +279,21 @@
 
                                 if($days>0){
                                 if($sess=='e')    
-                                $ddd = '<span style="display:inline-block;"><span class="d'.$z.'">'.$days.'</span> day';
+                                    $ddd = '<span style="display:inline-block;"><span class="d'.$z.'">'.$days.'</span> day';
+                                elseif($sess=='g')    
+                                    $ddd = '<span style="display:inline-block;"><span class="d'.$z.'">'.$days.'</span> dag';
+                                
                                 else
-                                $ddd = '<span style="display:inline-block;width:78px;"><span class="d'.$z.'">'.$days.'</span> day';
+                                    $ddd = '<span style="display:inline-block;width:78px;"><span class="d'.$z.'">'.$days.'</span> يوم';
                                 if($days>1){
                                 $ddd = $ddd. 's</span>';
                                 }
                                 else
                                 $ddd = $ddd. '</span>';
                                 if($sess=='a')
-                                $ddd = str_replace(array('days','day'),array('<span class="left" style="display:inline-block;">يوما&nbsp;</span>','<span class="left" style="display:inline-block;">اليوم&nbsp;</span>'),$ddd);                              
+                                    $ddd = str_replace(array('days','day'),array('<span class="left" style="display:inline-block;">يوما&nbsp;</span>','<span class="left" style="display:inline-block;">اليوم&nbsp;</span>'),$ddd);                              
+                                if($sess=='g')
+                                    $ddd = str_replace(array('days','day'),array('<span class="left" style="display:inline-block;">dagar&nbsp;</span>','<span class="left" style="display:inline-block;">dag&nbsp;</span>'),$ddd);                              
                                 
                                 echo $ddd;
                                 echo ' '.$h1;
@@ -365,7 +371,21 @@
                                     echo ' '.$h.' h remaining';
                                 }
                                 else
-                                echo "EXPIRED";
+                                    echo "EXPIRED";
+                                }
+                                elseif($sess=='g'){
+                                    if($days>0){
+                                        echo $days.' dag';
+                                        if($days>1)
+                                            echo 's';
+                                        echo ' '.$h.' h återstående';
+                                    }
+                                    elseif($days==0)
+                                    {
+                                        echo ' '.$h.' h återstående';
+                                    }
+                                    else
+                                        echo "TILLÄNDALUPEN";
                                 }
                                 else
                                 {

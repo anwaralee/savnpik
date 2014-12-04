@@ -23,7 +23,7 @@ window.fbAsyncInit = function() {
 </script>
 
     <div class="cat-header clearfix">
-        <h2><?php echo ($this->Session->read('lang')=='a')?$this->Html->image('/img/Coins.png',array('width'=>'20px')).$tot.': بلدي الائتمان':'My Credit : '.$tot.$this->Html->image('/img/Coins.png',array('width'=>'20px'));;?> </h2>
+        <h2><?php echo ($this->Session->read('lang')=='a')? $this->Html->image('/img/Coins.png',array('width'=>'20px')).$tot.': بلدي الائتمان':(($this->Session->read('lang')=='g')? "min kredit : ":'My Credit : ').$tot.$this->Html->image('/img/Coins.png',array('width'=>'20px'));?> </h2>
                                 
     </div>
     
@@ -40,7 +40,7 @@ window.fbAsyncInit = function() {
                     if($i==1){
                     //$tot = $q['User']['my_coin'];
                     ?>
-                    <thead><th><?php echo ($this->Session->read('lang')=='a')?'مكافأة ل':'Reward for';?></th><th>(+)</th><th>(-)</th></thead>
+                    <thead><th><?php echo ($this->Session->read('lang')=='a')?'مكافأة ل':(($this->Session->read('lang')=='g')?"Belöning för":'Reward for');?></th><th>(+)</th><th>(-)</th></thead>
                     <?php 
                     }
                     ?>
@@ -61,10 +61,10 @@ window.fbAsyncInit = function() {
                 <?php }?>
      <?php }
      else
-        echo ($this->Session->read('lang')=='a')?'لا الائتمان التاريخ.':"No Credit History.";
+        echo ($this->Session->read('lang')=='a')?'لا الائتمان التاريخ.':(($this->Session->read('lang')=='g')?"Ingen kredit historia.":"No Credit History.");
      ?>   
      </div>     
-    <h2><?php echo ($this->Session->read('lang')=='a')?'كسب المزيد':'Earn More';?></h2> 
+    <h2><?php echo ($this->Session->read('lang')=='a')?'كسب المزيد':(($this->Session->read('lang')=='g')?"Tjäna mer":'Earn More');?></h2> 
     <div class="earnmore">
         <div class="fourblock left">
             <div class="blockimage">

@@ -1,6 +1,6 @@
 <?php $sess=$this->Session->read('lang');?>
 <div id="login-account">
-                <h2><?php if($sess == 'e'){?>LOGIN TO YOUR ACCOUNT<?php }else{echo "تسجيل الدخول إلى حسابك";}?></h2>
+                <h2><?php if($sess == 'e'){?>LOGIN TO YOUR ACCOUNT<?php }elseif($sess == 'g')echo "Loggar in på kontot";else{echo "تسجيل الدخول إلى حسابك";}?></h2>
                 <div class="logins">
                 <div class="fblogindiv">
                 <a href="<?php echo $this->webroot;?>users/fblogin<?php if(isset($_GET['url']))echo '?url='.$_GET['url'];?>" class="facebook-signin" style="margin-bottom: 10px;">Sign in with Facebook</a>
@@ -26,13 +26,17 @@
                 <div class="form-wrap">
                      <?php echo $this->Form->create('User',array('action'=>(isset($_GET['url']))?'login?url='.$_GET['url']:'login','id'=>'UserLoginForm')); ?>
                             <fieldset>
-                                 <?php if($this->Session->read('lang')=='e')echo $this->Form->input('username',array('div'=>array('class'=>'form-row')));
-                                       else echo $this->Form->input('username',array('div'=>array('class'=>'form-row'),'label'=>'اسم المستخدم'));
+                                 <?php if($this->Session->read('lang')=='e')
+                                        echo $this->Form->input('username',array('div'=>array('class'=>'form-row')));
+                                        elseif($sess == 'g')
+                                        echo $this->Form->input('username',array('div'=>array('class'=>'form-row'),'label'=>'Användarnamn'));
+                                       else 
+                                        echo $this->Form->input('username',array('div'=>array('class'=>'form-row'),'label'=>'اسم المستخدم'));
                                   ?>
                                 <?php  //echo $this->Form->input('password',array('div'=>array('class'=>'form-row'))); ?>
                                 
                                 <div class="form-row">
-                    <label><?php if($this->Session->read('lang')=='a'){?>كلمة السر<?php }else{?>Your Password<?php }?> <a href="<?php echo $this->webroot?>users/forgot" class="forgot-password"><?php if($this->Session->read('lang')=='a'){?>نسيت كلمة المرور؟<?php }else{?>forgot password?<?php }?></a></label>
+                    <label><?php if($this->Session->read('lang')=='a'){?>كلمة السر<?php }elseif($this->Session->read('lang')=='g')echo "ditt lösenord";else{?>Your Password<?php }?> <a href="<?php echo $this->webroot?>users/forgot" class="forgot-password"><?php if($this->Session->read('lang')=='a'){?>نسيت كلمة المرور؟<?php }elseif($this->Session->read('lang')=='g')echo "Glömt lösenord?";else{?>forgot password?<?php }?></a></label>
                     <input id="UserPassword" type="password" required="required" name="data[User][password]">
                     </div>
 
@@ -42,7 +46,9 @@
                         </fieldset>
                     <?php
                     if($this->Session->read('lang')=='e') 
-                    echo $this->Form->submit('Login',array('class'=>'green-btn'));
+                        echo $this->Form->submit('Login',array('class'=>'green-btn'));
+                    elseif($this->Session->read('lang')=='g') 
+                        echo $this->Form->submit('inloggning',array('class'=>'green-btn'));
                     else
                     echo $this->Form->submit('دخول',array('class'=>'green-btn'));
                     echo $this->Form->end(); ?>
@@ -51,7 +57,7 @@
 
             <div id="create-account">
 
-                <h2><?php if($sess=='e'){?>REGISTER YOUR ACCOUNT<?php }else{?>تسجيل حسابك<?php }?></h2>
+                <h2><?php if($sess=='e'){?>REGISTER YOUR ACCOUNT<?php }elseif($sess == 'g'){echo "Registrera ditt konto";}else{?>تسجيل حسابك<?php }?></h2>
                 
                 <div class="logins">
                 <div class="fblogindiv">
@@ -79,45 +85,45 @@
                                 if($sess=='e')  
                                 echo $this->Form->input('full_name',array('div'=>array('class'=>'form-row'))); 
                                 else
-                                echo $this->Form->input('full_name',array('div'=>array('class'=>'form-row'),'label'=>'الاسم الكامل'));
+                                echo $this->Form->input('full_name',array('div'=>array('class'=>'form-row'),'label'=>($sess=='g')?'Fullständigt namn':'الاسم الكامل'));
                                 
                                 ?>
                                 <?php
                                 if($sess=='e') 
                                 echo $this->Form->input('email',array('div'=>array('class'=>'form-row'),'label'=>'Email Address','type'=>'text'));
                                 else
-                                echo $this->Form->input('email',array('div'=>array('class'=>'form-row'),'label'=>'عنوان البريد الإلكتروني','type'=>'text')); 
+                                echo $this->Form->input('email',array('div'=>array('class'=>'form-row'),'label'=>($sess=='g')?'E-postadress':'عنوان البريد الإلكتروني','type'=>'text')); 
                                 ?> 
                                 <?php
                                 if($sess=='e') 
                                 echo $this->Form->input('phone',array('div'=>array('class'=>'form-row'),'label'=>'Phone no','type'=>'text'));
                                 else
-                                 echo $this->Form->input('phone',array('div'=>array('class'=>'form-row'),'label'=>'رقم الهاتف','type'=>'text'));
+                                 echo $this->Form->input('phone',array('div'=>array('class'=>'form-row'),'label'=>($sess=='g')?'Telefon ingen':'رقم الهاتف','type'=>'text'));
                                 ?>
                                 
                                 <?php
                                 if($sess=='e') 
                                 echo $this->Form->input('address',array('div'=>array('class'=>'form-row'),'type'=>'text'));
                                 else
-                                 echo $this->Form->input('address',array('div'=>array('class'=>'form-row'),'type'=>'text','label'=>'عنوان'));
+                                 echo $this->Form->input('address',array('div'=>array('class'=>'form-row'),'type'=>'text','label'=>($sess=='g')?'adress':'عنوان'));
                                 ?>
                                 <?php 
                                 if($sess=='e')
                                 echo $this->Form->input('username',array('div'=>array('class'=>'form-row')));
                                 else
-                                echo $this->Form->input('username',array('div'=>array('class'=>'form-row'),'label'=>'اسم المستخدم')); 
+                                echo $this->Form->input('username',array('div'=>array('class'=>'form-row'),'label'=>($sess=='g')?'Användarnamn':'اسم المستخدم')); 
                                 ?>
                                <?php
                                if($sess=='e')  
                                echo $this->Form->input('password',array('div'=>array('class'=>'form-row')));
                                else
-                                echo $this->Form->input('password',array('div'=>array('class'=>'form-row'),'label'=>'كلمة السر'));
+                                echo $this->Form->input('password',array('div'=>array('class'=>'form-row'),'label'=>($sess=='g')?'lösenord':'كلمة السر'));
                                ?>
                                 <?php
                                 if($sess=='e')  
                                 echo $this->Form->input('confirm_password',array('div'=>array('class'=>'form-row'),'type'=>'password')); 
                                 else
-                                echo $this->Form->input('confirm_password',array('div'=>array('class'=>'form-row'),'label'=>'تأكيد كلمة المرور','type'=>'password'));
+                                echo $this->Form->input('confirm_password',array('div'=>array('class'=>'form-row'),'label'=>($sess=='g')?'bekräfta lösenord':'تأكيد كلمة المرور','type'=>'password'));
                                 ?>
                                 
                              <br/>
@@ -125,12 +131,12 @@
                     <div class="form-row">
                         <label class="checkbox"><input type="checkbox" name="check_field" class="chh" onchange="if($('.chh').is(':checked'))$('.sbmt').removeAttr('disabled');else{$('.sbmt').attr('disabled','');}"/>
                         <?php 
-                        if($this->Session->read('lang')=='e'){?>I certify I am at least 18 years old and I have read & agree to the <a href="">Privacy Policy</a> and <a href="">Terms & Conditions</a><?php }else{?>أشهد أنا لا يقل عن 18 سنة ولقد قرأت وأوافق على سياسة الخصوصية والشروط والأحكام<?php }?>
+                        if($this->Session->read('lang')=='e'){?>I certify I am at least 18 years old and I have read & agree to the <a href="<?php echo $this->webroot;?>page/privacy_policy" target="_blank">Privacy Policy</a> and <a href="<?php echo $this->webroot;?>page/terms_and_conditions" target="_blank">Terms & Conditions</a><?php }elseif($sess=='g')echo 'Jag intygar jag är minst 18 år gammal och jag har läst och samtycker till <a href="'.$this->webroot.'page/privacy_policy" target="_blank">sekretesspolicyn</a> och <a href="'.$this->webroot.'page/terms_and_conditions" target="_blank">Villkor</a>';else{?>أشهد أنا لا يقل عن 18 سنة ولقد قرأت وأوافق على سياسة الخصوصية والشروط والأحكام<?php }?>
                         </label>
                     </div>
                     </fieldset>
                         <div class="submit">
-                        <input class="green-btn sbmt" type="submit" value="<?php if($sess=='e'){?>Register<?php }else{?>تسجيل<?php }?>" disabled="">
+                        <input class="green-btn sbmt" type="submit" value="<?php if($sess=='e'){?>Register<?php }elseif($sess=='g')echo 'Registrera';else{?>تسجيل<?php }?>" disabled="">
                         </div>  
                         <?php echo $this->Form->end(); ?>
             </div>

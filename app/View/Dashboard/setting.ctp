@@ -5,24 +5,24 @@
                                 ),'type'=>'file')); ?>
 	<fieldset>
     <div class="cat-header clearfix">
-		<h2><?php echo ($this->Session->read('lang')=='a')?'إعدادات الحساب':'Account Settings';?></h2>
+		<h2><?php echo ($this->Session->read('lang')=='a')?'إعدادات الحساب':(($this->Session->read('lang')=='g')?'Kontoinställningar':'Account Settings');?></h2>
     </div>
 	<?php
-		echo $this->Form->input('full_name',array('label'=>($this->Session->read('lang')=='e')?"Full Name":"الاسم الكامل"));
-		echo $this->Form->input('username',array('disabled'=>'disabled','class'=>'disabled','label'=>($this->Session->read('lang')=='e')?"User Name":"اسم المستخدم"));
-		echo $this->Form->input('email', array('label'=>($this->Session->read('lang')=='e')?"Email":"البريد الالكتروني"));
-        echo $this->Form->input('phone',array('label'=>($this->Session->read('lang')=='e')?"Phone":"هاتف"));
-		echo $this->Form->input('address',array('label'=>($this->Session->read('lang')=='e')?"Address":"عنوان"));
+		echo $this->Form->input('full_name',array('label'=>($this->Session->read('lang')=='e')?"Full Name":(($this->Session->read('lang')=='g')?"Fullständigt namn":"الاسم الكامل")));
+		echo $this->Form->input('username',array('disabled'=>'disabled','class'=>'disabled','label'=>($this->Session->read('lang')=='e')?"User Name":(($this->Session->read('lang')=='g')?"Användarnamn":"اسم المستخدم")));
+		echo $this->Form->input('email', array('label'=>($this->Session->read('lang')=='e')?"Email":(($this->Session->read('lang')=='g')?"Emailens":"البريد الالكتروني")));
+        echo $this->Form->input('phone',array('label'=>($this->Session->read('lang')=='e')?"Phone":(($this->Session->read('lang')=='g')?"telefon":"هاتف")));
+		echo $this->Form->input('address',array('label'=>($this->Session->read('lang')=='e')?"Address":(($this->Session->read('lang')=='g')?"adress":"عنوان")));
         
 		?>
         <div class="clearfix"></div>
-        <?php if($fb_id==""){?><a href="javascript:void(0);" onclick="showfields();"><?php echo ($this->Session->read('lang')=='e')?'Change Password':'تغيير كلمة المرور';?></a><?php }?>
+        <?php if($fb_id==""){?><a href="javascript:void(0);" onclick="showfields();"><?php echo ($this->Session->read('lang')=='e')?'Change Password':(($this->Session->read('lang')=='g')?"Byt lösenord":'تغيير كلمة المرور');?></a><?php }?>
         <div style="dsiplay:none;" class="passwords" style="display: block;padding:10px 0;"></div>
         <br/>
 	
 	</fieldset>
 
-   <?php echo $this->Form->submit(($this->Session->read('lang')=='e')?'Update':'التحديث',array('class'=>'green-btn','onclick'=>'return checkPass()'));?>
+   <?php echo $this->Form->submit(($this->Session->read('lang')=='e')?'Update':(($this->Session->read('lang')=='g')?"Uppdatera":'التحديث'),array('class'=>'green-btn','onclick'=>'return checkPass()'));?>
 <?php echo $this->Form->end(); ?>
 </div>
 <script>

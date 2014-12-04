@@ -88,7 +88,7 @@ font-family:cocon;
                     <?php $cities = $this->requestAction(array('controller'=>'deals','action'=>'listcity'));
                         foreach($cities as $city)
                         {?>
-                            <option <?php if($this->Session->read('city')==str_replace(" ","-",$city['City']['name'])) echo "selected='selected'";?> value="<?php echo str_replace(" ","-",$city['City']['name']);?>"><?php if($this->Session->read('lang')=='a')echo $city['City']['name_arabic'];else echo $city['City']['name'];?></option>       
+                            <option <?php if($this->Session->read('city')==str_replace(" ","-",$city['City']['name'])) echo "selected='selected'";?> value="<?php echo str_replace(" ","-",$city['City']['name']);?>"><?php if($this->Session->read('lang')=='a')echo $city['City']['name_arabic'];elseif($this->Session->read('lang')=='g')echo $city['City']['name_german'];else echo $city['City']['name'];?></option>       
                      <?php
                         }
                     ?>
@@ -128,14 +128,14 @@ font-family:cocon;
                     <?php } else { ?>
                    
                     <?php echo $this->Html->link(
-                                    ($this->Session->read('lang')=='a')?'دخول':($this->Session->read('lang')=='g')?'inloggning':'Login',
+                                    ($this->Session->read('lang')=='a')?'دخول':(($this->Session->read('lang')=='g')?'inloggning':'Login'),
                                         array('full_base' => true,
                                             'controller' => 'users',
                                             'action' => 'login'
                                            )
                                         );?> | 
                    <?php echo $this->Html->link(
-                                    ($this->Session->read('lang')=='a')?'تسجيل':($this->Session->read('lang')=='g')?'Registrera':'Register',
+                                    ($this->Session->read('lang')=='a')?'تسجيل':(($this->Session->read('lang')=='g')?'Registrera':'Register'),
                                         array('full_base' => true,
                                             'controller' => 'users',
                                             'action' => 'register'

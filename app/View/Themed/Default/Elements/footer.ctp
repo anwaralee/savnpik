@@ -16,7 +16,7 @@
                     <?php
                             if($this->Session->read('lang')=='a')
                                 $ar = "_arabic";
-                            if($this->Session->read('lang')=='g')
+                            elseif($this->Session->read('lang')=='g')
                                 $ar = "_german";                                
                             else
                                 $ar = "";

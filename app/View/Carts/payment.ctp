@@ -1,5 +1,5 @@
 <div id="left-content">
-<h2><?php echo ($this->Session->read('lang')=='a')?"اختيار نوع الدفع":'Choose Payment Type';?></h2>
+<h2><?php echo ($this->Session->read('lang')=='a')?"اختيار نوع الدفع":(($this->Session->read('lang')=='g')?"Välj Betalning Typ":'Choose Payment Type');?></h2>
 
 <div class="creditcard" style="display:block;">
 <div class="paylist firstl">
@@ -18,10 +18,10 @@
         
         <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" >
                 <div class="chh">
-                <input type="checkbox" value="" class="subs" /><label><?php echo($this->Session->read('lang')=='a')?'&nbsp;&nbsp;يرجى البريد الالكتروني لي مع أحدث العروض في مدينتي.&nbsp;&nbsp;':'Please email me with the latest deals in my city.';?></label>
+                <input type="checkbox" value="" class="subs" /><label><?php echo($this->Session->read('lang')=='a')?'&nbsp;&nbsp;يرجى البريد الالكتروني لي مع أحدث العروض في مدينتي.&nbsp;&nbsp;':(($this->Session->read('lang')=='g')?'Vänligen maila mig med de senaste erbjudanden i min stad.':'Please email me with the latest deals in my city.');?></label>
                 </div>
                 <div class="chh">
-                <input type="checkbox" required="required" /><label><?php echo ($this->Session->read('lang')=='e')?"I accept the":'&nbsp;&nbsp;أنا أقبل'?> <a href="<?php echo $this->webroot.'page/Terms_and_Conditions';?>" target="_blank"><?php echo ($this->Session->read("lang")=='e')?'Terms & conditions':'&nbsp;&nbsp;الشروط والأحكام'?></a></label><br />
+                <input type="checkbox" required="required" /><label><?php echo ($this->Session->read('lang')=='e')?"I accept the":(($this->Session->read('lang')=='g')?"Jag accepterar":'&nbsp;&nbsp;أنا أقبل')?> <a href="<?php echo $this->webroot.'page/Terms_and_Conditions';?>" target="_blank"><?php echo ($this->Session->read("lang")=='e')?'Terms & conditions':(($this->Session->read("lang")=='g')?'Villkor':'&nbsp;&nbsp;الشروط والأحكام')?></a></label><br />
                 </div>
                 <input name = "cmd" value = "_cart" type = "hidden">
                 <input name = "upload" value = "1" type = "hidden">
@@ -54,7 +54,7 @@
             <input type="hidden" name="cancel_return" value="http://savnpik.com/carts" />
             <input type="hidden" name="notify_url" value ="http://savnpik.com/deals/ipn_test2" />
             
-            <input type="submit" value="<?php echo ($this->Session->read('lang')=='e')?'Order Now':"النظام الآن";?>" class="green-btn" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+            <input type="submit" value="<?php echo ($this->Session->read('lang')=='e')?'Order Now':(($this->Session->read('lang')=='e')?'Beställ nu':"النظام الآن");?>" class="green-btn" name="submit" alt="PayPal - The safer, easier way to pay online!" />
             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
         </form>
     </div>
@@ -66,15 +66,15 @@
     <div class="clearfix"></div>
     <div style="display: none;" class="cash">
     <form action="cash" method="post">
-        <label><?php echo ($this->Session->read('lang')=='e')?'Contact':'اتصال'?> #:</label><input type="text" required="required" name="contact" value=""/>
+        <label><?php echo ($this->Session->read('lang')=='e')?'Contact':(($this->Session->read('lang')=='g')?'Kontakt':'اتصال')?> #:</label><input type="text" required="required" name="contact" value=""/>
         <input type="hidden" name="total" value="<?php echo $amount;?>"/>
         <div class="chh">
-        <input type="checkbox" value="" class="subs" /><label><?php echo($this->Session->read('lang')=='a')?'&nbsp;&nbsp;يرجى البريد الالكتروني لي مع أحدث العروض في مدينتي.&nbsp;&nbsp;':'Please email me with the latest deals in my city.';?></label>
+        <input type="checkbox" value="" class="subs" /><label><?php echo($this->Session->read('lang')=='a')?'&nbsp;&nbsp;يرجى البريد الالكتروني لي مع أحدث العروض في مدينتي.&nbsp;&nbsp;':(($this->Session->read('lang')=='g')?'Vänligen maila mig med de senaste erbjudanden i min stad.':'Please email me with the latest deals in my city.');?></label>
         </div>
         <div class="chh">
-        <input type="checkbox" required="required" /><label><?php echo ($this->Session->read('lang')=='e')?"I accept the":'&nbsp;&nbsp;أنا أقبل'?> <a href="<?php echo $this->webroot.'page/Terms_and_Conditions';?>" target="_blank"><?php echo ($this->Session->read("lang")=='e')?'Terms & conditions':'&nbsp;&nbsp;الشروط والأحكام'?></a></label><br />
+        <input type="checkbox" required="required" /><label><?php echo ($this->Session->read('lang')=='e')?"I accept the":(($this->Session->read('lang')=='g')?"Jag accepterar":'&nbsp;&nbsp;أنا أقبل')?> <a href="<?php echo $this->webroot.'page/Terms_and_Conditions';?>" target="_blank"><?php echo ($this->Session->read("lang")=='e')?'Terms & conditions':(($this->Session->read("lang")=='g')?'Villkor':'&nbsp;&nbsp;الشروط والأحكام')?></a></label><br />
         </div>
-        <input type="submit" name="submit" class="green-btn" value="<?php echo ($this->Session->read('lang')=='e')?'Order Now':"النظام الآن";?>" />
+        <input type="submit" name="submit" class="green-btn" value="<?php echo ($this->Session->read('lang')=='e')?'Order Now':(($this->Session->read('lang')=='e')?'Beställ nu':"النظام الآن");?>" />
     </form>   
     </div>
 </div>

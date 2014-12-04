@@ -3,12 +3,21 @@
         $aed = " AED";
         $on = "On";
         $off = "Off";
+        $ar = "";
+    }
+    elseif($this->Session->read('lang')=='g')
+    {
+        $aed = " AED";
+        $on = "på";
+        $off = "Off";
+        $ar = "_german";
     }
     else
     {
         $aed = " درهم";
         $on = "في";
         $off = "بعيدا";
+        $ar = "_arabic";
     }   
         ;?>
 <script>
@@ -35,26 +44,18 @@ $(function(){
 });
 </script>
 <div id="left-content">
-<?php
-if($this->Session->read('lang')=='a')
-{
-    $ar = "_arabic";
-       
-}
-else
-    $ar = "";
-?>
+
 <div class="cat-header clearfix">
-                    <h2><?php echo ($this->Session->read('lang')=='a')?'بلدي عروض':'My Deals';?></h2>
+                    <h2><?php echo ($this->Session->read('lang')=='a')?'بلدي عروض':(($this->Session->read('lang')=='g')?'Mina erbjudanden':'My Deals');?></h2>
                     
 </div>
 <?php if(count($carts)>0){?>
     <table class="table">
-        <thead><th><?php echo ($this->Session->read('lang')=='a')?'وصف':'Description';?></th>
-        <th><?php echo ($this->Session->read('lang')=='a')?'السعر':'Price';?></th>
-        <th><?php echo ($this->Session->read('lang')=='a')?'مبلغ':'Amount';?></th>
-        <th><?php echo ($this->Session->read('lang')=='a')?'مجموع':'Sum';?></th>
-        <th><?php echo ($this->Session->read('lang')=='a')?'عتبة / الحالة':'Threshold/Status';?></th></thead>
+        <thead><th><?php echo ($this->Session->read('lang')=='a')?'وصف':(($this->Session->read('lang')=='g')?'Beskrivning':'Description');?></th>
+        <th><?php echo ($this->Session->read('lang')=='a')?'السعر':(($this->Session->read('lang')=='g')?'pris':'Price');?></th>
+        <th><?php echo ($this->Session->read('lang')=='a')?'مبلغ':(($this->Session->read('lang')=='g')?'Mängd':'Amount');?></th>
+        <th><?php echo ($this->Session->read('lang')=='a')?'مجموع':(($this->Session->read('lang')=='g')?'Sum':'Sum');?></th>
+        <th><?php echo ($this->Session->read('lang')=='a')?'عتبة / الحالة':(($this->Session->read('lang')=='g')?'Tröskel / Status':'Threshold/Status');?></th></thead>
 
         <?php foreach($carts as $cart)
         {?>
@@ -75,7 +76,7 @@ else
             
         <?php 
         } ?>
-        <tr><td colspan="3"></td><td><strong><?php echo ($this->Session->read('lang')=='a')?'مجموع':'Total';?></strong></td><td class="total"></td></tr>
+        <tr><td colspan="3"></td><td><strong><?php echo ($this->Session->read('lang')=='a')?'مجموع':(($this->Session->read('lang')=='g')?'Totalt':'Total');?></strong></td><td class="total"></td></tr>
         <tr class="last"><td colspan="5"></td></tr>
     </table>
     <?php
@@ -90,6 +91,6 @@ else
     } 
     else
     {
-         echo ($this->Session->read('lang')=='a')?'لا يوجد لديك الصفقات.':"<h3>You have no deals.</h3>";
+         echo "<h3>".($this->Session->read('lang')=='a')?'لا يوجد لديك الصفقات.':(($this->Session->read('lang')=='g')?"Du har inga erbjudanden":"You have no deals")."</h3>";
     }?>
 </div>

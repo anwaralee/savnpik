@@ -22,7 +22,7 @@
 	<?php
 		echo $this->Form->input('name');
         echo $this->Form->input('name_arabic');
-        echo $this->Form->input('name_german');
+        echo $this->Form->input('name_german',array('label'=>'Name Swedish'));
 		echo $this->Form->input('deal_category_id');
 		echo $this->Form->input('company_id');
         ?>
@@ -41,7 +41,7 @@
 </div>
 
 <div class="input textarea required">
-<label for="DealDescriptionGerman">Description German</label>
+<label for="DealDescriptionGerman">Description Swedish</label>
 <textarea id="DealDescriptionGerman" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][description_german]">
 <?php echo $this->request->data['Deal']['description_german'];?>
 </textarea>
@@ -62,7 +62,7 @@
 </div>
 
 <div class="input textarea required">
-<label for="DealHighlightsGerman">Highlights German</label>
+<label for="DealHighlightsGerman">Highlights Swedish</label>
 <textarea id="DealHighlightsGerman" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][highlights_german]">
 <?php echo $this->request->data['Deal']['highlights_german'];?>
 </textarea>
@@ -83,7 +83,7 @@
 </div>
 
 <div class="input textarea required">
-<label for="DealConditionsGerman">Conditions German</label>
+<label for="DealConditionsGerman">Conditions Swedish</label>
 <textarea id="DealConditionsGerman" class="form-control ckeditor" required="required" rows="6" cols="30" name="data[Deal][conditions_german]">
 <?php echo $this->request->data['Deal']['conditions_german'];?>
 </textarea>

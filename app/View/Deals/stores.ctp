@@ -1,8 +1,10 @@
 <?php
 if($this->Session->read('lang')=='a')
-                $ar = "_arabic";
-            else
-                $ar = "";
+    $ar = "_arabic";
+elseif($this->Session->read('lang')=='g')
+    $ar = "_german";
+else
+    $ar = "";
 ?>
 
 <div id="left-content"> 
@@ -32,12 +34,14 @@ if($this->Session->read('lang')=='a')
                                 //echo WWW_ROOT."files/deals/".$deal['Deal']['image'.$i];
                                 ?>
                             
-                            <a href="javascript.void(0)">
+                           
                         <?php echo $this->Html->image("/files/deals/".$deal['Deal']['image'.$i],
                                   array('fullBase' => true,
                                        'alt'=>'Logo',
                                        'height'=>117,
-                                       'width'=>348));?></a>
+                                       'width'=>348,
+                                       'url' =>'/deal/'.$deal['Deal']['slug']
+                                       ));?>
                                 
                           <?php 
                             break;
@@ -54,11 +58,11 @@ if($this->Session->read('lang')=='a')
 
                             <div class="event-desc clearfix">
                                 <div class="time-discount">
-                                <div class="time-remaining"><?php difference_time2($deal['Deal']['expiry_date']);?></div> 
+                                <div class="time-remaining"><?php difference_time2($deal['Deal']['expiry_date'],$this->Session->read('lang'));?></div> 
                                 <div class="save"><?php echo $deal['Deal']['discount']."%";?></div>
                                 </div>
 
-                                <a class="bttn" href="<?php echo $this->webroot;?>deal/<?php echo $deal['Deal']['slug'];?>"><span>AED</span> <?php echo $deal['Deal']['selling_price'];?></a>
+                                <a class="bttn" href="<?php echo $this->webroot;?>deal/<?php echo $deal['Deal']['slug'];?>"><span><?php if($this->Session->read('lang')=='e'|| $l == 'g'){?>AED<?php }else echo "درهم";?></span> <?php echo $deal['Deal']['selling_price'];?></a>
                             </div>
                         </div>
                     </div>
@@ -74,11 +78,11 @@ if($this->Session->read('lang')=='a')
                 </div>
                 <?php }?>
     <?php } else { ?>
-    <h1><?php echo ($this->Session->read('lang')=='a')?"لم يتم العثور عروض":"No Deals Found";?> </h1>
+    <h1><?php echo ($this->Session->read('lang')=='a')?"لم يتم العثور عروض":(($l=='g')?"Inga erbjudandena Funnet":"No Deals Found");?></h1>
     <?php } ?>
             </div>
-          <?php  
-            function difference_time($expiry)
+                      <?php
+            function difference_time($expiry,$z=null,$sess)
             {
                 
                                 date_default_timezone_set('Asia/Kathmandu');
@@ -115,39 +119,56 @@ if($this->Session->read('lang')=='a')
                                         $days++;
                                     }
                                     if($h<10)
-                                    $h1= '0'.$h;
+                                    $h1= '<span class="h'.$z.'">0'.$h.'</span>';
                                     else
-                                    $h1 = $h;
+                                    $h1 = '<span class="h'.$z.'">'.$h.'</span>';
                                     if($m<10)
-                                    $h1 = $h1.':0'.$m;
+                                    $h1 = $h1.':<span class="m'.$z.'">0'.$m.'</span>';
                                     else
-                                    $h1 = $h1.':'.$m;
+                                    $h1 = $h1.':<span class="m'.$z.'">'.$m.'</span>';
                                     if($s<10)
-                                    $h1 = $h1.':0'.$s;
+                                    $h1 = $h1.':<span class="s'.$z.'">0'.$s.'</span>';
                                     else
-                                    $h1 = $h1.':'.$s;
+                                    $h1 = $h1.':<span class="s'.$z.'">'.$s.'</span>';
                                     
                                     
                                 }
+
                                 if($days>0){
-                                echo $days.' day';
-                                if($days>1)
-                                echo 's';
+                                if($sess=='e')    
+                                    $ddd = '<span style="display:inline-block;"><span class="d'.$z.'">'.$days.'</span> day';
+                                elseif($sess=='g')    
+                                    $ddd = '<span style="display:inline-block;"><span class="d'.$z.'">'.$days.'</span> dag';
+                                
+                                else
+                                    $ddd = '<span style="display:inline-block;width:78px;"><span class="d'.$z.'">'.$days.'</span> يوم';
+                                if($days>1){
+                                $ddd = $ddd. 's</span>';
+                                }
+                                else
+                                $ddd = $ddd. '</span>';
+                                if($sess=='a')
+                                    $ddd = str_replace(array('days','day'),array('<span class="left" style="display:inline-block;">يوما&nbsp;</span>','<span class="left" style="display:inline-block;">اليوم&nbsp;</span>'),$ddd);                              
+                                if($sess=='g')
+                                    $ddd = str_replace(array('days','day'),array('<span class="left" style="display:inline-block;">dagar&nbsp;</span>','<span class="left" style="display:inline-block;">dag&nbsp;</span>'),$ddd);                              
+                                
+                                echo $ddd;
                                 echo ' '.$h1;
                                 }
                                 elseif($days==0)
                                 {
-                                    echo $h1;
+                                    echo "<span style='display:inline:block;'>".$h1."</span>";
+
                                 }
                                 else
-                                echo "EXPIRED";
+                                    echo "<span style='display:inline:block;'>EXPIRED</span>";
                                 
                             
             }
-            function difference_time2($expiry)
+            function difference_time2($expiry,$sess)
             {
                 
-                                date_default_timezone_set('Asia/Kathmandu');
+                                date_default_timezone_set('Asia/Dubai');
                                                                 
                                 //echo $seconds_diff = $ts1 - $ts2;
                                 $datetime1 = date_create(date('Y-m-d'));
@@ -195,18 +216,65 @@ if($this->Session->read('lang')=='a')
                                     
                                     
                                 }
+                                if($sess=='e'){
                                 if($days>0){
-                                echo $days.' day';
-                                if($days>1)
-                                echo 's';
-                                echo ' '.$h.' h remaining';
+                                    echo $days.' day';
+                                    if($days>1)
+                                        echo 's';
+                                    echo ' '.$h.' h remaining';
                                 }
                                 elseif($days==0)
                                 {
                                     echo ' '.$h.' h remaining';
                                 }
                                 else
-                                echo "EXPIRED";
+                                    echo "EXPIRED";
+                                }
+                                elseif($sess=='g'){
+                                    if($days>0){
+                                        echo $days.' dag';
+                                        if($days>1)
+                                            echo 's';
+                                        echo ' '.$h.' h återstående';
+                                    }
+                                    elseif($days==0)
+                                    {
+                                        echo ' '.$h.' h återstående';
+                                    }
+                                    else
+                                        echo "TILLÄNDALUPEN";
+                                }
+                                else
+                                {
+                                    
+                                    if($days>0){
+                                    ?>
+                                    <span style="display: inline-block;">ساعة المتبقية</span>
+                                    <span style="display: inline-block;">&nbsp;<?php echo $h?>&nbsp;</span>
+                                    <?php
+                                    if($days>1)
+                                    {
+                                        ?>
+                                        <span style="display: inline-block;">أيام</span>
+                                        <?php
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                        <span style="display: inline-block;">يوم</span>
+                                        
+                                        <?php
+                                    }
+                                    echo "<span style='display:inline-block;'>&nbsp;".$days."</span>"; 
+                                    
+                                    }
+                                    elseif($days==0)
+                                    {
+                                        echo ' <span style="display: inline-block;">ساعة المتبقية</span><span style="display:inline-block">&nbsp;'.$h.'</span>';
+                                    }
+                                    else
+                                    echo "EXPIRED";
+                                }
                                 
                             
             }
